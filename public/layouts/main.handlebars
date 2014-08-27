@@ -6,6 +6,7 @@
 	<title>3 Digital Rock Studios</title>
 	
     <link href="/css/foundation.css" rel="stylesheet" />
+    <link href="//vjs.zencdn.net/4.7/video-js.css" rel="stylesheet">
     <link href="/css/loading-bar.css" rel="stylesheet" />
     <link href="/css/sedimentary.css" rel="stylesheet" />
     
@@ -13,13 +14,21 @@
 </head>
 <body ng-controller="HomeCtrl">
     <div class="row">
+      <header class="header large-12 columns">
+        <div class="row">
+          <div class="small-5 small-centered columns"><a href="/" title="3 Digital Rock Studios" id="logo">3 Digital Rock Studios</a></div>
+        </div>
+      </header>
+    </div>
+    
+    <div class="row">
       <article class="large-12 columns">
         {{{body}}}
       </article>
     </div>
     
     <div class="row">
-        <header class="large-12 columns">
+        <nav class="large-12 columns">
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
@@ -27,7 +36,7 @@
                 <!-- NOT YET!!! <li><a href="/take-a-guess-einstein">Store</a></li> -->
                 <li><a href="/contact">Contact</a></li>
             </ul>
-        </header>
+        </nav>
     </div>
     
     <div class="row">
@@ -44,15 +53,10 @@
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-animate.min.js"></script>
 	<script src="/js/loading-bar.js"></script>
-	<script src="/fitvids/jquery.fitvids.js"></script>
-    <script src="/js/app.js"></script>
-    <script src="/js/sedimentary.js"></script>
-    <!-- TODO: Move to custom scripts file -->
-    <script>
-      $(document).ready(function(){
-        // Target your .container, .wrapper, .post, etc.
-        //$("#video-bg").fitVids();
-      });
-    </script>
+  <script src="/js/app.js"></script>
+  <script src="/js/sedimentary.js"></script>
+  <script src="//vjs.zencdn.net/4.7/video.js"></script>
+  <script src="/fitvids/jquery.fitvids.js"></script>
+  <!-- TODO: Move to custom scripts file -->
 </body>
 </html>

@@ -7,6 +7,9 @@ var app = express();
 // Use compress middleware to gzip content
 //app.use(compression());
 
+// disable detection of node and friends
+app.disable('x-powered-by');
+
 // Use Handlebars as default express template engine
 app.engine('handlebars', exphbs({
     layoutsDir: 'public/layouts/',

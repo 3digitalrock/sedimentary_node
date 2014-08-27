@@ -1,6 +1,76 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
 
+/*** Raw Elements ***/
 body {
     font-family: 'Open Sans', sans-serif;
+}
+
+/*** Header ***/
+.header {
+    background: url('../img/header_bg.png') top left repeat-x;
+}
+
+#logo {
+    background-image:url('../img/logo.png');
+    display:block;
+    height:150px;
+    overflow:hidden;
+    text-indent:100%;
+    white-space:nowrap;
+    width:252px;
+    margin: 0 auto;
+}
+
+/*** Content ***/
+.welcome_text {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 2.5em;
+    color: #8c8c8c;
+    line-height: 1.2;
+}
+
+/*** Video ***/
+.videoWrapper {
+position: relative;
+padding-bottom: 41%; /* video dimensions – height/width */
+padding-top: 0px;
+height: 0;
+z-index: 1000;
+}
+
+.videoWrapper .video-js {
+position: absolute;
+top: 0;
+left: 0;
+width: 100% !important;
+height: 100% !important;
+z-index: 1;
+background: #000000;
+}
+
+.videoWrapper object,
+.videoWrapper embed {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100% !important;
+z-index: 1;
+}
+
+.vjs-control-bar {
+z-index: 1002;
+}
+
+.vjs-big-play-button {
+z-index: 1002;
+}
+
+.vjs-spinner {
+display: none !important;
+}
+
+.vjs-poster {
+z-index: 1;
 }

@@ -2,7 +2,8 @@
   "name": "3drs-sedimentary",
   "version": "0.0.0",
   "dependencies": {
-      "fitvids": "davatron5000/FitVids.js"
+      "fitvids": "davatron5000/FitVids.js",
+      "videojs": "videojs/video.js"
   },
   "private": true
 }
