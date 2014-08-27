@@ -1,0 +1,15 @@
+{
+    "name": "3drs-sedimentary",
+    "version": "0.0.0",
+    "main": "server.js",
+    "private": true,
+    "dependencies": {
+        "express": "*",
+        "compression": "*",
+        "express-handlebars": "*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.com/3-digital-rock/sedimentary.git"
+    }
+}
