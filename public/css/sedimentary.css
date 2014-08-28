@@ -124,6 +124,7 @@ body {
     background-position:  top left;
     background-repeat: repeat;
     position: relative;
+    overflow: hidden;
 }
 
 .videoWrapperRapper {
