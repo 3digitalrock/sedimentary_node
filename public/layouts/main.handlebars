@@ -3,60 +3,93 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>3 Digital Rock Studios</title>
+	  <title>{{pageTitle}}</title>
 	
     <link href="/css/foundation.css" rel="stylesheet" />
-    <link href="//vjs.zencdn.net/4.7/video-js.css" rel="stylesheet">
+    <link href="//vjs.zencdn.net/4.7/video-js.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/simple-text-rotator/1.0.0/simpletextrotator.min.css" rel="stylesheet" />
     <link href="/css/loading-bar.css" rel="stylesheet" />
     <link href="/css/sedimentary.css" rel="stylesheet" />
     
     <script src="js/vendor/modernizr.js"></script>
 </head>
 <body ng-controller="HomeCtrl">
-    <div class="row">
-      <header class="header large-12 columns">
-        <div class="row">
-          <div class="small-5 small-centered columns"><a href="/" title="3 Digital Rock Studios" id="logo">3 Digital Rock Studios</a></div>
-        </div>
-      </header>
-    </div>
-    
-    <div class="row">
-      <article class="large-12 columns">
-        {{{body}}}
-      </article>
-    </div>
-    
-    <div class="row">
-        <nav class="large-12 columns">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/videos">Channel</a></li>
-                <!-- NOT YET!!! <li><a href="/take-a-guess-einstein">Store</a></li> -->
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-    
-    <div class="row">
-      <footer class="large-12 columns">
-        <span>info@3digitalrockstudio.com / 216.264.0098 / facebook.com/3digitalrockstudios / youtube.com/3digitalrockstudios</span>
-      </footer>
-    </div>
-    
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
-    <script>
-        $(document).foundation();
-    </script>
+  <div class="row full-width">
+    <header class="header large-12 columns">
+      <div class="row">
+        <div class="{{#if showVideo}}large-12 logo-overlay{{else}}small-5 small-centered{{/if}} columns"><a href="/" title="3 Digital Rock Studios" id="logo">3 Digital Rock Studios</a></div>
+      </div>
+    </header>
+  </div>
+  
+      {{#if showVideo}}
+        {{> video_bg}}
+      {{/if}}
+  
+  <div class="row">
+    <article class="large-12 columns">
+      {{{body}}}
+    </article>
+  </div>
+  
+  <div class="row">
+      <nav class="large-12 columns">
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/channels">Channel</a></li>
+              <!-- NOT YET!!! <li><a href="/take-a-guess-einstein">Store</a></li> -->
+              <li><a href="/contact">Contact</a></li>
+          </ul>
+      </nav>
+  </div>
+  
+  <div class="row">
+    <footer class="large-12 columns">
+      <span>info@3digitalrockstudio.com / 216.264.0098 / facebook.com/3digitalrockstudios / youtube.com/3digitalrockstudios</span>
+    </footer>
+  </div>
+  
+  <!-- TODO: Load scripts based on page's needs -->
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/foundation.min.js"></script>
+  <script>
+      $(document).foundation();
+  </script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-animate.min.js"></script>
 	<script src="/js/loading-bar.js"></script>
   <script src="/js/app.js"></script>
   <script src="/js/sedimentary.js"></script>
   <script src="//vjs.zencdn.net/4.7/video.js"></script>
-  <script src="/fitvids/jquery.fitvids.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/simple-text-rotator/1.0.0/jquery.simple-text-rotator.min.js"></script>
   <!-- TODO: Move to custom scripts file -->
+  <script src="/js/fill.js"></script>
+  <script type="text/javascript">
+    videojs("video-bg").ready(function(){
+      var myPlayer = this;
+      myPlayer.muted(true);
+    });
+	  $(document).ready(function(){
+      /* Slider AutoChanging Title */
+      function loadTitleAnimated(){
+      	var myInterval;
+      	var contador = 1;
+      	var myFunc = function() {
+      		var cur = $('.main-title ul li').length;
+      		if(cur == contador) {;
+      				$('.main-title ul li.t-current').removeClass('t-current');
+      				$('.main-title ul li').first().addClass('t-current');
+      				contador = 1;
+      			} else {
+      				contador++;
+      				$('.main-title ul li.t-current').removeClass('t-current').next().addClass('t-current');
+      			}
+      	};
+      	myInterval = setInterval(myFunc, 5000); // Set Animation Interval in Miliseconds
+      }
+      loadTitleAnimated();
+	  });
+  </script>
 </body>
 </html>
