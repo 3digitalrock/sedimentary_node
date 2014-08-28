@@ -170,7 +170,7 @@ body {
 @media screen and (min-width: 40em) {
   .nav-collapse a {
     margin: 0;
-    padding: 1em;
+    padding: 0.5em;
     float: left;
   }
 }
@@ -257,9 +257,11 @@ body {
 /*** Content ***/
 .welcome_text {
     font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 2.5em;
+    font-size: 2.8em;
     color: #8c8c8c;
     line-height: 1.2;
+    padding: 1em 0;
+    text-align: center;
 }
 
 .video-js {
@@ -297,4 +299,14 @@ z-index: 1;
 
 .main-title.videoFullscreen {
     z-index: -1;
+}
+
+/*** Footer ***/
+.footer {
+    margin: 1em 0;
+    text-align: center;
+}
+
+.footer .contact-info, .footer .contact-info a {
+    color: #9d9d9d;
 }
