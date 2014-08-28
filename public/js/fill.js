@@ -63,7 +63,6 @@ jQuery(document).ready(function($) {
                 .height(new_size.height)
     			.css("margin-left", ((browserWidth - new_size.width)/2) + " !important")
     			.css("margin-top", ((browserHeight - new_size.height)/2) + " !important");
-			
 		});
 	 }
 	 

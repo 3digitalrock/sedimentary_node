@@ -88,6 +88,18 @@ body {
 	-webkit-transition-timing-function: ease; /* Safari and Chrome */
 }
 
+#video_toggle {
+    width: 65px;
+    height: 65px;
+    background-image: url('../img/video_toggle.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+    z-index: 10;
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+}
+
 /*** Content ***/
 .welcome_text {
     font-family: 'Open Sans Condensed', sans-serif;
