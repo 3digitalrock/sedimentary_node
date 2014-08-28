@@ -12,7 +12,6 @@ angular.module('rockSolid', ['angular-loading-bar', 'ngAnimate'])
         $scope.fullToggle = function() {
             this.videoFullscreen = !this.videoFullscreen;
             videojs("video-bg").muted(!this.videoFullscreen);
-            videojs("video-bg").muted();
         };
     })
     .controller('VideoCtrl', function ($scope, $http) {
