@@ -31,19 +31,19 @@ app.set('view engine', 'handlebars');
 
 // Routing magic
 app.get('/', function (req, res) {
-    res.render('home', {showVideo: true, pageTitle: '3 Digital Rock Studios'});
+    res.render('home', {showVideo: true, atHome: true, pageTitle: '3 Digital Rock Studios'});
 });
 
 app.get('/about', function (req, res) {
-    res.render('about');
+    res.render('about', {atAbout: true, pageTitle: 'About Our Team'});
 });
 
 app.get('/contact', function (req, res) {
-    res.render('contact');
+    res.render('contact', {atContact: true, pageTitle: 'Contact Us'});
 });
 
 app.get('/channels', function (req, res) {
-    res.render('channels');
+    res.render('channels', {atChannel: true, pageTitle: 'Channels'});
 });
 
 app.get('/videos/:video', function (req, res) {

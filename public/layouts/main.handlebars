@@ -22,26 +22,24 @@
     </header>
   </div>
   
-      {{#if showVideo}}
-        {{> video_bg}}
-      {{/if}}
+  {{#if showVideo}}
+    {{> video_bg}}
+  {{/if}}
+      
+  <nav>
+    <ul class="main-nav">
+      <li class="{{#if atHome}}current{{/if}}"><a href="/">Home</a></li>
+      <li class="{{#if atAbout}}current{{/if}}"><a href="/about">About</a></li>
+      <li class="{{#if atChannel}}current{{/if}}"><a href="/channels">Channel</a></li>
+      <li><a>Store</a></li>
+      <li class="{{#if atContact}}current{{/if}}"><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
   
   <div class="row">
     <article class="large-12 columns">
       {{{body}}}
     </article>
-  </div>
-  
-  <div class="row">
-      <nav class="large-12 columns">
-          <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/channels">Channel</a></li>
-              <!-- NOT YET!!! <li><a href="/take-a-guess-einstein">Store</a></li> -->
-              <li><a href="/contact">Contact</a></li>
-          </ul>
-      </nav>
   </div>
   
   <div class="row">
