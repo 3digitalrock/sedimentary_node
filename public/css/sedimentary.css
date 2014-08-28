@@ -175,3 +175,11 @@ display: none !important;
 .vjs-poster {
 z-index: 1;
 }
+
+#video-bg.videoFullscreen {
+    z-index: 9;
+}
+
+.main-title.videoFullscreen {
+    z-index: -1;
+}
