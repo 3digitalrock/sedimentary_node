@@ -127,40 +127,6 @@ body {
     overflow: hidden;
 }
 
-.videoWrapperRapper {
-    margin: 0 !important;
-}
-
-.videoWrapperOut {
-    padding: 0;
-}
-
-.videoWrapperIn {
-position: relative;
-padding-bottom: 41%; /* video dimensions – height/width */
-padding-top: 0px;
-height: 0;
-z-index: 1000;
-}
-
-.videoWrapperIn .video-js {
-position: absolute;
-top: 0;
-left: 0;
-z-index: 1;
-background: #ffffff;
-}
-
-.videoWrapperIn object,
-.videoWrapperIn embed {
-position: absolute;
-top: 0;
-left: 0;
-width: 100% !important;
-height: 100% !important;
-z-index: 1;
-}
-
 .vjs-control-bar {
 display: none !important;
 }
