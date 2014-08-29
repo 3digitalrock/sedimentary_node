@@ -1,12 +1,20 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
 
-/*** Raw Elements ***/
+/* ------------------------------------------
+  RAW ELEMENTS. RAW!!!
+--------------------------------------------- */
 body {
     font-family: 'Open Sans', sans-serif;
 }
 
-/*** Global ***/
+img {
+    width: 100%;
+}
+
+/* ------------------------------------------
+  GLOBAL STYLES
+--------------------------------------------- */
 .row.full-width {
   width: 100%;
   max-width: 100%; 
@@ -197,9 +205,7 @@ body {
   }
 }
 
-/* ------------------------------------------
-  NAV TOGGLE STYLES
---------------------------------------------- */
+/*** NAV TOGGLE STYLES ***/
 
 @font-face {
   font-family: "responsivenav";
@@ -254,7 +260,21 @@ body {
   content:"x";
 }
 
-/*** Content ***/
+/*** Footer ***/
+.footer {
+    margin: 1em 0;
+    text-align: center;
+}
+
+.footer .contact-info, .footer .contact-info a {
+    color: #9d9d9d;
+}
+
+/* ------------------------------------------
+  CONTENT
+--------------------------------------------- */
+
+/*** Homepage ***/
 .welcome_text {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 2.8em;
@@ -301,12 +321,57 @@ z-index: 1;
     z-index: -1;
 }
 
-/*** Footer ***/
-.footer {
-    margin: 1em 0;
-    text-align: center;
+/*** About ***/
+.bio {
+    position: relative;
 }
 
-.footer .contact-info, .footer .contact-info a {
-    color: #9d9d9d;
+.bio-wrap {
+    position: relative;
+}
+
+.bio-text-wrap {
+    color: #fff;
+    font-family: 'Open Sans Condensed', sans-serif;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: right;
+    position: absolute;
+    opacity: 1;
+    
+    background: -moz-linear-gradient(top,  rgba(140,140,140,0) 0%, rgba(140,140,140,0.85) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(140,140,140,0)), color-stop(100%,rgba(140,140,140,0.85)));
+    background: -webkit-linear-gradient(top,  rgba(140,140,140,0) 0%,rgba(140,140,140,0.85) 100%);
+    background: -o-linear-gradient(top,  rgba(140,140,140,0) 0%,rgba(140,140,140,0.85) 100%);
+    background: -ms-linear-gradient(top,  rgba(140,140,140,0) 0%,rgba(140,140,140,0.85) 100%);
+    background: linear-gradient(to bottom,  rgba(140,140,140,0) 0%,rgba(140,140,140,0.85) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#008c8c8c', endColorstr='#d98c8c8c',GradientType=0 );
+    
+	-webkit-transition: opacity 0.3s ease-in-out;
+	-moz-transition: opacity 0.3s ease-in-out;
+	-o-transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out;
+	transition-timing-function: ease;
+	-webkit-transition-timing-function: ease; /* Safari and Chrome */
+}
+
+.bio-wrap:hover .bio-text-wrap {
+    opacity: 0;
+    
+	-webkit-transition: opacity 0.3s ease-in-out;
+	-moz-transition: opacity 0.3s ease-in-out;
+	-o-transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out;
+	transition-timing-function: ease;
+	-webkit-transition-timing-function: ease; /* Safari and Chrome */
+}
+
+.bio-text {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    font-size: 1.5em;
 }
