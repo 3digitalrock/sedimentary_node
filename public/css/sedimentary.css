@@ -358,6 +358,8 @@ z-index: 1;
 }
 
 .bio-wrap:hover .bio-text-wrap {
+    cursor: pointer;
+    cursor: hand;
     opacity: 0;
     
 	-webkit-transition: opacity 0.3s ease-in-out;
