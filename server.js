@@ -3,9 +3,6 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var app = express();
 
-// Use compress middleware to gzip content
-//app.use(compression());
-
 // disable detection of node and friends
 app.disable('x-powered-by');
 
@@ -48,14 +45,6 @@ app.get('/channels', function (req, res) {
 
 app.get('/videos/:video', function (req, res) {
     res.render('videos');
-    //if (req.params.email) {
-        //User.findOne({ email: req.params.email }, function (err, docs) {
-            //if (err) {
-                //throw Error;
-            //}
-            //res.render('user', docs);
-        //});
-    //}
 });
 
 app.listen(3002);
