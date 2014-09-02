@@ -47,4 +47,10 @@ app.get('/videos/:video', function (req, res) {
     res.render('videos');
 });
 
-app.listen(3002);
+app.get('/admin', function (req, res) {
+    res.render('admin/index', {layout: 'admin'});
+});
+
+app.listen(3002, function () {
+    console.info(' ✈ HTTPServer listening at http://localhst:3001');
+});

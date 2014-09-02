@@ -19,4 +19,7 @@ angular.module('rockSolid', ['angular-loading-bar', 'ngAnimate'])
             success(function(data) {
                 $scope.videos = data;
         });
+    })
+    .controller('AdminCtrl', function ($scope, $http) {
+        
     });
