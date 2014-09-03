@@ -48,7 +48,7 @@ app.get('/videos/:video', function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-    res.render('admin/index', {layout: 'admin'});
+    res.render('../admin/index', {layout:false});
 });
 
 app.listen(3002, function () {

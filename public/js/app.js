@@ -1,12 +1,30 @@
-angular.module('rockSolid', ['angular-loading-bar', 'ngAnimate'])
-    .config(function(cfpLoadingBarProvider, $interpolateProvider) {
-        cfpLoadingBarProvider.includeSpinner = false;
+angular.module('rockSolid', ['ngRoute','ngAnimate'])
+    .config(function($interpolateProvider) {
+        //cfpLoadingBarProvider.includeSpinner = false;
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
-        //$routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
-        //$routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-        //$routeProvider.otherwise({redirectTo: '/view1'});
     })
+    .config(['$routeProvider', '$locationProvider',
+        function($routeProvider, $locationProvider) {
+          $routeProvider
+            .when('/dashboard', {
+              templateUrl: 'views/home.html',
+              controller: 'AdminDashboardCtrl'
+            })
+            .when('/video/:videoId', {
+              templateUrl: 'views/video_detail.html',
+              controller: 'AdminVideoCtrl',
+              controllerAs: 'video'
+            })
+            .when('/studio/:studioId', {
+              templateUrl: 'views/studio_detail.html',
+              controller: 'AdminStudioCtrl',
+              controllerAs: 'studio'
+            }).
+            otherwise({
+              redirectTo: '/dashboard'
+            });
+    }])
     .controller('HomeCtrl', function ($scope, $http) {
         $scope.videoFullscreen = false;
         $scope.fullToggle = function() {
@@ -15,11 +33,22 @@ angular.module('rockSolid', ['angular-loading-bar', 'ngAnimate'])
         };
     })
     .controller('VideoCtrl', function ($scope, $http) {
-        $http.get('http://api.3drs.synth3tk.com/v0/videos').
+        $http.get('http://api.3drs.synth3tk.com/videos').
             success(function(data) {
                 $scope.videos = data;
         });
     })
-    .controller('AdminCtrl', function ($scope, $http) {
-        
-    });
+    .controller('AdminDashboardCtrl', function ($scope, $http) {
+        $http.get('http://api.3drs.synth3tk.com/videos').
+            success(function(data) {
+                console.log(data.items);
+                $scope.videos = data.items;
+        });
+    })
+    .controller('AdminVideoCtrl', ['$scope','$http','$routeParams', function ($scope, $http, $routeParams) {
+        $http.get('http://api.3drs.synth3tk.com/videos/'+$routeParams.videoId).
+            success(function(data) {
+                console.log(data);
+                $scope.video = data;
+        });
+    }]);
