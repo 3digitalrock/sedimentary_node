@@ -1,6 +1,8 @@
-var express = require('express');
-//var compression = require('compression');
-var exphbs = require('express-handlebars');
+var express = require('express'),
+    exphbs = require('express-handlebars'),
+    bodyParser = require('body-parser'),
+    busboy = require('connect-busboy'),
+    awsUpload = require('./lib/upload');
 var app = express();
 
 // disable detection of node and friends
@@ -26,6 +28,12 @@ app.use(express.static(__dirname + '/bower_components'));
 
 app.set('view engine', 'handlebars');
 
+app.use(busboy());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 // Routing magic
 app.get('/', function (req, res) {
     res.render('home', {showVideo: true, atHome: true, pageTitle: '3 Digital Rock Studios'});
@@ -50,6 +58,12 @@ app.get('/videos/:video', function (req, res) {
 app.get('/admin', function (req, res) {
     res.render('../admin/index', {layout:false});
 });
+
+app.post('/upload', function(req, res){
+    return awsUpload(req, function(err, url){res.redirect(url)});
+});
+
+
 
 app.listen(3002, function () {
     console.info(' ✈ HTTPServer listening at http://localhst:3001');
