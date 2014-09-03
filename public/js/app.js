@@ -11,6 +11,11 @@ angular.module('rockSolid', ['ngRoute','ngAnimate'])
               templateUrl: 'views/home.html',
               controller: 'AdminDashboardCtrl'
             })
+            .when('/videos/upload', {
+              templateUrl: 'views/video_create.html',
+              controller: 'AdminVideoCtrl',
+              controllerAs: 'video'
+            })
             .when('/video/:videoId', {
               templateUrl: 'views/video_detail.html',
               controller: 'AdminVideoCtrl',
@@ -41,14 +46,14 @@ angular.module('rockSolid', ['ngRoute','ngAnimate'])
     .controller('AdminDashboardCtrl', function ($scope, $http) {
         $http.get('http://api.3drs.synth3tk.com/videos').
             success(function(data) {
-                console.log(data.items);
                 $scope.videos = data.items;
         });
     })
     .controller('AdminVideoCtrl', ['$scope','$http','$routeParams', function ($scope, $http, $routeParams) {
         $http.get('http://api.3drs.synth3tk.com/videos/'+$routeParams.videoId).
             success(function(data) {
-                console.log(data);
                 $scope.video = data;
         });
-    }]);
+    }])
+    .controller('AdminVideoCreateCtrl', function () {
+    });
