@@ -2,7 +2,8 @@ var express = require('express'),
     exphbs = require('express-handlebars'),
     bodyParser = require('body-parser'),
     busboy = require('connect-busboy'),
-    awsUpload = require('./lib/upload');
+    awsUpload = require('./lib/upload'),
+    transcode = require('./lib/transcode');
 var app = express();
 
 // disable detection of node and friends
@@ -63,8 +64,11 @@ app.post('/upload', function(req, res){
     return awsUpload(req, function(err, url){res.redirect(url)});
 });
 
-
+app.post('/transcode_callback', function(req, res){
+    transcode.jobCallback(req.body);
+    res.status(204).end();
+});
 
 app.listen(3002, function () {
-    console.info(' ✈ HTTPServer listening at http://localhst:3001');
+    console.info(' ✈ HTTPServer listening at http://localhst:3002');
 });
