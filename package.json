@@ -11,7 +11,8 @@
         "busboy": "0.0.15",
         "knox": "~0.8.9",
         "connect-busboy": "0.0.1",
-        "zencoder": "*"
+        "zencoder": "*",
+        "restler": "*"
     },
     "repository": {
         "type": "git",
