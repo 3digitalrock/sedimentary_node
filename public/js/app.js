@@ -13,8 +13,8 @@ angular.module('rockSolid', ['ngRoute','ngAnimate'])
             })
             .when('/videos/upload', {
               templateUrl: 'views/video_create.html',
-              controller: 'AdminVideoCtrl',
-              controllerAs: 'video'
+              controller: 'AdminVideoCreateCtrl',
+              controllerAs: 'upload'
             })
             .when('/video/:videoId', {
               templateUrl: 'views/video_detail.html',
@@ -30,6 +30,28 @@ angular.module('rockSolid', ['ngRoute','ngAnimate'])
               redirectTo: '/dashboard'
             });
     }])
+    .factory('dataFactory', ['$http', function($http) {
+        var urlBase = 'http://api.3drs.synth3tk.com';
+        var dataFactory = {};
+    
+        dataFactory.getVideos = function () {
+            return $http.get(urlBase + '/videos');
+        };
+    
+        dataFactory.getVideo = function (id) {
+            return $http.get(urlBase + '/videos/' + id);
+        };
+    
+        dataFactory.updateVideo = function (video) {
+            return $http.put(urlBase + '/videos/' + video.ID, video);
+        };
+    
+        dataFactory.deleteVideo = function (id) {
+            return $http.delete(urlBase + '/videos/' + id);
+        };
+    
+        return dataFactory;
+    }])
     .controller('HomeCtrl', function ($scope, $http) {
         $scope.videoFullscreen = false;
         $scope.fullToggle = function() {
@@ -43,17 +65,37 @@ angular.module('rockSolid', ['ngRoute','ngAnimate'])
                 $scope.videos = data;
         });
     })
-    .controller('AdminDashboardCtrl', function ($scope, $http) {
-        $http.get('http://api.3drs.synth3tk.com/videos').
-            success(function(data) {
-                $scope.videos = data.items;
-        });
-    })
-    .controller('AdminVideoCtrl', ['$scope','$http','$routeParams', function ($scope, $http, $routeParams) {
-        $http.get('http://api.3drs.synth3tk.com/videos/'+$routeParams.videoId).
-            success(function(data) {
-                $scope.video = data;
-        });
+    .controller('AdminDashboardCtrl', ['$scope', 'dataFactory', function ($scope, dataFactory) {
+        $scope.videos;
+        
+        getVideos();
+    
+        function getVideos() {
+            dataFactory.getVideos()
+                .success(function (vids) {
+                    $scope.videos = vids.items;
+                })
+                .error(function (error) {
+                    $scope.status = 'Unable to load videos: ' + error.message;
+                });
+        }
+    }])
+    .controller('AdminVideoCtrl', ['$scope','dataFactory','$routeParams', function ($scope, dataFactory, $routeParams) {
+        $scope.video;
+        
+        getVideo($routeParams.videoId);
+        
+        function getVideo(vidID) {
+            dataFactory.getVideo(vidID)
+                .success(function (vid) {
+                    console.log(vid);
+                    $scope.video = vid;
+                })
+                .error(function (error) {
+                    $scope.status = 'Unable to load video: ' + error.message;
+                });
+        }
     }])
     .controller('AdminVideoCreateCtrl', function () {
+        
     });
