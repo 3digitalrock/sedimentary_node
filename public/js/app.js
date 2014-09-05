@@ -1,4 +1,4 @@
-angular.module('rockSolid', ['ngRoute','ngAnimate'])
+angular.module('rockSolid', ['ngRoute'])
     .config(function($interpolateProvider) {
         //cfpLoadingBarProvider.includeSpinner = false;
         $interpolateProvider.startSymbol('{[{');
