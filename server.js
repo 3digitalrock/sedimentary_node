@@ -45,7 +45,7 @@ app.get('/about', function (req, res) {
 });
 
 app.get('/contact', function (req, res) {
-    res.render('contact', {atContact: true, pageTitle: 'Contact Us'});
+    res.render('contact', {atContact: true, pageTitle: 'Contact Us', layout:false});
 });
 
 app.get('/channels/:channel?', function (req, res) {

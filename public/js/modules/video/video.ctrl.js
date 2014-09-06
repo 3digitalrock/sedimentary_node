@@ -4,18 +4,25 @@ angular.module('videoApp', ['ngRoute', 'apiClient'])
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
     })
-    .controller('VideoCtrl', ['$scope', '$apiClientService', function ($scope, $apiClientService) {
-        $scope.videos;
-        
-        getVideos();
-    
-        function getVideos() {
-            $apiClientService.getVideos()
-                .success(function (vids) {
-                    $scope.videos = vids.items;
-                })
-                .error(function (error) {
-                    $scope.status = 'Unable to load videos: ' + error.message;
-                });
-        }
+    .config(['$routeProvider', '$locationProvider',
+        function($routeProvider, $locationProvider) {
+          $routeProvider
+            .when('/', {
+              templateUrl: 'views/partials/channel_home.html',
+              controller: 'ChannelHomeCtrl'
+            })
+            .when('/:videoId', {
+              templateUrl: 'views/partials/channel_details.html',
+              controller: 'ChannelDetailsCtrl'
+            })
+            .otherwise({
+              redirectTo: '/'
+            });
+    }])
+    .controller('ChannelHomeCtrl', ['$scope', '$routeParams', 'Video', function ($scope, $routeParams, Video) {
+        Video.query().$promise.then(function(videos){
+            $scope.videos = videos.items;
+        }, function(errResponse) {
+            // fail
+        });
     }]);

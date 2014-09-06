@@ -66,10 +66,12 @@
   <script src="/js/fill.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
   <script src="/js/modules/common/api_client.js"></script>
-  <script src="/js/modules/home/home.ctrl.js" type="text/javascript"></script>
+  <script type="text/javascript">var nav = responsiveNav(".nav-collapse");jQuery(".nav-item").fitText();</script>
+  {{#if atChannel}}<script src="/js/modules/video/video.ctrl.js" type="text/javascript"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-resource.min.js"></script>{{/if}}
+  {{#if atHome}}<script src="/js/modules/home/home.ctrl.js" type="text/javascript"></script>
   <script type="text/javascript">
-    var nav = responsiveNav(".nav-collapse");
-    jQuery(".nav-item").fitText();
 	  $(document).ready(function(){
 	    jQuery(".wise-quotes").fitText(2, {maxFontSize: '80px'});
       /* Slider AutoChanging Title */
@@ -95,6 +97,6 @@
       var myPlayer = this;
       myPlayer.muted(true);
     });
-  </script>
+  </script>{{/if}}
 </body>
 </html>
