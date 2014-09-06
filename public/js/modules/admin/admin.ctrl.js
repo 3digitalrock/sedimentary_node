@@ -1,4 +1,4 @@
-angular.module('AdminApp', ['ngRoute', 'apiClient'])
+angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap'])
     .config(function($interpolateProvider) {
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
@@ -52,7 +52,6 @@ angular.module('AdminApp', ['ngRoute', 'apiClient'])
         function getVideo(vidID) {
             $apiClientService.getVideo(vidID)
                 .success(function (vid) {
-                    console.log(vid);
                     $scope.video = vid;
                 })
                 .error(function (error) {
@@ -62,4 +61,51 @@ angular.module('AdminApp', ['ngRoute', 'apiClient'])
     }])
     .controller('AdminVideoCreateCtrl', function () {
         
-    });
+    })
+    .controller('AdminDeleteCtrl', ['$scope', '$modal', '$apiClientService', '$location', function($scope, $modal, $apiClientService, $location){
+        function deleteVideo(vidID) {
+            $apiClientService.deleteVideo(vidID)
+                .success(function () {
+                    
+                })
+                .error(function (error) {
+                    $scope.status = 'Unable to delete video: ' + error.message;
+                });
+        }
+        
+        $scope.delModal = function(id, title){
+            $scope.delVideo = {};
+            $scope.delVideo['id'] = id;
+            $scope.delVideo['title'] = title;
+            $scope.open();
+        };
+        $scope.open = function () {
+            var modalInstance = $modal.open({
+              templateUrl: 'views/modal.html',
+              controller: ModalInstanceCtrl,
+              resolve: {
+                  delVideo: function(){
+                      return $scope.delVideo;
+                  }
+              }
+            });
+            
+            modalInstance.result.then(function () {
+              deleteVideo($scope.delVideo['id']);
+              $location.url('/dashboard');
+            }, function () {
+              // Cancelled
+            });
+        };
+}]);
+    
+var ModalInstanceCtrl = function ($scope, $modalInstance, delVideo) {
+  $scope.videoInfo = delVideo;
+  $scope.ok = function () {
+    $modalInstance.close();
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+};
