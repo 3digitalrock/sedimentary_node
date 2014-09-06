@@ -29,14 +29,14 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap'])
               redirectTo: '/dashboard'
             });
     }])
-    .controller('AdminDashboardCtrl', ['$scope', '$apiClientService', '$routeParams', 'Video', function ($scope, $apiClientService, $routeParams, Video) {
+    .controller('AdminDashboardCtrl', ['$scope', '$routeParams', 'Video', function ($scope, $routeParams, Video) {
         Video.query().$promise.then(function(videos){
             $scope.videos = videos.items;
         }, function(errResponse) {
             // fail
         });
     }])
-    .controller('AdminVideoDetailsCtrl', ['$scope', '$apiClientService', '$routeParams', 'Video', function ($scope, $apiClientService, $routeParams, Video) {
+    .controller('AdminVideoDetailsCtrl', ['$scope', '$routeParams', 'Video', function ($scope, $routeParams, Video) {
         Video.get({id: $routeParams.videoId}).$promise.then(function(video) {
            // success
            $scope.video = video;
@@ -47,7 +47,7 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap'])
     .controller('AdminVideoCreateCtrl', function () {
         
     })
-    .controller('AdminDeleteCtrl', ['$scope', '$modal', '$apiClientService', '$location', 'Video', function($scope, $modal, $apiClientService, $location, Video){
+    .controller('AdminDeleteCtrl', ['$scope', '$modal', '$location', 'Video', function($scope, $modal, $location, Video){
         function deleteVideo(vidID) {
             Video.delete({id: vidID}).$promise.then(function(video) {
                // success
