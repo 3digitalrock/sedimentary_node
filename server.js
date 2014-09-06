@@ -48,8 +48,15 @@ app.get('/contact', function (req, res) {
     res.render('contact', {atContact: true, pageTitle: 'Contact Us'});
 });
 
-app.get('/channels', function (req, res) {
-    res.render('channels', {atChannel: true, pageTitle: 'Channels'});
+app.get('/channels/:channel?', function (req, res) {
+    // If specific channel requested, get it. Otherwise, show listing.
+    if(req.params.channel){
+        var capitalChannel = req.params.channel;
+        capitalChannel = capitalChannel.charAt(0).toUpperCase() + capitalChannel.substring(1);
+        res.render('channels', {atChannel: true, pageTitle: capitalChannel + ' Channel'});
+    } else {
+        res.render('channels', {atChannel: true, pageTitle: 'Channels'});
+    }
 });
 
 app.get('/videos/:video', function (req, res) {
