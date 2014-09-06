@@ -48,6 +48,10 @@ app.get('/contact', function (req, res) {
     res.render('contact', {atContact: true, pageTitle: 'Contact Us', layout:false});
 });
 
+app.get('/channels/:channel.html', function(req, res, next){
+    res.render('channels', {layout:false});
+});
+
 app.get('/channels/:channel?', function (req, res) {
     // If specific channel requested, get it. Otherwise, show listing.
     if(req.params.channel){
