@@ -29,48 +29,31 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap'])
               redirectTo: '/dashboard'
             });
     }])
-    .controller('AdminDashboardCtrl', ['$scope', '$apiClientService', '$routeParams', function ($scope, $apiClientService, $routeParams) {
-        $scope.videos;
-        
-        getVideos();
-    
-        function getVideos() {
-            $apiClientService.getVideos()
-                .success(function (vids) {
-                    $scope.videos = vids.items;
-                })
-                .error(function (error) {
-                    $scope.status = 'Unable to load videos: ' + error.message;
-                });
-        }
+    .controller('AdminDashboardCtrl', ['$scope', '$apiClientService', '$routeParams', 'Video', function ($scope, $apiClientService, $routeParams, Video) {
+        Video.query().$promise.then(function(videos){
+            $scope.videos = videos.items;
+        }, function(errResponse) {
+            // fail
+        });
     }])
-    .controller('AdminVideoDetailsCtrl', ['$scope', '$apiClientService', '$routeParams', function ($scope, $apiClientService, $routeParams) {
-        $scope.video;
-        
-        getVideo($routeParams.videoId);
-        
-        function getVideo(vidID) {
-            $apiClientService.getVideo(vidID)
-                .success(function (vid) {
-                    $scope.video = vid;
-                })
-                .error(function (error) {
-                    $scope.status = 'Unable to load video: ' + error.message;
-                });
-        }
+    .controller('AdminVideoDetailsCtrl', ['$scope', '$apiClientService', '$routeParams', 'Video', function ($scope, $apiClientService, $routeParams, Video) {
+        Video.get({id: $routeParams.videoId}).$promise.then(function(video) {
+           // success
+           $scope.video = video;
+        }, function(errResponse) {
+           // fail
+        });
     }])
     .controller('AdminVideoCreateCtrl', function () {
         
     })
-    .controller('AdminDeleteCtrl', ['$scope', '$modal', '$apiClientService', '$location', function($scope, $modal, $apiClientService, $location){
+    .controller('AdminDeleteCtrl', ['$scope', '$modal', '$apiClientService', '$location', 'Video', function($scope, $modal, $apiClientService, $location, Video){
         function deleteVideo(vidID) {
-            $apiClientService.deleteVideo(vidID)
-                .success(function () {
-                    
-                })
-                .error(function (error) {
-                    $scope.status = 'Unable to delete video: ' + error.message;
-                });
+            Video.delete({id: vidID}).$promise.then(function(video) {
+               // success
+            }, function(errResponse) {
+               // fail
+            });
         }
         
         $scope.delModal = function(id, title){
