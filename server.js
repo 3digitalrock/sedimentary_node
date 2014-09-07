@@ -3,7 +3,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     busboy = require('connect-busboy'),
     awsUpload = require('./lib/upload'),
-    transcode = require('./lib/transcode');
+    transcode = require('./lib/transcode'),
+    apiClient = require('./lib/api_client');
 var app = express();
 
 // disable detection of node and friends
@@ -59,7 +60,9 @@ app.get('/channels/:channel?', function (req, res) {
         capitalChannel = capitalChannel.charAt(0).toUpperCase() + capitalChannel.substring(1);
         res.render('channels', {atChannel: true, pageTitle: capitalChannel + ' Channel'});
     } else {
-        res.render('channels', {atChannel: true, pageTitle: 'Channels'});
+        apiClient.getChannels(function(channelList){
+            res.render('channels', {atChannel: true, pageTitle: 'Channels', channels: channelList.items});
+        });
     }
 });
 

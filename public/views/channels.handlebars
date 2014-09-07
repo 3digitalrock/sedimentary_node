@@ -1,3 +1,5 @@
 		<div ng-app="videoApp">
-			<div ng-view></div>
+			{{#each channels}}
+			  <h2>{{this.name}}</h2>
+			{{/each}}
 		</div>
