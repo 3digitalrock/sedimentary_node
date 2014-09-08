@@ -1,5 +1,11 @@
 		<div ng-app="videoApp">
 			{{#each channels}}
-			  <h2>{{this.name}}</h2>
+				<h2>{{this.name}}</h2>
+				<div>
+					{{#each this.items}}
+						<div>{{ this.title }}</div>
+						<div>{{ this.description }}</div>
+					{{/each}}
+				</div>
 			{{/each}}
 		</div>

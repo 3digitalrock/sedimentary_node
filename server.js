@@ -4,7 +4,9 @@ var express = require('express'),
     busboy = require('connect-busboy'),
     awsUpload = require('./lib/upload'),
     transcode = require('./lib/transcode'),
-    apiClient = require('./lib/api_client');
+    apiClient = require('./lib/api_client'),
+    async = require('async'),
+    reqwest = require('reqwest');
 var app = express();
 
 // disable detection of node and friends
@@ -54,14 +56,45 @@ app.get('/channels/:channel.html', function(req, res, next){
 });
 
 app.get('/channels/:channel?', function (req, res) {
-    // If specific channel requested, get it. Otherwise, show listing.
+    // If specific channel requested, get it. Otherwise, show listing. Eventually put this in its own file.
     if(req.params.channel){
         var capitalChannel = req.params.channel;
         capitalChannel = capitalChannel.charAt(0).toUpperCase() + capitalChannel.substring(1);
         res.render('channels', {atChannel: true, pageTitle: capitalChannel + ' Channel'});
     } else {
-        apiClient.getChannels(function(channelList){
-            res.render('channels', {atChannel: true, pageTitle: 'Channels', channels: channelList.items});
+        async.waterfall([ // Asynchronous API calls. I'm sure this could be cleaned up a bit.
+            function(callback){
+                var channelsList = {};
+                var channelsCount = [];
+                apiClient.getChannels(function(results){
+                    results.items.forEach(function(item){
+                            channelsList[item.uid] = {};
+                            channelsList[item.uid] = {name: item.name};
+                            channelsCount.push(item.uid);
+                    });
+                    callback(null, channelsList, channelsCount);
+                });
+            },
+            function(channelsList, channelsCount, callback){
+                // Another async setup for the videos subresource
+                async.each(channelsCount,
+                    function(item, callback){
+                        reqwest({
+                            url: 'http://api.3drs.synth3tk.com/channels/'+item+'/videos',
+                        }).then(function(response){
+                            channelsList[item].items = response.items;
+                            callback();
+                        });
+                    }, function(){
+                        callback(null, channelsList);
+                    });
+            },
+            function(channelsList, callback){
+                callback(null, channelsList);
+            }
+        ],
+        function(err, channelsList){
+            res.render('channels', {atChannel: true, pageTitle: 'Channels', channels: channelsList});
         });
     }
 });

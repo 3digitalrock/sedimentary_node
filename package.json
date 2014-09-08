@@ -12,7 +12,9 @@
         "knox": "~0.8.9",
         "connect-busboy": "0.0.1",
         "zencoder": "*",
-        "restler": "*"
+        "restler": "*",
+        "async": "*",
+        "reqwest": "appsforartists/reqwest"
     },
     "repository": {
         "type": "git",
