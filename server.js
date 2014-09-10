@@ -58,8 +58,8 @@ app.get('/channels/:channel?', function (req, res) {
     channel.channelRouter(req, res);
 });
 
-app.get('/videos/:video', function (req, res) {
-    res.render('videos');
+app.get('/watch/:video/:title?', function (req, res) {
+    res.render('video', {atChannel:true});
 });
 
 app.get('/admin', function (req, res) {
