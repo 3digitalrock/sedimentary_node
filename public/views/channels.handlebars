@@ -1,10 +1,13 @@
 		<div ng-app="videoApp">
 			{{#each channels}}
-				<h2>{{this.name}}</h2>
-				<div>
+				<div class="channel_listing">
+					<h2 class="channel_title">{{this.name}}</h2>
 					{{#each this.items}}
-						<div>{{ this.title }}</div>
-						<div>{{ this.description }}</div>
+						<div class="listing_item">
+							<div class="vid_thumbnail_wrap">
+								<a href="/watch/{{this.uid}}/{{this.slug}}"><img class="vid_thumbnail" alt="{{ this.title }}" title="{{this.title}}" src="{{ this.thumbnails.[0] }}" /></a>
+							</div>
+						</div>
 					{{/each}}
 				</div>
 			{{/each}}

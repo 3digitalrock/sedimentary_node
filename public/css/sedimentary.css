@@ -377,3 +377,41 @@ z-index: 1;
     padding: 20px;
     font-size: 1.5em;
 }
+
+/*** Channel Listings ***/
+.channel_listing {
+    clear: both;
+    text-align: justify;
+}
+
+.channel_listing:after {
+  content: '';
+  width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+  display: inline-block;
+}
+
+h2.channel_title {
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #8c8c8c;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+.listing_item {
+    display: inline-block;
+}
+
+.vid_thumbnail_wrap {
+    position: relative;
+    width: 155px;
+    height: 170px;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.vid_thumbnail_wrap .vid_thumbnail {
+    position: absolute;
+    max-width: none;
+}
