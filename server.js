@@ -59,7 +59,7 @@ app.get('/channels/:channel?', function (req, res) {
 });
 
 app.get('/watch/:video/:title?', function (req, res) {
-    res.render('video', {atChannel:true});
+    channel.videoPage(req, res);
 });
 
 app.get('/admin', function (req, res) {
