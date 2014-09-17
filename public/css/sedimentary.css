@@ -379,26 +379,12 @@ z-index: 1;
 }
 
 /*** Channel Listings ***/
-.channel_listing {
-    clear: both;
-    text-align: justify;
-}
-
-.channel_listing:after {
-  content: '';
-  width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
-  display: inline-block;
-}
 
 h2.channel_title {
     font-family: 'Open Sans Condensed', sans-serif;
     color: #8c8c8c;
     text-align: center;
     letter-spacing: 0.1em;
-}
-
-.listing_item {
-    display: inline-block;
 }
 
 .vid_thumbnail_wrap {
@@ -418,4 +404,38 @@ h2.channel_title {
 
 .vjs-sedimentary .vjs-menu-button .vjs-menu .vjs-menu-content {
   bottom: 0.95em;
+}
+
+.slick-slide {
+    text-align: center;
+}
+
+.slick-prev, .slick-next {
+    width: 50px;
+    height: 50px;
+}
+
+.slick-prev:before, .slick-next:before {
+    color: #000;
+    font-size: 50px;
+}
+
+.slick-prev.slick-disabled:before, .slick-next.slick-disabled:before {
+    cursor: default;
+}
+
+.arrow_left, .arrow_right{
+	background: url('../img/arrows.png') no-repeat;
+}
+
+.arrow_left{
+	background-position: 0 0;
+	width: 82px;
+	height: 82px;
+}
+
+.arrow_right{
+	background-position: -84px 0;
+	width: 82px;
+	height: 82px;
 }

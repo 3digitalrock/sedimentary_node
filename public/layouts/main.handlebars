@@ -11,7 +11,8 @@
     <link href="/responsive-nav/responsive-nav.css" rel="stylesheet" />
     {{#if atHome}}<link href="//vjs.zencdn.net/4.7/video-js.css" rel="stylesheet" />{{/if}}
     {{#if atChannel}}<link href="/css/video-js.css" rel="stylesheet" />
-    <link href="/css/video-js-resolutions.css" rel="stylesheet" />{{/if}}
+    <link href="/css/video-js-resolutions.css" rel="stylesheet" />
+    <link href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css" rel="stylesheet" />{{/if}}
     <link href="/css/sedimentary.css" rel="stylesheet" />
     <link href="/css/focal-point.min.css" rel="stylesheet" />
     
@@ -75,7 +76,17 @@
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-resource.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
   <script src="/js/video-js-resolutions.js"></script>
+  <script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"></script>
   <script type="text/javascript">
+    $(document).ready(function(){
+    	$('.channel_listing').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        infinite: false
+    	});
+    });
+  </script>{{/if}}
+  {{#if atVideo}}<script type="text/javascript">
     videojs.options.flash.swf = "/js/vendor/video-js.swf";
     vjs('video-player', {
       plugins: {

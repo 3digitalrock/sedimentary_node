@@ -1,7 +1,7 @@
-		<div ng-app="videoApp">
+		<div ng-app="videoApp" ng-controller="ChannelHomeCtrl">
 			{{#each channels}}
+				<h2 class="channel_title">{{this.name}}</h2>
 				<div class="channel_listing">
-					<h2 class="channel_title">{{this.name}}</h2>
 					{{#each this.items}}
 						<div class="listing_item">
 							<div class="vid_thumbnail_wrap">
