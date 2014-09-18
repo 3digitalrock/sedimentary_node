@@ -27,7 +27,11 @@ module.exports = function(app){
         channel.videoPage(req, res);
     });
     
-    app.get('/admin/?', function (req, res) {
+    app.get('/dashboard*', function (req, res) {
+        res.render('../admin/index', {layout:false});
+    });
+    
+    app.get('/dashboard', function (req, res) {
         res.render('../admin/index', {layout:false});
     });
     

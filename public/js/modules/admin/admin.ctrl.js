@@ -7,27 +7,27 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap'])
         function($routeProvider, $locationProvider) {
           $locationProvider.html5Mode(true);
           $routeProvider
-            .when('/admin/dashboard', {
+            .when('/dashboard', {
               templateUrl: '/admin/views/home.html',
               controller: 'AdminDashboardCtrl'
             })
-            .when('/admin/videos/upload', {
+            .when('/dashboard/videos/upload', {
               templateUrl: '/admin/views/video_create.html',
               controller: 'AdminVideoCreateCtrl',
               controllerAs: 'upload'
             })
-            .when('/admin/video/:videoId', {
+            .when('/dashboard/video/:videoId', {
               templateUrl: '/admin/views/video_detail.html',
               controller: 'AdminVideoDetailsCtrl',
               controllerAs: 'video'
             })
-            .when('/admin/studio/:studioId', {
+            .when('/dashboard/studio/:studioId', {
               templateUrl: '/admin/views/studio_detail.html',
               controller: 'AdminStudioDetailsCtrl',
               controllerAs: 'studio'
             }).
             otherwise({
-              redirectTo: '/admin/dashboard'
+              redirectTo: '/dashboard'
             });
     }])
     .controller('AdminDashboardCtrl', ['$scope', '$routeParams', 'Video', function ($scope, $routeParams, Video) {
