@@ -1,4 +1,4 @@
-angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router'])
+angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router', 'xeditable'])
     .config(function($interpolateProvider, $locationProvider) {
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
@@ -30,7 +30,6 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router']
           $urlRouterProvider.otherwise("/dashboard");
     }])
     .controller('AdminDashboardCtrl', ['$scope', '$stateParams', 'Video', function ($scope, $stateParams, Video) {
-        console.log('gotime');
         Video.query().$promise.then(function(videos){
             $scope.videos = videos.items;
         }, function(errResponse) {
@@ -38,8 +37,6 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router']
         });
     }])
     .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', 'Video', function ($scope, $stateParams, Video) {
-        console.log('dettime');
-        console.log($stateParams);
         Video.get({id: $stateParams.videoId}).$promise.then(function(video) {
            // success
            $scope.video = video;
@@ -83,7 +80,10 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router']
               // Cancelled
             });
         };
-}]);
+  }])
+  .run(function(editableOptions){
+    editableOptions.theme = 'default';
+  });
     
 var ModalInstanceCtrl = function ($scope, $modalInstance, delVideo) {
   $scope.videoInfo = delVideo;

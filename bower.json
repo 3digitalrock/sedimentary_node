@@ -5,7 +5,8 @@
     "videojs": "videojs/video.js",
     "fittext": "davatron5000/FitText.js",
     "responsive-nav": "viljamis/responsive-nav.js",
-    "angular-slick": "~0.1.11"
+    "angular-slick": "~0.1.11",
+    "angular-xeditable": "~0.1.8"
   },
   "private": true
 }
