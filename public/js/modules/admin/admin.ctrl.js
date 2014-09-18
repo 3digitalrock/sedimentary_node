@@ -1,8 +1,12 @@
 angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router', 'xeditable'])
-    .config(function($interpolateProvider, $locationProvider) {
+    .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider) {
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
         $locationProvider.html5Mode(true);
+        $sceDelegateProvider.resourceUrlWhitelist([
+          'self',
+          'http://3digitalrock.s3.amazonaws.com/**'
+        ]);
     })
     .config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
