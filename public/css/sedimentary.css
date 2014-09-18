@@ -380,6 +380,21 @@ z-index: 1;
 
 /*** Channel Listings ***/
 
+.channel_listing {
+    clear: both;
+    text-align: justify;
+}
+
+.channel_listing:after {
+  content: '';
+  width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+  display: inline-block;
+}
+
+.listing_item {
+    display: inline-block;
+}
+
 h2.channel_title {
     font-family: 'Open Sans Condensed', sans-serif;
     color: #8c8c8c;
