@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	  <title>{{pageTitle}}</title>
+	
+    <link href="/css/foundation.css" rel="stylesheet" />
+    <link href="/css/loading-bar.css" rel="stylesheet" />
+    <link href="/responsive-nav/responsive-nav.css" rel="stylesheet" />
+    <link href="/css/video-js.css" rel="stylesheet" />
+    <link href="/css/video-js-resolutions.css" rel="stylesheet" />
+    <link href="/slick-carousel/slick/slick.css" rel="stylesheet">
+    <link href="/css/sedimentary.css" rel="stylesheet" />
+    <link href="/css/focal-point.min.css" rel="stylesheet" />
+    
+    <script src="/js/vendor/modernizr.js"></script>
+    <script src="/js/vendor/jquery.js"></script>
+    <script src="/js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+</head>
+<body>
+  <div class="row full-width">
+    <header class="header large-12 columns">
+      <div class="row">
+        <div class="small-5 small-centered columns"><a href="/" title="3 Digital Rock Studios" id="logo">3 Digital Rock Studios</a></div>
+      </div>
+    </header>
+  </div>
+  
+  <nav class="nav-collapse">
+    <ul class="main-nav">
+      <li class="nav-item"><a href="/">Home</a></li>
+      <li class="nav-item"><a href="/about">About</a></li>
+      <li class="nav-item current"><a href="/channels">Channel</a></li>
+      <li class="nav-item"><a>Store</a></li>
+      <li class="nav-item"><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="row">
+    <article ng-app="videoApp" ui-view class="large-12 columns">
+      {{{body}}}
+    </article>
+  </div>
+    
+  <div class="row">
+    <footer class="footer large-12 columns">
+      <span class="contact-info"><a href="mailto:info@3digitalrockstudios.com">info@3digitalrockstudio.com</a> // 216.264.0098 // <a href="https://facebook.com/3digitalrockstudios">facebook.com/3digitalrockstudios</a> // <a href="http://youtube.com/3digitalrockstudios">youtube.com/3digitalrockstudios</a></span>
+    </footer>
+  </div>
+  
+  <!-- TODO: Load scripts based on page's needs -->
+  
+	<script src="/fittext/jquery.fittext.js"></script>
+	<script src="/responsive-nav/responsive-nav.min.js"></script>
+  <script src="/js/sedimentary.js"></script>
+  <!-- TODO: Move to custom scripts file -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+  <script src="/js/modules/common/api_client.js"></script>
+  <script type="text/javascript">var nav = responsiveNav(".nav-collapse");jQuery(".nav-item").fitText();</script>
+  <!--<script src="/js/vendor/video.dev.js"></script>
+  <script src="/js/video-js-resolutions.js"></script>-->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-resource.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+  <script src="/slick-carousel/slick/slick.min.js"></script>
+  <script src="/angular-slick/dist/slick.min.js"></script>
+  <script src="/js/modules/video/video.ctrl.js" type="text/javascript"></script>
+  {{#if atVideo}}<script src="/js/vendor/video.dev.js"></script>
+  <script src="/js/video-js-resolutions.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function(){
+        videojs('video-player', {
+          plugins: {
+            resolutions: true
+          }
+        });
+        videojs.options.flash.swf = "/js/vendor/video-js.swf";
+        videojs('video-player').ready(function(){
+          var singlePlayer = this;
+          singlePlayer.volume(0.75);
+          var aspectRatio = 9/16; // Make up an aspect ratio
+        
+          function resizeVideoJS(){
+            // Get the parent element's actual width
+            var width = document.getElementById(singlePlayer.id()).parentElement.offsetWidth;
+            // Remove the padding from the calculation
+            width = width - parseInt($("#video-player").parent().css('padding-left'));
+            width = width - parseInt($("#video-player").parent().css('padding-right'));
+            // Set width to fill parent element, Set height
+            singlePlayer.width(width).height( width * aspectRatio );
+          }
+        
+          resizeVideoJS(); // Initialize the function
+          window.onresize = resizeVideoJS; // Call the function on resize
+        });
+      });
+  </script>{{/if}}
+</body>
+</html>

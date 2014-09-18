@@ -15,19 +15,19 @@ module.exports = function(app){
         res.render('contact', {atContact: true, pageTitle: 'Contact Us', layout:false});
     });
     
-    app.get('/channels/:channel.html', function(req, res, next){
-        res.render('channels', {layout:false});
+    app.get('/channels', function (req, res) {
+        channel.channelRouter(req, res);
     });
     
-    app.get('/channels/:channel?', function (req, res) {
-        channel.channelRouter(req, res);
+    app.get('/watch/:video/:title?.html', function (req, res) {
+        channel.videoPage(req, res, true);
     });
     
     app.get('/watch/:video/:title?', function (req, res) {
         channel.videoPage(req, res);
     });
     
-    app.get('/admin', function (req, res) {
+    app.get('/admin/?', function (req, res) {
         res.render('../admin/index', {layout:false});
     });
     

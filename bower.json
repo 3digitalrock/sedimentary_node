@@ -2,9 +2,10 @@
   "name": "3drs-sedimentary",
   "version": "0.0.0",
   "dependencies": {
-      "videojs": "videojs/video.js",
-      "fittext": "davatron5000/FitText.js",
-      "responsive-nav": "viljamis/responsive-nav.js"
+    "videojs": "videojs/video.js",
+    "fittext": "davatron5000/FitText.js",
+    "responsive-nav": "viljamis/responsive-nav.js",
+    "angular-slick": "~0.1.11"
   },
   "private": true
 }

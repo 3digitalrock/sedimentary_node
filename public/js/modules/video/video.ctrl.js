@@ -1,16 +1,37 @@
-angular.module('videoApp', ['ngRoute', 'apiClient', 'ui.bootstrap'])
-    .config(function($interpolateProvider) {
+angular.module('videoApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router', 'slick'])
+    .config(function($interpolateProvider, $locationProvider) {
         //cfpLoadingBarProvider.includeSpinner = false;
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
+        $locationProvider.html5Mode(true);
     })
-    .controller('ChannelHomeCtrl', ['$scope', '$modal', '$routeParams', 'Video', function ($scope, $modal, $routeParams, Video) {
-        Video.query().$promise.then(function(videos){
-            $scope.videos = videos.items;
-        }, function(errResponse) {
-            // fail
-        });
-    }]);
+    .config(['$stateProvider', '$urlRouterProvider',
+        function($stateProvider, $urlRouterProvider) {
+          $stateProvider
+            .state('channels', {
+              url: '/channels',
+              controller: 'ChannelHomeCtrl'
+            })
+            .state('watch', {
+              url: '/watch/:uid',
+              templateUrl: function(params){
+                return '/watch/'+params.uid+'.html';
+              },
+              controller: 'WatchVideoCtrl'
+            });
+    }])
+    .controller('ChannelHomeCtrl', ['$scope', '$modal', '$routeParams', 'Video', '$rootScope', function ($scope, $modal, $routeParams, Video, $rootScope) {
+      console.log('channel');
+      
+      Video.query().$promise.then(function(videos){
+          $scope.videos = videos.items;
+      }, function(errResponse) {
+          // fail
+      });
+    }])
+    .controller('WatchVideoCtrl', ['$scope', '$location', function($scope, $location){
+      console.log('watch');
+}]);
     
 var VideoModalCtrl = function ($scope, $modalInstance, videoInfo) {
   $scope.video = videoInfo;
