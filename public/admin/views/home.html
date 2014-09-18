@@ -38,7 +38,7 @@
                                             <th>Operations</th>
                                         </tr>
                                         <tr ng-repeat="video in videos">
-                                            <td><a href="video/{[{video.uid}]}">{[{video.title}]}</a></td>
+                                            <td><a ui-sref="videosDetails({videoId: '{[{video.uid}]}'})">{[{video.title}]}</a></td>
                                             <td>{[{video.studio}]}</td>
                                             <td>{[{video.description}]}</td>
                                             <td>N/A</td>
@@ -46,7 +46,7 @@
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-info"><i class="fa fa-play-circle"></i></a>
-                                                    <a class="btn btn-info" href="video/{[{video.uid}]}"><i class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-info" ui-sref="videosDetails({videoId: '{[{video.uid}]}'})"><i class="fa fa-edit"></i></a>
                                                     <a class="btn btn-danger" ng-controller="AdminDeleteCtrl" ng-click="delModal(video.uid,video.title);"><i class="fa fa-times"></i></a>
                                                 </div>
                                             </td>

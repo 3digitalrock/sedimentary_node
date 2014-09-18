@@ -1,44 +1,46 @@
-angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap'])
-    .config(function($interpolateProvider) {
+angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router'])
+    .config(function($interpolateProvider, $locationProvider) {
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
+        $locationProvider.html5Mode(true);
     })
-    .config(['$routeProvider', '$locationProvider',
-        function($routeProvider, $locationProvider) {
-          $locationProvider.html5Mode(true);
-          $routeProvider
-            .when('/dashboard', {
+    .config(['$stateProvider', '$urlRouterProvider',
+        function($stateProvider, $urlRouterProvider) {
+          $stateProvider
+            .state('dashboard', {
+              url: '/dashboard',
               templateUrl: '/admin/views/home.html',
               controller: 'AdminDashboardCtrl'
             })
-            .when('/dashboard/videos/upload', {
+            .state('videosUpload', {
+              url: '/dashboard/videos/upload',
               templateUrl: '/admin/views/video_create.html',
-              controller: 'AdminVideoCreateCtrl',
-              controllerAs: 'upload'
+              controller: 'AdminVideoCreateCtrl'
             })
-            .when('/dashboard/video/:videoId', {
+            .state('videosDetails', {
+              url: '/dashboard/videos/:videoId',
               templateUrl: '/admin/views/video_detail.html',
-              controller: 'AdminVideoDetailsCtrl',
-              controllerAs: 'video'
+              controller: 'AdminVideoDetailsCtrl'
             })
-            .when('/dashboard/studio/:studioId', {
+            .state('studiosDetails', {
+              url: '/dashboard/studio/:studioId',
               templateUrl: '/admin/views/studio_detail.html',
-              controller: 'AdminStudioDetailsCtrl',
-              controllerAs: 'studio'
-            }).
-            otherwise({
-              redirectTo: '/dashboard'
+              controller: 'AdminStudioDetailsCtrl'
             });
+          $urlRouterProvider.otherwise("/dashboard");
     }])
-    .controller('AdminDashboardCtrl', ['$scope', '$routeParams', 'Video', function ($scope, $routeParams, Video) {
+    .controller('AdminDashboardCtrl', ['$scope', '$stateParams', 'Video', function ($scope, $stateParams, Video) {
+        console.log('gotime');
         Video.query().$promise.then(function(videos){
             $scope.videos = videos.items;
         }, function(errResponse) {
             // fail
         });
     }])
-    .controller('AdminVideoDetailsCtrl', ['$scope', '$routeParams', 'Video', function ($scope, $routeParams, Video) {
-        Video.get({id: $routeParams.videoId}).$promise.then(function(video) {
+    .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', 'Video', function ($scope, $stateParams, Video) {
+        console.log('dettime');
+        console.log($stateParams);
+        Video.get({id: $stateParams.videoId}).$promise.then(function(video) {
            // success
            $scope.video = video;
         }, function(errResponse) {
@@ -65,7 +67,7 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap'])
         };
         $scope.open = function () {
             var modalInstance = $modal.open({
-              templateUrl: 'views/modal.html',
+              templateUrl: '/admin/views/modal.html',
               controller: ModalInstanceCtrl,
               resolve: {
                   delVideo: function(){
