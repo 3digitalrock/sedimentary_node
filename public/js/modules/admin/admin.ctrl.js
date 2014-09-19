@@ -55,7 +55,8 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
     .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', function ($scope, $stateParams, $filter, Restangular) {
         var baseVideo = Restangular.one('videos', $stateParams.videoId);
         $scope.video = baseVideo.get().$object;
-      
+        observer = jsonpatch.observe($scope.video);
+        
         $scope.studios = [
           {value: 'Blb5I6AEAtuj', text: '3 Digital Rock'},
           {value: 'Blb5I6AEAtuj2', text: '2 Analog Stones'}
@@ -67,7 +68,13 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
         };
         
         $scope.updateVideo = function() {
-          console.log($scope.video);
+          angular.copy($scope.video, $scope.videoCopy);
+          var patch = jsonpatch.generate(observer);
+          baseVideo.patch(patch).then(function(){
+            console.log('Okie Dokie');
+          }, function(){
+            console.log('Uh-oh spaghetti-o!');
+          });
         };
     }])
     .controller('AdminVideoCreateCtrl', function () {
