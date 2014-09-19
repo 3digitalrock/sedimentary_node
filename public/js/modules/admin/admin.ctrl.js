@@ -1,12 +1,25 @@
-angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router', 'xeditable'])
-    .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider) {
+angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular'])
+    .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider) {
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
         $locationProvider.html5Mode(true);
+        RestangularProvider.setBaseUrl('http://api.3drs.synth3tk.com');
         $sceDelegateProvider.resourceUrlWhitelist([
           'self',
           'http://3digitalrock.s3.amazonaws.com/**'
         ]);
+        // add a response intereceptor
+        RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+          var extractedData;
+          // .. to look for getList operations
+          if (operation === "getList") {
+            // .. and handle the data and meta data
+            extractedData = data.items;
+          } else {
+            extractedData = data;
+          }
+          return extractedData;
+        });
     })
     .config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
@@ -33,24 +46,15 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router',
             });
           $urlRouterProvider.otherwise("/dashboard");
     }])
-    .controller('AdminDashboardCtrl', ['$scope', '$stateParams', 'Video', function ($scope, $stateParams, Video) {
-        Video.query().$promise.then(function(videos){
-            $scope.videos = videos.items;
-        }, function(errResponse) {
-            // fail
+    .controller('AdminDashboardCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
+        var baseVideos = Restangular.all('videos');
+        baseVideos.getList().then(function(videos){
+          $scope.videos = videos;
         });
     }])
-    .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', 'Video', '$filter', function ($scope, $stateParams, Video, $filter) {
-        Video.get({id: $stateParams.videoId}).$promise.then(function(video) {
-           // success
-           $scope.video = video;
-        }, function(errResponse) {
-           // fail
-        });
-        
-        $scope.user = {
-          studios: 'Blb5I6AEAtuj'
-        }; 
+    .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', function ($scope, $stateParams, $filter, Restangular) {
+        var baseVideo = Restangular.one('videos', $stateParams.videoId);
+        $scope.video = baseVideo.get().$object;
       
         $scope.studios = [
           {value: 'Blb5I6AEAtuj', text: '3 Digital Rock'},
@@ -58,20 +62,24 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router',
         ]; 
       
         $scope.showStudio = function() {
-          var selected = $filter('filter')($scope.studios, {value: $scope.user.studios});
-          return ($scope.user.studios && selected.length) ? selected[0].text : 'Not set';
+          var selected = $filter('filter')($scope.studios, {value: $scope.video.studio});
+          return ($scope.video.studio && selected.length) ? selected[0].text : 'Not set';
+        };
+        
+        $scope.updateVideo = function() {
+          console.log($scope.video);
         };
     }])
     .controller('AdminVideoCreateCtrl', function () {
         
     })
-    .controller('AdminDeleteCtrl', ['$scope', '$modal', '$location', 'Video', function($scope, $modal, $location, Video){
+    .controller('AdminDeleteCtrl', ['$scope', '$modal', '$location', function($scope, $modal, $location){
         function deleteVideo(vidID) {
-            Video.delete({id: vidID}).$promise.then(function(video) {
+            /*Video.delete({id: vidID}).$promise.then(function(video) {
                // success
             }, function(errResponse) {
                // fail
-            });
+            });*/
         }
         
         $scope.delModal = function(id, title){

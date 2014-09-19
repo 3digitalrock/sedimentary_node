@@ -21,9 +21,9 @@
                                     <h3 class="box-title">Video Info</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
-                                    <div><a href="#" editable-text="video.title">{[{video.title}]}</a></div>
+                                    <div><a href="#" editable-text="video.title" onaftersave="updateVideo()">{[{video.title}]}</a></div>
                                     <div><a href="#" editable-textarea="video.description" e-rows="7" e-cols="40">{[{ video.description }]}</a></div>
-                                    <div><a href="#" editable-select="user.studios" e-ng-options="s.value as s.text for s in studios">
+                                    <div><a href="#" editable-select="video.studio" e-ng-options="s.value as s.text for s in studios">
                                         {[{ showStudio() }]}
                                     </a></div>
                                 </div>

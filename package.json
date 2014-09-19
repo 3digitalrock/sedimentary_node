@@ -1,23 +1,24 @@
 {
-    "name": "3drs-sedimentary",
-    "version": "0.0.0",
-    "main": "server.js",
-    "private": true,
-    "dependencies": {
-        "express": "*",
-        "compression": "*",
-        "express-handlebars": "*",
-        "body-parser": "*",
-        "busboy": "0.0.15",
-        "knox": "~0.8.9",
-        "connect-busboy": "0.0.1",
-        "zencoder": "*",
-        "restler": "*",
-        "async": "*",
-        "reqwest": "appsforartists/reqwest"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://gitlab.com/3-digital-rock/sedimentary.git"
-    }
+  "name": "3drs-sedimentary",
+  "version": "0.0.0",
+  "main": "server.js",
+  "private": true,
+  "dependencies": {
+    "async": "*",
+    "body-parser": "*",
+    "busboy": "0.0.15",
+    "compression": "*",
+    "connect-busboy": "0.0.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "knox": "~0.8.9",
+    "reqwest": "appsforartists/reqwest",
+    "restangular": "^1.4.0",
+    "restler": "*",
+    "zencoder": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/3-digital-rock/sedimentary.git"
+  }
 }
