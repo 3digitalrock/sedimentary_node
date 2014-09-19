@@ -1,9 +1,11 @@
-angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular'])
-    .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider) {
+angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar'])
+    .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider) {
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
         $locationProvider.html5Mode(true);
         RestangularProvider.setBaseUrl('http://api.3drs.synth3tk.com');
+        cfpLoadingBarProvider.latencyThreshold = 500;
+        cfpLoadingBarProvider.includeSpinner = false;
         $sceDelegateProvider.resourceUrlWhitelist([
           'self',
           'http://3digitalrock.s3.amazonaws.com/**'
