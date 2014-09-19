@@ -3539,3 +3539,7 @@ fieldset[disabled] .btn-vk.active {
 #loading-bar .bar {
   background: #000;
 }
+
+.right-side.inner-wrapper {
+  margin-left: 0;
+}
