@@ -40,13 +40,27 @@ angular.module('AdminApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router',
             // fail
         });
     }])
-    .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', 'Video', function ($scope, $stateParams, Video) {
+    .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', 'Video', '$filter', function ($scope, $stateParams, Video, $filter) {
         Video.get({id: $stateParams.videoId}).$promise.then(function(video) {
            // success
            $scope.video = video;
         }, function(errResponse) {
            // fail
         });
+        
+        $scope.user = {
+          studios: 'Blb5I6AEAtuj'
+        }; 
+      
+        $scope.studios = [
+          {value: 'Blb5I6AEAtuj', text: '3 Digital Rock'},
+          {value: 'Blb5I6AEAtuj2', text: '2 Analog Stones'}
+        ]; 
+      
+        $scope.showStudio = function() {
+          var selected = $filter('filter')($scope.studios, {value: $scope.user.studios});
+          return ($scope.user.studios && selected.length) ? selected[0].text : 'Not set';
+        };
     }])
     .controller('AdminVideoCreateCtrl', function () {
         

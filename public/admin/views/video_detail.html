@@ -1,13 +1,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Blank page
-                        <small>it all starts here</small>
+                        {[{video.title}]}
+                        <small>Info and edit</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Examples</a></li>
-                        <li class="active">Blank page</li>
+                        <li class="active">{[{video.title}]}</li>
                     </ol>
                 </section>
 
@@ -16,20 +16,34 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="box box-solid">
-                                <div>{[{video.title}]}</a></div>
-                                <div>{[{video.studio}]}</div>
-                                <div>{[{video.description}]}</div>
+                                <div class="box-header">
+                                    <i class="fa fa-info"></i>
+                                    <h3 class="box-title">Video Info</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div><a href="#" editable-text="video.title">{[{video.title}]}</a></div>
+                                    <div><a href="#" editable-textarea="video.description" e-rows="7" e-cols="40">{[{ video.description }]}</a></div>
+                                    <div><a href="#" editable-select="user.studios" e-ng-options="s.value as s.text for s in studios">
+                                        {[{ showStudio() }]}
+                                    </a></div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="box">
-                                <video id="video-player" class="video-js vjs-default-skin vjs-sedimentary" controls preload="auto" poster="{[{video.thumbnails.[3]}]}">
-                                    <source src="{[{video.files.mp4_high}]}" type='video/mp4' data-res="HD" />
-                                    <source src="{[{video.files.mp4_low}]}" type='video/mp4' data-res="SD" data-default="true" />
-                                    <source src="{[{video.files.webm}]}" type='video/webm' />
-                                    <source src="{[{video.files.ogg}]}" type='video/ogg' />
-                                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-                                </video>
+                                <div class="box-header">
+                                    <i class="fa fa-play"></i>
+                                    <h3 class="box-title">Preview</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <video id="video-player" class="video-js vjs-default-skin vjs-sedimentary" controls preload="auto" poster="{[{video.thumbnails.[3]}]}">
+                                        <source src="{[{video.files.mp4_high}]}" type='video/mp4' data-res="HD" />
+                                        <source src="{[{video.files.mp4_low}]}" type='video/mp4' data-res="SD" data-default="true" />
+                                        <source src="{[{video.files.webm}]}" type='video/webm' />
+                                        <source src="{[{video.files.ogg}]}" type='video/ogg' />
+                                        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                                    </video>
+                                </div>
                             </div>
                         </div>
                     </div>
