@@ -51,7 +51,7 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
     .controller('AdminDashboardCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
         $scope.contentResize
         var baseVideos = Restangular.all('videos');
-        baseVideos.getList().then(function(videos){
+        baseVideos.getList({limit: 5}).then(function(videos){
           $scope.videos = videos;
         });
     }])
