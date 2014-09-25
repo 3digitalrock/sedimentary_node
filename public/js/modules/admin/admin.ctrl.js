@@ -54,7 +54,6 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
           $urlRouterProvider.otherwise("/dashboard");
     }])
     .controller('AdminDashboardCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
-        $scope.contentResize
         var baseVideos = Restangular.all('videos');
         baseVideos.getList({limit: 5}).then(function(videos){
           $scope.videos = videos;
@@ -108,9 +107,10 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
           }).ready(function(){
             var singlePlayer = this;
             singlePlayer.volume(0.75);
-            var aspectRatio = 9/16; // Make up an aspect ratio
-          
+            
             function resizeVideoJS(){
+              var aspectRatio = 9/16; // Make up an aspect ratio
+              
               // Get the parent element's actual width
               var width = document.getElementById(singlePlayer.id()).parentElement.offsetWidth;
               // Remove the padding from the calculation
