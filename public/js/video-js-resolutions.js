@@ -413,20 +413,25 @@ videojs.plugin('resolutions', function(options) {
   ResolutionsButton.prototype.buttonText = 'Resolutions';
   ResolutionsButton.prototype.className = 'vjs-resolutions-button';
 
-  // Add Button to controlBar
-  videojs.obj.merge(player.controlBar.options_['children'], {
-    'resolutionsButton': {}
-  });
-
   // let's get the party started!
   // we have to grab the parsed sources and select the source with our
   // resolution-aware source selector
   var source = player.resolutions_.selectSource(player.options_['sources']);
 
   // when the player is ready, add the resolution button to the control bar
+  // https://github.com/guru-zoomforth/video-js-resolutions/commit/c0f1e9573820c72b0079200d73195ed396dd5bb6
   player.ready(function(){
+    // Add Button to controlBar
+    videojs.obj.merge(player.controlBar.options_['children'], {
+      'resolutionsButton': {}
+    });
+
     player.changeResolution(source);
     var button = new ResolutionsButton(player);
     player.controlBar.addChild(button);
+    player.on('dispose', function() {
+      player.controlBar.removeChild(button);
+      delete player.controlBar.options_['children']['resolutionsButton']
+    });
   });
 });

@@ -6157,6 +6157,9 @@ vjs.MediaTechController.prototype.dispose = function() {
 
   if (this.manualTimeUpdates) { this.manualTimeUpdatesOff(); }
 
+  // https://github.com/videojs/video.js/issues/1484#issuecomment-55245716
+  clearInterval(this.currentTimeInterval);
+
   vjs.Component.prototype.dispose.call(this);
 };
 
