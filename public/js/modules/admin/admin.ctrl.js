@@ -39,6 +39,11 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
             .state('videosDetails', {
               url: '/dashboard/videos/:videoId',
               templateUrl: '/admin/views/video_detail.html',
+              resolve: {
+                videoPromise: function(Restangular, $stateParams){
+                  return Restangular.one('videos', $stateParams.videoId).get().then(function(video){return video});
+                }
+              },
               controller: 'AdminVideoDetailsCtrl'
             })
             .state('studiosDetails', {
@@ -55,13 +60,10 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
           $scope.videos = videos;
         });
     }])
-    .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$route', '$location', '$routeParams', '$timeout',
-    function ($scope, $stateParams, $filter, Restangular, $route, $location, $routeParams, $timeout) {
-        var baseVideo = Restangular.one('videos', $stateParams.videoId);
-        $scope.video = baseVideo.get().$object;
+    .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$route', '$location', '$routeParams', '$timeout', 'videoPromise',
+    function ($scope, $stateParams, $filter, Restangular, $route, $location, $routeParams, $timeout, videoPromise) {
+        $scope.video = videoPromise;
         var observer = jsonpatch.observe($scope.video);
-        
-        $scope.videoPromise = baseVideo.get();
         
         $scope.studios = [
           {value: 'Blb5I6AEAtuj', text: '3 Digital Rock'},
@@ -78,22 +80,20 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
           var selected = $filter('filter')($scope.studios, {value: $scope.video.studio});
           return ($scope.video.studio && selected.length) ? selected[0].text : 'Not set';
         };
-
+        
         $scope.showChannels = function() {
           var selected = [];
-
-          angular.forEach($scope.channels, function(s,k) {
-            $scope.videoPromise.then(function(video){if(video.channels.indexOf(s.value) > -1)console.log(s.value)});
-            
-            selected.push(s.text);
+          angular.forEach($scope.channels, function(s) { 
+            if ($scope.video.channels.indexOf(s.value) > -1) {
+              selected.push(s.text);
+            }
           });
-          
           return selected.length ? selected.join(', ') : 'Not set';
         };
         
         $scope.updateVideo = function() {
           var patch = jsonpatch.generate(observer);
-          baseVideo.patch(patch).then(function(){
+          Restangular.one('videos', $scope.video.uid).patch(patch).then(function(){
             console.log('video saved!');
           }, function(){
             console.log('error saving video!');
