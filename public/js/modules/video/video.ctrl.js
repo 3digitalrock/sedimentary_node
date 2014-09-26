@@ -1,4 +1,4 @@
-angular.module('videoApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router', 'slick'])
+angular.module('videoApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router', 'slick', 'angular-loading-bar', 'ngAnimate'])
     .config(function($interpolateProvider, $locationProvider) {
         //cfpLoadingBarProvider.includeSpinner = false;
         $interpolateProvider.startSymbol('{[{');

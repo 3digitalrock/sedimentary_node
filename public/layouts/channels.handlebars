@@ -11,6 +11,7 @@
     <link href="/css/video-js.css" rel="stylesheet" />
     <link href="/css/video-js-resolutions.css" rel="stylesheet" />
     <link href="/slick-carousel/slick/slick.css" rel="stylesheet">
+    <link href="/css/loading-bar.css" rel="stylesheet" />
     <link href="/css/sedimentary.css" rel="stylesheet" />
     <link href="/css/focal-point.min.css" rel="stylesheet" />
     
@@ -52,8 +53,9 @@
     </footer>
   </div>
   
-  <!-- TODO: Load scripts based on page's needs -->
+  <div cg-busy="myPromise"></div>
   
+  <!-- TODO: Load scripts based on page's needs -->
 	<script src="/fittext/jquery.fittext.js"></script>
 	<script src="/responsive-nav/responsive-nav.min.js"></script>
   <script src="/js/sedimentary.js"></script>
@@ -65,8 +67,10 @@
   <script src="/js/video-js-resolutions.js"></script>-->
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-resource.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-animate.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+  <script src="/js/loading-bar.js"></script>
   <script src="/slick-carousel/slick/slick.min.js"></script>
   <script src="/angular-slick/dist/slick.min.js"></script>
   <script src="/js/modules/video/video.ctrl.js" type="text/javascript"></script>
