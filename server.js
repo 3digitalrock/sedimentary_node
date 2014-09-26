@@ -1,7 +1,8 @@
 var express = require('express'),
     exphbs = require('express-handlebars'),
     bodyParser = require('body-parser'),
-    busboy = require('connect-busboy');
+    busboy = require('connect-busboy'),
+    session = require('express-session');
 
 var app = express();
 
@@ -32,6 +33,11 @@ app.use(busboy());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
+}));
+
+app.use(session({
+    name: '3drs.sessh',
+    secret: 'JAUQTovnaRMydIMObbgTvFniPWyzHiSn'
 }));
 
 // All the routes are belong to this

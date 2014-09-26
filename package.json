@@ -12,6 +12,7 @@
     "cookie-session": "^1.0.2",
     "express": "*",
     "express-handlebars": "*",
+    "express-session": "^1.8.2",
     "knox": "~0.8.9",
     "reqwest": "appsforartists/reqwest",
     "restangular": "^1.4.0",
