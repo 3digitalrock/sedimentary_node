@@ -28,8 +28,12 @@ module.exports = function(app){
         channel.videoPage(req, res);
     });
     
-    app.get('/login/:redirect?', function(req, res){
+    app.get('/login', function(req, res){
         auth.login(req, res);
+    });
+    
+    app.get('/register', function(req, res){
+        auth.register(req, res);
     });
     
     app.get('/dashboard*', function (req, res) {

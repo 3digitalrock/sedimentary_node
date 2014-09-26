@@ -75,6 +75,24 @@
     </script>
   {{/if}}
   
+  {{#if atRegister}}
+    <script src="https://js.authrocket.com/v1/authrocket.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      AuthRocket.setInstanceUrl('https://3drsmain.e1.loginrocket.com/v1/');
+      $(function(){
+        $('#register-form').submit(function(event){
+          AuthRocket.signup({
+            username: $("#register-username").val(),
+            email: $("#register-email").val(),
+            password: $("#register-password").val(),
+            password_confirmation: $("#register-password2").val()
+          });
+          return false;
+        });
+      });
+    </script>
+  {{/if}}
+  
 	<script src="/fittext/jquery.fittext.js"></script>
 	<script src="/responsive-nav/responsive-nav.min.js"></script>
   <script src="/js/sedimentary.js"></script>
