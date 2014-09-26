@@ -1,6 +1,7 @@
 var awsUpload = require('../lib/upload'),
     transcode = require('../lib/transcode'),
-    channel = require('../lib/channel');
+    channel = require('../lib/channel'),
+    auth = require('../lib/auth');
 
 module.exports = function(app){
     app.get('/', function (req, res) {
@@ -25,6 +26,10 @@ module.exports = function(app){
     
     app.get('/watch/:video/:title?', function (req, res) {
         channel.videoPage(req, res);
+    });
+    
+    app.get('/login/:redirect?', function(req, res){
+        auth.login(req, res);
     });
     
     app.get('/dashboard*', function (req, res) {
