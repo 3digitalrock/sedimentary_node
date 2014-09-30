@@ -3535,11 +3535,3 @@ fieldset[disabled] .btn-vk.active {
   color: #587ea3;
   background-color: #ffffff;
 }
-
-#loading-bar .bar {
-  background: #000;
-}
-
-.right-side.inner-wrapper {
-  margin-left: 0;
-}

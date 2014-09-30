@@ -1,0 +1,15 @@
+#loading-bar .bar {
+  background: #000;
+}
+
+.skin-blue .logo {
+    background-color: #000;
+}
+
+.skin-blue .navbar {
+    background-color: #8c8c8c;
+}
+
+.right-side.inner-wrapper {
+  margin-left: 0;
+}
