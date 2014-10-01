@@ -2,7 +2,50 @@ var express = require('express'),
     exphbs = require('express-handlebars'),
     bodyParser = require('body-parser'),
     busboy = require('connect-busboy'),
-    session = require('express-session');
+    session = require('express-session'),
+    flash = require('connect-flash'),
+    passport = require('passport'),
+    _ = require('underscore'),
+    config = require('./config/dev'),
+    UserAppStrategy = require('passport-userapp').Strategy;
+    
+var users = [];
+
+// Passport session setup
+passport.serializeUser(function (user, done) {
+    done(null, user.username);
+});
+
+passport.deserializeUser(function (username, done) {
+    var user = _.find(users, function (user) {
+        return user.username == username;
+    });
+    if (user === undefined) {
+        done(new Error('No user with username "' + username + '" found.'));
+    } else {
+        done(null, user);
+    }
+});
+
+// Use the UserAppStrategy within Passport
+passport.use(
+    new UserAppStrategy({
+        appId: config.userapp.appId
+    },
+    function (userprofile, done) {
+        process.nextTick(function () {
+            var exists = _.any(users, function (user) {
+                return user.id == userprofile.id;
+            });
+            
+            if (!exists) {
+                users.push(userprofile);
+            }
+
+            return done(null, userprofile);
+        });
+    }
+));
 
 var app = express();
 
@@ -35,10 +78,11 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(session({
-    name: '3drs.sessh',
-    secret: 'JAUQTovnaRMydIMObbgTvFniPWyzHiSn'
-}));
+app.use(session({secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r3'}));
+app.use(flash());
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // All the routes are belong to this
 require('./routes/index.js')(app);

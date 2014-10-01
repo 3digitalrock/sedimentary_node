@@ -1,7 +1,7 @@
 var awsUpload = require('../lib/upload'),
     transcode = require('../lib/transcode'),
     channel = require('../lib/channel'),
-    auth = require('../lib/auth');
+    passport = require('passport');
 
 module.exports = function(app){
     app.get('/', function (req, res) {
@@ -29,18 +29,35 @@ module.exports = function(app){
     });
     
     app.get('/login', function(req, res){
-        auth.login(req, res);
+        res.render('login', {atLogin: true, pageTitle: 'Login', error: req.flash('error')});
     });
     
-    app.get('/register', function(req, res){
-        auth.register(req, res);
+    app.post('/login',
+        passport.authenticate('userapp', { failureRedirect: '/login', failureFlash: 'Invalid username or password.' }),
+        function(req, res) {
+            // This is the default destination upon successful login.
+            var redirectUrl = '/account';
+            
+            // If we have previously stored a redirectUrl, use that, 
+            // otherwise, use the default.
+            if (req.session.redirectUrl) {
+                redirectUrl = req.session.redirectUrl;
+                req.session.redirectUrl = null;
+            }
+            
+            res.redirect(redirectUrl);
+        });
+    
+    app.get('/logout', function (req, res) {
+        req.logout();
+        res.redirect('/');
     });
     
-    app.get('/dashboard*', function (req, res) {
+    app.get('/dashboard*', ensureAuthenticated, function (req, res) {
         res.render('../admin/index', {layout:false});
     });
     
-    app.get('/dashboard', function (req, res) {
+    app.get('/dashboard', ensureAuthenticated, function (req, res) {
         res.render('../admin/index', {layout:false});
     });
     
@@ -53,3 +70,13 @@ module.exports = function(app){
         res.status(204).end();
     });
 };
+
+// Simple route middleware to ensure user is authenticated
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    // set the current URL as the redirect after auth
+    req.session.redirectUrl = req.url;
+    res.redirect('/login');
+}
