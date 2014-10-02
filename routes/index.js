@@ -44,21 +44,22 @@ module.exports = function(app){
                 redirectUrl = req.session.redirectUrl;
                 req.session.redirectUrl = null;
             }
-            
+            //res.cookie('ua_session_token', req.user.token);
             res.redirect(redirectUrl);
         });
     
     app.get('/logout', function (req, res) {
+        //res.clearCookie('ua_session_token');
         req.logout();
         res.redirect('/');
     });
     
     app.get('/dashboard*', ensureAuthenticated, function (req, res) {
-        res.render('../admin/index', {layout:false});
+        res.render('../admin/index', {layout:false, user: req.user});
     });
     
     app.get('/dashboard', ensureAuthenticated, function (req, res) {
-        res.render('../admin/index', {layout:false});
+        res.render('../admin/index', {layout:false, user: req.user});
     });
     
     app.post('/upload', function(req, res){
