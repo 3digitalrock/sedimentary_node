@@ -31,6 +31,11 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
             templateUrl: '/admin/views/home.html',
             controller: 'AdminDashboardCtrl'
           })
+          .state('videosAll', {
+            url: '/dashboard/videos/all',
+            templateUrl: '/admin/views/video_all.html',
+            controller: 'AdminVideoAllCtrl'
+          })
           .state('videosUpload', {
             url: '/dashboard/videos/upload',
             templateUrl: '/admin/views/video_create.html',
@@ -63,7 +68,10 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
           });
         $urlRouterProvider.otherwise("/dashboard");
   }])
-  .controller('AdminDashboardCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
+  .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
+    
+  }])
+  .controller('AdminVideoAllCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
       var baseVideos = Restangular.all('videos');
       baseVideos.getList({limit: 5}).then(function(videos){
         $scope.videos = videos;
