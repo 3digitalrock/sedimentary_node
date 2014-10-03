@@ -50,6 +50,9 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
               },
               studiosPromise: function(Restangular){
                 return Restangular.all('studios').getList().then(function(studios){return studios});
+              },
+              channelsPromise: function(Restangular){
+                return Restangular.all('channels').getList().then(function(channels){return channels});
               }
             },
             controller: 'AdminVideoDetailsCtrl'
@@ -80,8 +83,8 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
         $scope.videos = videos;
       });
   }])
-  .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$route', '$location', '$routeParams', '$timeout', 'videoPromise', 'studiosPromise',
-  function ($scope, $stateParams, $filter, Restangular, $route, $location, $routeParams, $timeout, videoPromise, studiosPromise) {
+  .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$route', '$location', '$routeParams', '$timeout', 'videoPromise', 'studiosPromise', 'channelsPromise',
+  function ($scope, $stateParams, $filter, Restangular, $route, $location, $routeParams, $timeout, videoPromise, studiosPromise, channelsPromise) {
       $scope.video = videoPromise;
       var observer = jsonpatch.observe($scope.video);
       
@@ -90,11 +93,10 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
         $scope.studios.push({value: key.uid, text: key.name});
       });
       
-      $scope.channels = [
-        {value: "action", text: 'Action'},
-        {value: "comedy", text: 'Comedy'},
-        {value: "horror", text: 'Horror'}
-      ];
+      $scope.channels = [];
+      _.forEach(channelsPromise, function(key){
+        $scope.channels.push({value: key.uid, text: key.name});
+      });
     
       $scope.showStudio = function() {
         var selected = $filter('filter')($scope.studios, {value: $scope.video.studio.uid});
