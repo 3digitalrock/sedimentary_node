@@ -47,6 +47,9 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
             resolve: {
               videoPromise: function(Restangular, $stateParams){
                 return Restangular.one('videos', $stateParams.videoId).get().then(function(video){return video});
+              },
+              studiosPromise: function(Restangular){
+                return Restangular.all('studios').getList().then(function(studios){return studios});
               }
             },
             controller: 'AdminVideoDetailsCtrl'
@@ -77,15 +80,15 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
         $scope.videos = videos;
       });
   }])
-  .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$route', '$location', '$routeParams', '$timeout', 'videoPromise',
-  function ($scope, $stateParams, $filter, Restangular, $route, $location, $routeParams, $timeout, videoPromise) {
+  .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$route', '$location', '$routeParams', '$timeout', 'videoPromise', 'studiosPromise',
+  function ($scope, $stateParams, $filter, Restangular, $route, $location, $routeParams, $timeout, videoPromise, studiosPromise) {
       $scope.video = videoPromise;
       var observer = jsonpatch.observe($scope.video);
       
-      $scope.studios = [
-        {value: 'Blb5I6AEAtuj', text: '3 Digital Rock'},
-        {value: 'Blb5I6AEAtuj2', text: '2 Analog Stones'}
-      ];
+      $scope.studios = [];
+      _.forEach(studiosPromise, function(key){
+        $scope.studios.push({value: key.uid, text: key.name});
+      });
       
       $scope.channels = [
         {value: "action", text: 'Action'},
