@@ -73,7 +73,7 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
   }])
   .controller('AdminVideoAllCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
       var baseVideos = Restangular.all('videos');
-      baseVideos.getList({limit: 5}).then(function(videos){
+      baseVideos.getList({limit: 5, fields: 'uid,title,slug,description,studio'}).then(function(videos){
         $scope.videos = videos;
       });
   }])
@@ -94,8 +94,8 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
       ];
     
       $scope.showStudio = function() {
-        var selected = $filter('filter')($scope.studios, {value: $scope.video.studio});
-        return ($scope.video.studio && selected.length) ? selected[0].text : 'Not set';
+        var selected = $filter('filter')($scope.studios, {value: $scope.video.studio.uid});
+        return ($scope.video.studio.uid && selected.length) ? selected[0].text : 'Not set';
       };
       
       $scope.showChannels = function() {
