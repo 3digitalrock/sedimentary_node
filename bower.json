@@ -8,7 +8,8 @@
     "angular-slick": "~0.1.11",
     "angular-xeditable": "~0.1.8",
     "fast-json-patch": "~0.4.0",
-    "angular-loading-bar": "~0.6.0"
+    "angular-loading-bar": "~0.6.0",
+    "angular-moment": "~0.8.2"
   },
   "private": true
 }

@@ -1,4 +1,4 @@
-angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model'])
+angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment'])
   .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider) {
       $interpolateProvider.startSymbol('{[{');
       $interpolateProvider.endSymbol('}]}');
@@ -73,7 +73,7 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
   }])
   .controller('AdminVideoAllCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
       var baseVideos = Restangular.all('videos');
-      baseVideos.getList({limit: 5, fields: 'uid,title,slug,description,studio'}).then(function(videos){
+      baseVideos.getList({limit: 5, fields: 'uid,title,slug,description,studio,created'}).then(function(videos){
         $scope.videos = videos;
       });
   }])
