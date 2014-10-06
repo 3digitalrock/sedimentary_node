@@ -78,7 +78,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(session({secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r3'}));
+app.use(session({secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r3', 
+                 saveUninitialized: true,
+                 resave: true}));
 app.use(flash());
 // Initialize Passport
 app.use(passport.initialize());
