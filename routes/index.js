@@ -55,8 +55,8 @@ module.exports = function(app){
         res.redirect('/');
     });
     
-    app.get('/dashboard*', ensureAuthenticated, passport.authenticate('userapp', { failureRedirect: '/login' }), function (req, res, next) {
-        res.render('../admin/index', {layout:false, user: req.user});
+    app.get('/dashboard*', function (req, res, next) {
+        res.render('../admin/index', {layout:false});
     });
     
     app.post('/upload', function(req, res){

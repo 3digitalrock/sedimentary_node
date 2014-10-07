@@ -44,6 +44,7 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
           .state('videosDetails', {
             url: '/dashboard/videos/:videoId',
             templateUrl: '/admin/views/video_detail.html',
+            controller: 'AdminVideoDetailsCtrl',
             resolve: {
               videoPromise: function(Restangular, $stateParams){
                 return Restangular.one('videos', $stateParams.videoId).get().then(function(video){return video});
@@ -54,8 +55,7 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
               channelsPromise: function(Restangular){
                 return Restangular.all('channels').getList().then(function(channels){return channels});
               }
-            },
-            controller: 'AdminVideoDetailsCtrl'
+            }
           })
           .state('studiosCreate', {
             url: '/dashboard/studios/new',
@@ -71,20 +71,32 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
               }
             },
             controller: 'AdminStudioDetailsCtrl'
+          })
+          .state('dashLogin', {
+            url: '/dashboard/login',
+            templateUrl: '/admin/views/login.html',
+            data: {
+              login: true
+            },
+            controller: 'AdminLoginCtrl'
           });
         $urlRouterProvider.otherwise("/dashboard");
   }])
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
     
   }])
+  .controller('AdminLoginCtrl', function($scope){
+    $scope.user.first_name = 'Friend';
+  })
   .controller('AdminVideoAllCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
       var baseVideos = Restangular.all('videos');
       baseVideos.getList({limit: 5, fields: 'uid,title,slug,description,studio,created'}).then(function(videos){
         $scope.videos = videos;
       });
   }])
-  .controller('AdminVideoDetailsCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$route', '$location', '$routeParams', '$timeout', 'videoPromise', 'studiosPromise', 'channelsPromise',
-  function ($scope, $stateParams, $filter, Restangular, $route, $location, $routeParams, $timeout, videoPromise, studiosPromise, channelsPromise) {
+  .controller('AdminVideoDetailsCtrl', ['$scope', '$filter', 'Restangular', '$route', '$location', '$timeout', 'videoPromise', 'studiosPromise', 'channelsPromise',
+  function ($scope, $filter, Restangular, $route, $location, $timeout, videoPromise, studiosPromise, channelsPromise) {
+      console.log('here');
       $scope.video = videoPromise;
       var observer = jsonpatch.observe($scope.video);
       
@@ -163,7 +175,7 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
   .controller('AdminVideoCreateCtrl', function () {
       
   })
-  .controller('AdminDeleteCtrl', ['$scope', '$modal', '$location', function($scope, $modal, $location){
+  .controller('AdminDeleteCtrl', ['$scope', '$modal', '$location', '$state', function($scope, $modal, $location, $state){
       function deleteVideo(vidID) {
           /*Video.delete({id: vidID}).$promise.then(function(video) {
              // success
@@ -191,7 +203,7 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
           
           modalInstance.result.then(function () {
             deleteVideo($scope.delVideo['id']);
-            $location.url('/dashboard');
+            $state.reload();
           }, function () {
             // Cancelled
           });
@@ -203,9 +215,12 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
   .controller('AdminStudioDetailsCtrl', function () {
       
   })
-  .run(function(editableOptions, user){
+  .run(function($rootScope, editableOptions, user){
+    user.init({
+      appId: '542b63aff0d72',
+      heartbeatInterval: 0
+    });
     editableOptions.theme = 'default';
-    user.init({ appId: '542b63aff0d72' });
   });
     
 var ModalInstanceCtrl = function ($scope, $modalInstance, delVideo) {

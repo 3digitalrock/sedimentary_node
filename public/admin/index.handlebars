@@ -28,7 +28,7 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="skin-blue">
+    <body ng-cloak class="skin-blue">
         <!-- header logo: style can be found in header.less -->
         <header class="header">
             <a href="/dashboard" class="logo">
@@ -44,7 +44,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <div class="navbar-right">
+                <div class="navbar-right" ng-show="user.authenticated">
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
@@ -168,14 +168,15 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
-                                <span>{{user.name.givenName}} {{user.name.familyName}} <i class="caret"></i></span>
+                                <span ng-bind="user.first_name"></span>
+                                <i class="caret"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
                                     <img src="http://www.gravatar.com/avatar/772ba24d5e24b8d68b6314bd3540c7bc.png" class="img-circle" alt="User Image" />
                                     <p>
-                                        {{user.name.givenName}} {{user.name.familyName}}
+                                        {[{user.first_name}]} {[{user.last_name}]}
                                         <small>Member since Sep. 2014</small>
                                     </p>
                                 </li>
@@ -217,13 +218,13 @@
                             <img src="http://www.gravatar.com/avatar/772ba24d5e24b8d68b6314bd3540c7bc.png" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, {{ user.name.givenName }}</p>
+                            <p>Hello, {[{ user.first_name }]}</p>
 
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu">
+                    <ul class="sidebar-menu" ng-show="user.authenticated">
                         <li>
                             <a href="/dashboard">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -245,7 +246,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="/dashboard/studios/new"><i class="fa fa-pencil-square-o"></i> Create New Studio</a></li>
+                                <li ua-has-permission="super_admin"><a href="/dashboard/studios/new"><i class="fa fa-pencil-square-o"></i> Create New Studio</a></li>
                                 <!-- For each studio the user can access, list it here -->
                                 <li><a href="/dashboard/studios/Blb5I6AEAtuj"><i class="fa fa-pencil-square-o"></i> 3 Digital Rock Studios</a></li>
                             </ul>
