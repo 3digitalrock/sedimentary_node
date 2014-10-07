@@ -1,0 +1,45 @@
+<div class="large-12 columns">
+    <video id="video-player" src="" class="video-js vjs-default-skin vjs-sedimentary" controls preload="auto" poster="{{video.thumbnails.[1]}}" >
+    </video>
+</div>
+
+<h1 class="vid_title">{{video.title}}</h1>
+<div class="vid_desc">{{video.description}}</div>
+{{#if ajax}}<script src="/js/vendor/video.dev.js"></script>
+<script src="/js/video-js-resolutions.js"></script>
+<script src="/videojs-youtube/dist/vjs.youtube.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+      videojs('video-player', {
+        techOrder: ["youtube"],
+        src: "https://www.youtube.com/watch?v=cYROcGmdDDc"
+      });
+      videojs.options.flash.swf = "/js/vendor/video-js.swf";
+      videojs('video-player').ready(function(){
+        var singlePlayer = this;
+        singlePlayer.volume(0.75);
+        var aspectRatio = 9/16; // Make up an aspect ratio
+      
+        function resizeVideoJS(){
+          // Get the parent element's actual width
+          var width = document.getElementById(singlePlayer.id()).parentElement.offsetWidth;
+          // Remove the padding from the calculation
+          width = width - parseInt($("#video-player").parent().css('padding-left'));
+          width = width - parseInt($("#video-player").parent().css('padding-right'));
+          // Set width to fill parent element, Set height
+          singlePlayer.width(width).height( width * aspectRatio );
+        }
+      
+        resizeVideoJS(); // Initialize the function
+        window.onresize = resizeVideoJS; // Call the function on resize
+      });
+    });
+</script>{{/if}}
+
+<div class="more_studio">
+  More by studio
+</div>
+
+<div class="more_related">
+  More related
+</div>
