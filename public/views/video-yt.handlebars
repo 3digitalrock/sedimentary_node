@@ -1,5 +1,5 @@
 <div class="large-12 columns">
-    <video id="video-player" src="" class="video-js vjs-default-skin vjs-sedimentary" controls preload="auto" poster="{{video.thumbnails.[1]}}" >
+    <video id="video-player" src="" class="video-js vjs-default-skin vjs-sedimentary" controls preload="auto" poster="{{video.thumbnails.[0]}}" >
     </video>
 </div>
 
@@ -12,7 +12,7 @@
     $(document).ready(function(){
       videojs('video-player', {
         techOrder: ["youtube"],
-        src: "https://www.youtube.com/watch?v=cYROcGmdDDc"
+        src: "{{video.src}}"
       });
       videojs.options.flash.swf = "/js/vendor/video-js.swf";
       videojs('video-player').ready(function(){
