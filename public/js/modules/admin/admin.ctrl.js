@@ -1,4 +1,4 @@
-angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment'])
+angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment', 'UserApp'])
   .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider) {
       $interpolateProvider.startSymbol('{[{');
       $interpolateProvider.endSymbol('}]}');
@@ -203,8 +203,9 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
   .controller('AdminStudioDetailsCtrl', function () {
       
   })
-  .run(function(editableOptions){
+  .run(function(editableOptions, user){
     editableOptions.theme = 'default';
+    user.init({ appId: '542b63aff0d72' });
   });
     
 var ModalInstanceCtrl = function ($scope, $modalInstance, delVideo) {
