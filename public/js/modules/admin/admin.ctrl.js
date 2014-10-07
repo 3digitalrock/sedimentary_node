@@ -57,6 +57,11 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
               }
             }
           })
+          .state('studiosAll', {
+            url: '/dashboard/studios/all',
+            templateUrl: '/admin/views/studios_all.html',
+            controller: 'AdminStudioAllCtrl'
+          })
           .state('studiosCreate', {
             url: '/dashboard/studios/new',
             templateUrl: '/admin/views/studio_create.html',
@@ -71,6 +76,21 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
               }
             },
             controller: 'AdminStudioDetailsCtrl'
+          })
+          .state('usersAll', {
+            url: '/dashboard/users/all',
+            templateUrl: '/admin/views/user_all.html',
+            controller: 'AdminUserAllCtrl'
+          })
+          .state('usersDetails', {
+            url: '/dashboard/users/:userId',
+            templateUrl: '/admin/views/user_detail.html',
+            resolve: {
+              userPromise: function(Restangular, $stateParams){
+                return Restangular.one('users', $stateParams.userId).get().then(function(studio){return studio});
+              }
+            },
+            controller: 'AdminUserDetailsCtrl'
           })
           .state('dashLogin', {
             url: '/dashboard/login',
