@@ -1,7 +1,8 @@
 var awsUpload = require('../lib/upload'),
     transcode = require('../lib/transcode'),
     channel = require('../lib/channel'),
-    passport = require('passport');
+    passport = require('passport'),
+    UserApp = require("userapp");
 
 module.exports = function(app){
     app.get('/', function (req, res) {
@@ -33,7 +34,7 @@ module.exports = function(app){
     });
     
     app.post('/login',
-        passport.authenticate('userapp', { failureRedirect: '/login', failureFlash: 'Invalid username or password.' }),
+        passport.authenticate('userapp', {failureRedirect: '/login', failureFlash: 'Invalid username or password.' }),
         function(req, res) {
             // This is the default destination upon successful login.
             var redirectUrl = '/account';
@@ -54,11 +55,7 @@ module.exports = function(app){
         res.redirect('/');
     });
     
-    app.get('/dashboard*', ensureAuthenticated, function (req, res) {
-        res.render('../admin/index', {layout:false, user: req.user});
-    });
-    
-    app.get('/dashboard', ensureAuthenticated, function (req, res) {
+    app.get('/dashboard*', ensureAuthenticated, passport.authenticate('userapp', { failureRedirect: '/login' }), function (req, res, next) {
         res.render('../admin/index', {layout:false, user: req.user});
     });
     
@@ -79,5 +76,5 @@ function ensureAuthenticated(req, res, next) {
     }
     // set the current URL as the redirect after auth
     req.session.redirectUrl = req.url;
-    res.redirect('/login');
+    return next();
 }

@@ -7,7 +7,8 @@ var express = require('express'),
     passport = require('passport'),
     _ = require('underscore'),
     config = require('./config/dev'),
-    UserAppStrategy = require('passport-userapp').Strategy;
+    UserAppStrategy = require('passport-userapp').Strategy,
+    cookieParser = require('cookie-parser');
     
 var users = [];
 
@@ -78,6 +79,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.use(cookieParser());
 app.use(session({secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r3', 
                  saveUninitialized: true,
                  resave: true}));
