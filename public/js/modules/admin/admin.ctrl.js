@@ -217,12 +217,3 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, delVideo) {
     $modalInstance.dismiss('cancel');
   };
 };
-
-Array.prototype.contains = function(k) {
-  for(var i=0; i < this.length; i++){
-    if(this[i] === k){
-      return true;
-    }
-  }
-  return false;
-};
