@@ -116,7 +116,6 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
   }])
   .controller('AdminVideoDetailsCtrl', ['$scope', '$filter', 'Restangular', '$route', '$location', '$timeout', 'videoPromise', 'studiosPromise', 'channelsPromise',
   function ($scope, $filter, Restangular, $route, $location, $timeout, videoPromise, studiosPromise, channelsPromise) {
-      console.log('here');
       $scope.video = videoPromise;
       var observer = jsonpatch.observe($scope.video);
       
@@ -148,9 +147,9 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
       $scope.updateVideo = function() {
         var patch = jsonpatch.generate(observer);
         Restangular.one('videos', $scope.video.uid).patch(patch).then(function(){
-          console.log('video saved!');
+          // video saved
         }, function(){
-          console.log('error saving video!');
+          // video fail!
         });
       };
       

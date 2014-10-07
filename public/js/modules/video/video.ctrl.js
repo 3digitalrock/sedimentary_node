@@ -21,8 +21,6 @@ angular.module('videoApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router',
             });
     }])
     .controller('ChannelHomeCtrl', ['$scope', '$modal', '$routeParams', 'Video', '$rootScope', function ($scope, $modal, $routeParams, Video, $rootScope) {
-      console.log('channel');
-      
       Video.query().$promise.then(function(videos){
           $scope.videos = videos.items;
       }, function(errResponse) {
@@ -30,7 +28,7 @@ angular.module('videoApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router',
       });
     }])
     .controller('WatchVideoCtrl', ['$scope', '$location', function($scope, $location){
-      console.log('watch');
+      
 }]);
     
 var VideoModalCtrl = function ($scope, $modalInstance, videoInfo) {
