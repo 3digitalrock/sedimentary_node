@@ -235,10 +235,10 @@ angular.module('AdminApp', ['ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable',
       
   })
   .run(function($rootScope, editableOptions, user){
-    user.init({
+    /*user.init({
       appId: '542b63aff0d72',
       heartbeatInterval: 0
-    });
+    });*/
     editableOptions.theme = 'default';
   });
     
