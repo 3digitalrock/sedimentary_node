@@ -19,12 +19,22 @@ module.exports = function(grunt) {
             dest:   'public/js/dist/dashboard.js',
             nonull: true,
         },
+        vendorsDashboard: {
+            src: [  'bower_components/moment/min/moment.min.js',
+                    'bower_components/angular-moment/angular-moment.min.js',
+                    'bower_components/angular-loading-bar/build/loading-bar.min.js',
+                    'bower_components/fast-json-patch/dist/json-patch-duplex.min.js',
+                    'bower_components/angular-xeditable/dist/js/xeditable.min.js',
+                    'public/js/vendor/checklist-model.js'],
+            dest:   'public/js/dist/vendors/dashboard.js',
+            nonull: true
+        }
     },
     ngAnnotate: {
         options: {
             singleQuotes: true,
         },
-        admin: {
+        dashboard: {
             files: {
                 'public/js/dist/dashboard.js': ['public/js/dist/dashboard.js'],
             }
@@ -39,17 +49,23 @@ module.exports = function(grunt) {
             dest: 'public/js/dist/dashboard.min.js',
         },
     },
+    copy: {
+        jsonPatchMap: {
+            src: 'bower_components/fast-json-patch/dist/json-patch-duplex.min.js.map',
+            dest: 'public/js/dist/vendors/json-patch-duplex.min.js.map',
+            flatten: true,
+            filter: 'isFile'
+        },
+    },
   });
 
   // Load the plugins
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-ng-annotate');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'ngAnnotate', 'uglify']);
-  
-  // Dev tasks
-  grunt.registerTask('dev', ['concat:admin']);
+  grunt.registerTask('default', ['concat', 'ngAnnotate', 'uglify', 'copy']);
 
 };
