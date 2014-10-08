@@ -67,5 +67,7 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['concat', 'ngAnnotate', 'uglify', 'copy']);
+  
+  grunt.registerTask('dev', ['concat']);
 
 };
