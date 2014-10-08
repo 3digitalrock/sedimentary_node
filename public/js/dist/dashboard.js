@@ -11,9 +11,9 @@ angular.module('userModule', ['ngRoute', 'ui.router'])
             url: '/dashboard/users/:userId',
             templateUrl: '/admin/views/user_detail.html',
             resolve: {
-              userPromise: function(Restangular, $stateParams){
+              userPromise: ['Restangular', '$stateParams', function(Restangular, $stateParams){
                 return Restangular.one('users', $stateParams.userId).get().then(function(studio){return studio});
-              }
+              }]
             },
             controller: 'AdminUserDetailsCtrl'
           })
@@ -27,9 +27,9 @@ angular.module('userModule', ['ngRoute', 'ui.router'])
           });
   }]);
 angular.module('userModule')
-  .controller('AdminLoginCtrl', function($scope){
+  .controller('AdminLoginCtrl', ['$scope', function($scope){
     $scope.user.first_name = 'Friend';
-  });
+  }]);
 angular.module('videoModule', ['ngRoute', 'ui.router'])
   .config(['$stateProvider', '$urlRouterProvider',
       function($stateProvider, $urlRouterProvider) {
@@ -49,15 +49,15 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
             templateUrl: '/admin/views/video_detail.html',
             controller: 'AdminVideoDetailsCtrl',
             resolve: {
-              videoPromise: function(Restangular, $stateParams){
+              videoPromise: ['Restangular', '$stateParams', function(Restangular, $stateParams){
                 return Restangular.one('videos', $stateParams.videoId).get().then(function(video){return video});
-              },
-              studiosPromise: function(Restangular){
+              }],
+              studiosPromise: ['Restangular', function(Restangular){
                 return Restangular.all('studios').getList().then(function(studios){return studios});
-              },
-              channelsPromise: function(Restangular){
+              }],
+              channelsPromise: ['Restangular', function(Restangular){
                 return Restangular.all('channels').getList().then(function(channels){return channels});
-              }
+              }]
             }
           });
   }]);
@@ -186,7 +186,7 @@ angular.module('videoModule')
       };
   }]);
   
-var ModalInstanceCtrl = function ($scope, $modalInstance, delVideo) {
+var ModalInstanceCtrl = ['$scope', '$modalInstance', 'delVideo', function ($scope, $modalInstance, delVideo) {
   $scope.videoInfo = delVideo;
   $scope.ok = function () {
     $modalInstance.close();
@@ -195,7 +195,7 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, delVideo) {
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
-};
+}];
 angular.module('studioModule', ['ngRoute', 'ui.router'])
   .config(['$stateProvider', '$urlRouterProvider',
       function($stateProvider, $urlRouterProvider) {
@@ -214,9 +214,9 @@ angular.module('studioModule', ['ngRoute', 'ui.router'])
             url: '/dashboard/studios/:studioId',
             templateUrl: '/admin/views/studio_detail.html',
             resolve: {
-              studioPromise: function(Restangular, $stateParams){
+              studioPromise: ['Restangular', '$stateParams', function(Restangular, $stateParams){
                 return Restangular.one('studios', $stateParams.studioId).get().then(function(studio){return studio});
-              }
+              }]
             },
             controller: 'AdminStudioDetailsCtrl'
           });
@@ -230,7 +230,7 @@ angular.module('studioModule')
       
   });
 angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment'])
-  .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider, $stateProvider, $urlRouterProvider) {
+  .config(['$interpolateProvider', '$locationProvider', '$sceDelegateProvider', 'RestangularProvider', 'cfpLoadingBarProvider', '$stateProvider', '$urlRouterProvider', function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider, $stateProvider, $urlRouterProvider) {
       $interpolateProvider.startSymbol('{[{');
       $interpolateProvider.endSymbol('}]}');
       $locationProvider.html5Mode(true);
@@ -260,14 +260,14 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRout
           controller: 'AdminDashboardCtrl'
         });
       $urlRouterProvider.otherwise("/dashboard");
-  })
+  }])
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
     
   }])
-  .run(function($rootScope, editableOptions){
+  .run(['$rootScope', 'editableOptions', function($rootScope, editableOptions){
     /*user.init({
       appId: '542b63aff0d72',
       heartbeatInterval: 0
     });*/
     editableOptions.theme = 'default';
-  });
+  }]);

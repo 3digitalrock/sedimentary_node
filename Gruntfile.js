@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
-        admin: {
+        dashboard: {
             src: [  'public/js/src/admin/user/userModule.js',
                     'public/js/src/admin/user/LoginController.js',
                     'public/js/src/admin/video/videoModule.js',
@@ -20,23 +20,34 @@ module.exports = function(grunt) {
             nonull: true,
         },
     },
+    ngAnnotate: {
+        options: {
+            singleQuotes: true,
+        },
+        admin: {
+            files: {
+                'public/js/dist/dashboard.js': ['public/js/dist/dashboard.js'],
+            }
+        },
+    },
     uglify: {
         options: {
             banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
-        build: {
-            src: 'src/<%= pkg.name %>.js',
-            dest: 'build/<%= pkg.name %>.min.js'
+        dashboard: {
+            src: 'public/js/dist/dashboard.js',
+            dest: 'public/js/dist/dashboard.min.js',
         },
-    }
+    },
   });
 
-  // Load the plugin that provides the "uglify" task.
+  // Load the plugins
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-ng-annotate');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['concat', 'ngAnnotate', 'uglify']);
   
   // Dev tasks
   grunt.registerTask('dev', ['concat:admin']);
