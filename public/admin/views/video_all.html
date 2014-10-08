@@ -40,7 +40,7 @@
                                             <td><a ui-sref="studiosDetails({studioId: '{[{video.studio.uid}]}'})">{[{video.studio.name}]}</a></td>
                                             <td>{[{video.description}]}</td>
                                             <td><span title="{[{video.created | amDateFormat:'dddd, MMMM Do YYYY, hh:mm'}]}" am-time-ago="video.created"></span></td>
-                                            <td><span class="label label-success">Approved</span></td>
+                                            <td><vidstatus code="{[{video.status}]}"></vidstatus></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-info"><i class="fa fa-play-circle"></i></a>

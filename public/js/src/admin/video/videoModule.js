@@ -5,7 +5,12 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
           .state('videosList', {
             url: '/dashboard/videos/all',
             templateUrl: '/admin/views/video_all.html',
-            controller: 'AdminVideoListCtrl'
+            controller: 'AdminVideoListCtrl',
+            resolve: {
+              videosPromise: function(Restangular){
+                return Restangular.all('videos').getList({limit: 5, fields: 'uid,title,slug,description,studio,created,status'}).then(function(videos){return videos});
+              }
+            }
           })
           .state('videosUpload', {
             url: '/dashboard/videos/upload',
