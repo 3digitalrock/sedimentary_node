@@ -169,9 +169,8 @@ img {
     text-align: center;
     font-weight: 700;
     
-    background-color: rgba(0,0,0,0.75);
     text-shadow: 3px 4px 6px #fff;
-    color: transparent;
+    color: #ccc;
     -webkit-background-clip: text;
 }
 
@@ -188,9 +187,8 @@ img {
 }
 
 .nav-collapse li a:hover {
-    background-color: rgba(0,0,0,0.75);
     text-shadow: 3px 4px 6px #999;
-    color: transparent;
+    color: #8c8c8c;
     -webkit-background-clip: text;
 }
 
@@ -198,6 +196,18 @@ img {
   background: #ca3716;
   padding-left: 2em;
 }
+
+/* Progressive enhancement, snitch! Chrome users represent! */
+.cssreflections .nav-collapse a {
+    background-color: rgba(0,0,0,0.75);
+    color: transparent;
+}
+
+.cssreflections .nav-collapse li a:hover {
+    background-color: rgba(0,0,0,0.75);
+    color: transparent;
+}
+/* End the reign of the awesome operators */
 
 @media screen and (min-width: 40em) {
   .nav-collapse ul ul a {
