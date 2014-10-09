@@ -1,5 +1,26 @@
-    <div class="row">
+    {{#if messages}}<section class="row">
       <div class="large-12 columns">
-          <span>Contact</span>
+        <div data-alert class="alert-box alert">
+          {{#each messages}}
+            <div><strong>{{this}}</strong></div>
+          {{/each}}
+          <a href="#" class="close">&times;</a>
+        </div>
       </div>
-    </div>
+    </section>{{/if}}
+    <section class="row">
+      <div class="large-6 columns">
+        <form method="post" action="/contact">
+          <label for="name">Name</label>
+            <input name="name" placeholder="Bobby" />
+          <label for="email">Email</label>
+            <input name="email" type="email" placeholder="guy@synth3tk.com" />
+          <label for="phone">Phone</label>
+            <input name="phone" placeholder="1234567890" />
+          <button name="submit">Submit</button>
+        </form>
+      </div>
+      <div class="large-6 columns">
+        Talk to us today!
+      </div>
+    </section>

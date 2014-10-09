@@ -2,7 +2,9 @@ var awsUpload = require('../lib/upload'),
     transcode = require('../lib/transcode'),
     channel = require('../lib/channel'),
     passport = require('passport'),
-    UserApp = require("userapp");
+    UserApp = require("userapp"),
+    form = require('express-form'),
+    field = form.field;
 
 module.exports = function(app){
     app.get('/', function (req, res) {
@@ -14,8 +16,34 @@ module.exports = function(app){
     });
     
     app.get('/contact', function (req, res) {
-        res.render('contact', {atContact: true, pageTitle: 'Contact Us', layout:false});
+        res.render('contact', {atContact: true, pageTitle: 'Contact Us', messages: req.flash('form')});
     });
+    
+    app.post('/contact',
+        // Form filter and validation middleware
+        form(
+            field("name").trim().required().is(/^[a-zA-Z]+$/),
+            field("phone").trim().required().is(/^[0-9]+$/),
+            field("email").trim().isEmail()
+        ),
+        
+        // Express request-handler now receives filtered and validated data
+        function(req, res){
+            if (!req.form.isValid) {
+                // Handle errors
+                req.flash('form', req.form.errors);
+                res.redirect('/contact');
+            
+            } else {
+                // Or, use filtered form data from the form object:
+                console.log("Name:", req.form.name);
+                console.log("Email:", req.form.email);
+                console.log("Phone:", req.form.phone);
+                req.flash('form', "Thank you for contacting us! We'll be in touch shortly.");
+                res.redirect('/contact');
+            }
+        }
+    );
     
     app.get('/channels', function (req, res) {
         channel.channelRouter(req, res);
