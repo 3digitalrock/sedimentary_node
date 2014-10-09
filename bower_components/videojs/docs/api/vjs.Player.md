@@ -11,7 +11,7 @@ An instance of the `vjs.Player` class is created when any of the Video.js setup 
 var myPlayer = videojs('example_video_1');
 ```
 
-In the following example, the `data-setup` attribute tells the Video.js library to create a player instance when the library is ready.
+In the follwing example, the `data-setup` attribute tells the Video.js library to create a player instance when the library is ready.
 
 ```html
 <video id="example_video_1" data-setup='{}' controls>
@@ -27,28 +27,20 @@ After an instance has been created it can be accessed globally using `Video('exa
 
 - [METHODS](#methods)
   - [buffered](#buffered)
-  - [bufferedEnd](#bufferedend)
   - [bufferedPercent](#bufferedpercent)
-  - [cancelFullScreen](#cancelfullscreen) _`deprecated`_
+  - [cancelFullScreen](#cancelfullscreen)
   - [controls](#controls-controls-)
   - [currentTime](#currenttime-seconds-)
-  - [currentType](#currenttype)
   - [dispose](#dispose)
   - [duration](#duration-seconds-)
-  - [error](#error-err-)
-  - [exitFullscreen](#exitfullscreen)
   - [init](#init-tag-options-ready-)
-  - [isFullScreen](#isfullscreen-isfs-) _`deprecated`_
-  - [isFullscreen](#isfullscreen-isfs-)
-  - [language](#language-languagecode-)
+  - [isFullScreen](#isfullscreen-isfs-)
   - [muted](#muted-muted-)
-  - [onWaitEnd](#onwaitend)
   - [pause](#pause)
   - [paused](#paused)
   - [play](#play)
   - [poster](#poster-src-)
-  - [requestFullScreen](#requestfullscreen) _`deprecated`_
-  - [requestFullscreen](#requestfullscreen)
+  - [requestFullScreen](#requestfullscreen)
   - [src](#src-source-)
   - [volume](#volume-percentasdecimal-)
   - [addChild](#addchild-child-options-) _`inherited`_
@@ -76,13 +68,14 @@ After an instance has been created it can be accessed globally using `Video('exa
   - [removeChild](#removechild-component-) _`inherited`_
   - [removeClass](#removeclass-classtoremove-) _`inherited`_
   - [show](#show) _`inherited`_
-  - [trigger](#trigger-event-) _`inherited`_
+  - [trigger](#trigger-type-event-) _`inherited`_
   - [triggerReady](#triggerready) _`inherited`_
   - [width](#width-num-skiplisteners-) _`inherited`_
 
 - [EVENTS](#events)
   - [durationchange](#durationchange-event)
   - [ended](#ended-event)
+  - [error](#error-event)
   - [firstplay](#firstplay-event)
   - [fullscreenchange](#fullscreenchange-event)
   - [loadedalldata](#loadedalldata-event)
@@ -92,11 +85,8 @@ After an instance has been created it can be accessed globally using `Video('exa
   - [pause](#pause-event)
   - [play](#play-event)
   - [progress](#progress-event)
-  - [seeked](#seeked-event)
-  - [seeking](#seeking-event)
   - [timeupdate](#timeupdate-event)
   - [volumechange](#volumechange-event)
-  - [waiting](#waiting-event)
   - [resize](#resize-event) _`inherited`_
 
 ---
@@ -133,7 +123,7 @@ After an instance has been created it can be accessed globally using `Video('exa
 ##### RETURNS: 
 * `vjs.Component` The child component (created by this process if a string was used)
 
-_inherited from_: [src/js/component.js#L356](https://github.com/videojs/video.js/blob/master/src/js/component.js#L356)
+_inherited from_: [src/js/component.js#L347](https://github.com/videojs/video.js/blob/master/src/js/component.js#L347)
 
 ---
 
@@ -146,7 +136,7 @@ _inherited from_: [src/js/component.js#L356](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L672](https://github.com/videojs/video.js/blob/master/src/js/component.js#L672)
+_inherited from_: [src/js/component.js#L632](https://github.com/videojs/video.js/blob/master/src/js/component.js#L632)
 
 ---
 
@@ -171,19 +161,7 @@ _inherited from_: [src/js/component.js#L672](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `Object` A mock TimeRange object (following HTML spec)
 
-_defined in_: [src/js/player.js#L743](https://github.com/videojs/video.js/blob/master/src/js/player.js#L743)
-
----
-
-### bufferedEnd()
-> Get the ending time of the last buffered time range
-> 
-> This is used in the progress bar to encapsulate all time ranges.
-
-##### RETURNS: 
-* `Number` The end of the last buffered time range
-
-_defined in_: [src/js/player.js#L794](https://github.com/videojs/video.js/blob/master/src/js/player.js#L794)
+_defined in_: [src/js/player.js#L727](https://github.com/videojs/video.js/blob/master/src/js/player.js#L727)
 
 ---
 
@@ -198,7 +176,7 @@ _defined in_: [src/js/player.js#L794](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `Number` A decimal between 0 and 1 representing the percent
 
-_defined in_: [src/js/player.js#L763](https://github.com/videojs/video.js/blob/master/src/js/player.js#L763)
+_defined in_: [src/js/player.js#L753](https://github.com/videojs/video.js/blob/master/src/js/player.js#L753)
 
 ---
 
@@ -208,15 +186,19 @@ _defined in_: [src/js/player.js#L763](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `String` The constructed class name
 
-_inherited from_: [src/js/component.js#L515](https://github.com/videojs/video.js/blob/master/src/js/component.js#L515)
+_inherited from_: [src/js/component.js#L475](https://github.com/videojs/video.js/blob/master/src/js/component.js#L475)
 
 ---
 
 ### cancelFullScreen()
-> Old naming for exitFullscreen
-**Deprecated** true
+> Return the video to its normal size after having been in full screen mode
+> 
+>     myPlayer.cancelFullScreen();
 
-_defined in_: [src/js/player.js#L999](https://github.com/videojs/video.js/blob/master/src/js/player.js#L999)
+##### RETURNS: 
+* `vjs.Player` self
+
+_defined in_: [src/js/player.js#L909](https://github.com/videojs/video.js/blob/master/src/js/player.js#L909)
 
 ---
 
@@ -228,7 +210,7 @@ _defined in_: [src/js/player.js#L999](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `Array` The children
 
-_inherited from_: [src/js/component.js#L290](https://github.com/videojs/video.js/blob/master/src/js/component.js#L290)
+_inherited from_: [src/js/component.js#L281](https://github.com/videojs/video.js/blob/master/src/js/component.js#L281)
 
 ---
 
@@ -239,7 +221,7 @@ _inherited from_: [src/js/component.js#L290](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `Element` 
 
-_inherited from_: [src/js/component.js#L233](https://github.com/videojs/video.js/blob/master/src/js/component.js#L233)
+_inherited from_: [src/js/component.js#L224](https://github.com/videojs/video.js/blob/master/src/js/component.js#L224)
 
 ---
 
@@ -252,7 +234,7 @@ _inherited from_: [src/js/component.js#L233](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `Boolean` Controls are showing
 
-_defined in_: [src/js/player.js#L1274](https://github.com/videojs/video.js/blob/master/src/js/player.js#L1274)
+_defined in_: [src/js/player.js#L1167](https://github.com/videojs/video.js/blob/master/src/js/player.js#L1167)
 
 ---
 
@@ -286,19 +268,7 @@ _inherited from_: [src/js/component.js#L194](https://github.com/videojs/video.js
 * `Number` The time in seconds, when not setting
 * `vjs.Player` self, when the current time is set
 
-_defined in_: [src/js/player.js#L670](https://github.com/videojs/video.js/blob/master/src/js/player.js#L670)
-
----
-
-### currentType()
-> Get the current source type e.g. video/mp4
-> This can allow you rebuild the current source object so that you could load the same
-> source and tech later
-
-##### RETURNS: 
-* `String` The source MIME type
-
-_defined in_: [src/js/player.js#L1195](https://github.com/videojs/video.js/blob/master/src/js/player.js#L1195)
+_defined in_: [src/js/player.js#L650](https://github.com/videojs/video.js/blob/master/src/js/player.js#L650)
 
 ---
 
@@ -312,7 +282,7 @@ _defined in_: [src/js/player.js#L1195](https://github.com/videojs/video.js/blob/
 ##### RETURNS: 
 * `vjs.Component` The component
 
-_inherited from_: [src/js/component.js#L784](https://github.com/videojs/video.js/blob/master/src/js/component.js#L784)
+_inherited from_: [src/js/component.js#L744](https://github.com/videojs/video.js/blob/master/src/js/component.js#L744)
 
 ---
 
@@ -324,7 +294,7 @@ _inherited from_: [src/js/component.js#L784](https://github.com/videojs/video.js
 > This is especially helpful if you are dynamically adding and removing videos
 > to/from the DOM.
 
-_defined in_: [src/js/player.js#L156](https://github.com/videojs/video.js/blob/master/src/js/player.js#L156)
+_defined in_: [src/js/player.js#L135](https://github.com/videojs/video.js/blob/master/src/js/player.js#L135)
 
 ---
 
@@ -343,7 +313,7 @@ _defined in_: [src/js/player.js#L156](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `Number` The duration of the video in seconds
 
-_defined in_: [src/js/player.js#L698](https://github.com/videojs/video.js/blob/master/src/js/player.js#L698)
+_defined in_: [src/js/player.js#L681](https://github.com/videojs/video.js/blob/master/src/js/player.js#L681)
 
 ---
 
@@ -355,7 +325,7 @@ _defined in_: [src/js/player.js#L698](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `Element` 
 
-_inherited from_: [src/js/component.js#L214](https://github.com/videojs/video.js/blob/master/src/js/component.js#L214)
+_inherited from_: [src/js/component.js#L205](https://github.com/videojs/video.js/blob/master/src/js/component.js#L205)
 
 ---
 
@@ -382,33 +352,7 @@ _inherited from_: [src/js/component.js#L214](https://github.com/videojs/video.js
 > whenever touch events happen, and this can be turned off by components that
 > want touch events to act differently.
 
-_inherited from_: [src/js/component.js#L963](https://github.com/videojs/video.js/blob/master/src/js/component.js#L963)
-
----
-
-### error( err )
-> Set or get the current MediaError
-
-##### PARAMETERS: 
-* __err__ `*` A MediaError or a String/Number to be turned into a MediaError
-
-##### RETURNS: 
-* `vjs.MediaError|null` when getting
-* `vjs.Player` when setting
-
-_defined in_: [src/js/player.js#L1359](https://github.com/videojs/video.js/blob/master/src/js/player.js#L1359)
-
----
-
-### exitFullscreen()
-> Return the video to its normal size after having been in full screen mode
-> 
->     myPlayer.exitFullscreen();
-
-##### RETURNS: 
-* `vjs.Player` self
-
-_defined in_: [src/js/player.js#L978](https://github.com/videojs/video.js/blob/master/src/js/player.js#L978)
+_inherited from_: [src/js/component.js#L897](https://github.com/videojs/video.js/blob/master/src/js/component.js#L897)
 
 ---
 
@@ -421,7 +365,7 @@ _defined in_: [src/js/player.js#L978](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L324](https://github.com/videojs/video.js/blob/master/src/js/component.js#L324)
+_inherited from_: [src/js/component.js#L315](https://github.com/videojs/video.js/blob/master/src/js/component.js#L315)
 
 ---
 
@@ -434,7 +378,7 @@ _inherited from_: [src/js/component.js#L324](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L307](https://github.com/videojs/video.js/blob/master/src/js/component.js#L307)
+_inherited from_: [src/js/component.js#L298](https://github.com/videojs/video.js/blob/master/src/js/component.js#L298)
 
 ---
 
@@ -454,7 +398,7 @@ _inherited from_: [src/js/component.js#L307](https://github.com/videojs/video.js
 * `vjs.Component` This component, when setting the height
 * `Number|String` The height, when getting
 
-_inherited from_: [src/js/component.js#L773](https://github.com/videojs/video.js/blob/master/src/js/component.js#L773)
+_inherited from_: [src/js/component.js#L733](https://github.com/videojs/video.js/blob/master/src/js/component.js#L733)
 
 ---
 
@@ -464,7 +408,7 @@ _inherited from_: [src/js/component.js#L773](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L703](https://github.com/videojs/video.js/blob/master/src/js/component.js#L703)
+_inherited from_: [src/js/component.js#L663](https://github.com/videojs/video.js/blob/master/src/js/component.js#L663)
 
 ---
 
@@ -476,7 +420,7 @@ _inherited from_: [src/js/component.js#L703](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `String` 
 
-_inherited from_: [src/js/component.js#L252](https://github.com/videojs/video.js/blob/master/src/js/component.js#L252)
+_inherited from_: [src/js/component.js#L243](https://github.com/videojs/video.js/blob/master/src/js/component.js#L243)
 
 ---
 
@@ -502,55 +446,22 @@ _defined in_: [src/js/player.js#L32](https://github.com/videojs/video.js/blob/ma
 >         myChildOption: true
 >       }
 >     }
-> 
->     // Or when creating the component
->     var myComp = new MyComponent(player, {
->       children: {
->         myChildComponent: {
->           myChildOption: true
->         }
->       }
->     });
-> 
-> The children option can also be an Array of child names or
-> child options objects (that also include a 'name' key).
-> 
->     var myComp = new MyComponent(player, {
->       children: [
->         'button',
->         {
->           name: 'button',
->           someOtherOption: true
->         }
->       ]
->     });
 
-_inherited from_: [src/js/component.js#L475](https://github.com/videojs/video.js/blob/master/src/js/component.js#L475)
+_inherited from_: [src/js/component.js#L443](https://github.com/videojs/video.js/blob/master/src/js/component.js#L443)
 
 ---
 
-### isFullScreen( isFS )
-> Old naming for isFullscreen()
-**Deprecated** true
-
-##### PARAMETERS: 
-* __isFS__ 
-
-_defined in_: [src/js/player.js#L901](https://github.com/videojs/video.js/blob/master/src/js/player.js#L901)
-
----
-
-### isFullscreen( [isFS] )
+### isFullScreen( [isFS] )
 > Check if the player is in fullscreen mode
 > 
 >     // get
->     var fullscreenOrNot = myPlayer.isFullscreen();
+>     var fullscreenOrNot = myPlayer.isFullScreen();
 > 
 >     // set
->     myPlayer.isFullscreen(true); // tell the player it's in fullscreen
+>     myPlayer.isFullScreen(true); // tell the player it's in fullscreen
 > 
-> NOTE: As of the latest HTML5 spec, isFullscreen is no longer an official
-> property and instead document.fullscreenElement is used. But isFullscreen is
+> NOTE: As of the latest HTML5 spec, isFullScreen is no longer an official
+> property and instead document.fullscreenElement is used. But isFullScreen is
 > still a valuable property for internal player workings.
 
 ##### PARAMETERS: 
@@ -560,21 +471,7 @@ _defined in_: [src/js/player.js#L901](https://github.com/videojs/video.js/blob/m
 * `Boolean` true if fullscreen, false if not
 * `vjs.Player` self, when setting
 
-_defined in_: [src/js/player.js#L889](https://github.com/videojs/video.js/blob/master/src/js/player.js#L889)
-
----
-
-### language( languageCode )
-> The player's language code
-
-##### PARAMETERS: 
-* __languageCode__ `String` The locale string
-
-##### RETURNS: 
-* `String` The locale string when getting
-* `vjs.Player` self, when setting
-
-_defined in_: [src/js/player.js#L116](https://github.com/videojs/video.js/blob/master/src/js/player.js#L116)
+_defined in_: [src/js/player.js#L840](https://github.com/videojs/video.js/blob/master/src/js/player.js#L840)
 
 ---
 
@@ -594,7 +491,7 @@ _defined in_: [src/js/player.js#L116](https://github.com/videojs/video.js/blob/m
 * `Boolean` True if mute is on, false if not, when getting
 * `vjs.Player` self, when setting mute
 
-_defined in_: [src/js/player.js#L851](https://github.com/videojs/video.js/blob/master/src/js/player.js#L851)
+_defined in_: [src/js/player.js#L802](https://github.com/videojs/video.js/blob/master/src/js/player.js#L802)
 
 ---
 
@@ -606,7 +503,7 @@ _defined in_: [src/js/player.js#L851](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `String` 
 
-_inherited from_: [src/js/component.js#L271](https://github.com/videojs/video.js/blob/master/src/js/component.js#L271)
+_inherited from_: [src/js/component.js#L262](https://github.com/videojs/video.js/blob/master/src/js/component.js#L262)
 
 ---
 
@@ -622,7 +519,7 @@ _inherited from_: [src/js/component.js#L271](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L554](https://github.com/videojs/video.js/blob/master/src/js/component.js#L554)
+_inherited from_: [src/js/component.js#L514](https://github.com/videojs/video.js/blob/master/src/js/component.js#L514)
 
 ---
 
@@ -645,15 +542,7 @@ _inherited from_: [src/js/component.js#L554](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `vjs.Component` self
 
-_inherited from_: [src/js/component.js#L540](https://github.com/videojs/video.js/blob/master/src/js/component.js#L540)
-
----
-
-### onWaitEnd()
-> A handler for events that signal that waiting has eneded
-> which is not consistent between browsers. See #1351
-
-_defined in_: [src/js/player.js#L439](https://github.com/videojs/video.js/blob/master/src/js/player.js#L439)
+_inherited from_: [src/js/component.js#L500](https://github.com/videojs/video.js/blob/master/src/js/component.js#L500)
 
 ---
 
@@ -667,7 +556,7 @@ _defined in_: [src/js/player.js#L439](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L566](https://github.com/videojs/video.js/blob/master/src/js/component.js#L566)
+_inherited from_: [src/js/component.js#L526](https://github.com/videojs/video.js/blob/master/src/js/component.js#L526)
 
 ---
 
@@ -727,7 +616,7 @@ _inherited from_: [src/js/component.js#L173](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `vjs.Player` self
 
-_defined in_: [src/js/player.js#L639](https://github.com/videojs/video.js/blob/master/src/js/player.js#L639)
+_defined in_: [src/js/player.js#L619](https://github.com/videojs/video.js/blob/master/src/js/player.js#L619)
 
 ---
 
@@ -740,7 +629,7 @@ _defined in_: [src/js/player.js#L639](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `Boolean` false if the media is currently playing, or true otherwise
 
-_defined in_: [src/js/player.js#L652](https://github.com/videojs/video.js/blob/master/src/js/player.js#L652)
+_defined in_: [src/js/player.js#L632](https://github.com/videojs/video.js/blob/master/src/js/player.js#L632)
 
 ---
 
@@ -752,7 +641,7 @@ _defined in_: [src/js/player.js#L652](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `vjs.Player` self
 
-_defined in_: [src/js/player.js#L627](https://github.com/videojs/video.js/blob/master/src/js/player.js#L627)
+_defined in_: [src/js/player.js#L607](https://github.com/videojs/video.js/blob/master/src/js/player.js#L607)
 
 ---
 
@@ -784,7 +673,7 @@ _inherited from_: [src/js/component.js#L120](https://github.com/videojs/video.js
 * `String` poster URL when getting
 * `vjs.Player` self when setting
 
-_defined in_: [src/js/player.js#L1247](https://github.com/videojs/video.js/blob/master/src/js/player.js#L1247)
+_defined in_: [src/js/player.js#L1140](https://github.com/videojs/video.js/blob/master/src/js/player.js#L1140)
 
 ---
 
@@ -800,7 +689,7 @@ _defined in_: [src/js/player.js#L1247](https://github.com/videojs/video.js/blob/
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L625](https://github.com/videojs/video.js/blob/master/src/js/component.js#L625)
+_inherited from_: [src/js/component.js#L585](https://github.com/videojs/video.js/blob/master/src/js/component.js#L585)
 
 ---
 
@@ -811,7 +700,7 @@ _inherited from_: [src/js/component.js#L625](https://github.com/videojs/video.js
 ##### PARAMETERS: 
 * __component__ `vjs.Component` Component to remove
 
-_inherited from_: [src/js/component.js#L414](https://github.com/videojs/video.js/blob/master/src/js/component.js#L414)
+_inherited from_: [src/js/component.js#L405](https://github.com/videojs/video.js/blob/master/src/js/component.js#L405)
 
 ---
 
@@ -824,22 +713,14 @@ _inherited from_: [src/js/component.js#L414](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L683](https://github.com/videojs/video.js/blob/master/src/js/component.js#L683)
+_inherited from_: [src/js/component.js#L643](https://github.com/videojs/video.js/blob/master/src/js/component.js#L643)
 
 ---
 
 ### requestFullScreen()
-> Old naming for requestFullscreen
-**Deprecated** true
-
-_defined in_: [src/js/player.js#L965](https://github.com/videojs/video.js/blob/master/src/js/player.js#L965)
-
----
-
-### requestFullscreen()
 > Increase the size of the video to full screen
 > 
->     myPlayer.requestFullscreen();
+>     myPlayer.requestFullScreen();
 > 
 > In some browsers, full screen is not supported natively, so it enters
 > "full window mode", where the video fills the browser window.
@@ -851,7 +732,7 @@ _defined in_: [src/js/player.js#L965](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `vjs.Player` self
 
-_defined in_: [src/js/player.js#L920](https://github.com/videojs/video.js/blob/master/src/js/player.js#L920)
+_defined in_: [src/js/player.js#L862](https://github.com/videojs/video.js/blob/master/src/js/player.js#L862)
 
 ---
 
@@ -861,7 +742,7 @@ _defined in_: [src/js/player.js#L920](https://github.com/videojs/video.js/blob/m
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L693](https://github.com/videojs/video.js/blob/master/src/js/component.js#L693)
+_inherited from_: [src/js/component.js#L653](https://github.com/videojs/video.js/blob/master/src/js/component.js#L653)
 
 ---
 
@@ -897,26 +778,25 @@ _inherited from_: [src/js/component.js#L693](https://github.com/videojs/video.js
 * __source__ `String|Object|Array` _(OPTIONAL)_ The source URL, object, or array of sources
 
 ##### RETURNS: 
-* `String` The current video source when getting
-* `String` The player when setting
+* `vjs.Player` self
 
-_defined in_: [src/js/player.js#L1109](https://github.com/videojs/video.js/blob/master/src/js/player.js#L1109)
+_defined in_: [src/js/player.js#L1024](https://github.com/videojs/video.js/blob/master/src/js/player.js#L1024)
 
 ---
 
-### trigger( event )
+### trigger( type, event )
 > Trigger an event on an element
 > 
 >     myComponent.trigger('eventName');
->     myComponent.trigger({'type':'eventName'});
 
 ##### PARAMETERS: 
-* __event__ `Event|Object|String` A string (the type) or an event object with a type attribute
+* __type__ `String` The event type to trigger, e.g. 'click'
+* __event__ `Event|Object` The event object to be passed to the listener
 
 ##### RETURNS: 
 * `vjs.Component` self
 
-_inherited from_: [src/js/component.js#L580](https://github.com/videojs/video.js/blob/master/src/js/component.js#L580)
+_inherited from_: [src/js/component.js#L540](https://github.com/videojs/video.js/blob/master/src/js/component.js#L540)
 
 ---
 
@@ -926,7 +806,7 @@ _inherited from_: [src/js/component.js#L580](https://github.com/videojs/video.js
 ##### RETURNS: 
 * `vjs.Component` 
 
-_inherited from_: [src/js/component.js#L644](https://github.com/videojs/video.js/blob/master/src/js/component.js#L644)
+_inherited from_: [src/js/component.js#L604](https://github.com/videojs/video.js/blob/master/src/js/component.js#L604)
 
 ---
 
@@ -948,7 +828,7 @@ _inherited from_: [src/js/component.js#L644](https://github.com/videojs/video.js
 * `Number` The current volume, when getting
 * `vjs.Player` self, when setting
 
-_defined in_: [src/js/player.js#L821](https://github.com/videojs/video.js/blob/master/src/js/player.js#L821)
+_defined in_: [src/js/player.js#L772](https://github.com/videojs/video.js/blob/master/src/js/player.js#L772)
 
 ---
 
@@ -968,7 +848,7 @@ _defined in_: [src/js/player.js#L821](https://github.com/videojs/video.js/blob/m
 * `vjs.Component` This component, when setting the width
 * `Number|String` The width, when getting
 
-_inherited from_: [src/js/component.js#L756](https://github.com/videojs/video.js/blob/master/src/js/component.js#L756)
+_inherited from_: [src/js/component.js#L716](https://github.com/videojs/video.js/blob/master/src/js/component.js#L716)
 
 ---
 
@@ -977,14 +857,24 @@ _inherited from_: [src/js/component.js#L756](https://github.com/videojs/video.js
 ### durationchange `EVENT`
 > Fired when the duration of the media resource is first known or changed
 
-_defined in_: [src/js/player.js#L522](https://github.com/videojs/video.js/blob/master/src/js/player.js#L522)
+_defined in_: [src/js/player.js#L502](https://github.com/videojs/video.js/blob/master/src/js/player.js#L502)
 
 ---
 
 ### ended `EVENT`
 > Fired when the end of the media resource is reached (currentTime == duration)
 
-_defined in_: [src/js/player.js#L511](https://github.com/videojs/video.js/blob/master/src/js/player.js#L511)
+_defined in_: [src/js/player.js#L491](https://github.com/videojs/video.js/blob/master/src/js/player.js#L491)
+
+---
+
+### error `EVENT`
+> Fired when there is an error in playback
+
+##### PARAMETERS: 
+* __e__ 
+
+_defined in_: [src/js/player.js#L534](https://github.com/videojs/video.js/blob/master/src/js/player.js#L534)
 
 ---
 
@@ -995,84 +885,70 @@ _defined in_: [src/js/player.js#L511](https://github.com/videojs/video.js/blob/m
 > implementation yet, so use sparingly. If you don't have a reason to
 > prevent playback, use `myPlayer.one('play');` instead.
 
-_defined in_: [src/js/player.js#L468](https://github.com/videojs/video.js/blob/master/src/js/player.js#L468)
+_defined in_: [src/js/player.js#L448](https://github.com/videojs/video.js/blob/master/src/js/player.js#L448)
 
 ---
 
 ### fullscreenchange `EVENT`
 > Fired when the player switches in or out of fullscreen mode
 
-_defined in_: [src/js/player.js#L551](https://github.com/videojs/video.js/blob/master/src/js/player.js#L551)
+_defined in_: [src/js/player.js#L522](https://github.com/videojs/video.js/blob/master/src/js/player.js#L522)
 
 ---
 
 ### loadedalldata `EVENT`
 > Fired when the player has finished downloading the source data
 
-_defined in_: [src/js/player.js#L416](https://github.com/videojs/video.js/blob/master/src/js/player.js#L416)
+_defined in_: [src/js/player.js#L428](https://github.com/videojs/video.js/blob/master/src/js/player.js#L428)
 
 ---
 
 ### loadeddata `EVENT`
 > Fired when the player has downloaded data at the current playback position
 
-_defined in_: [src/js/player.js#L410](https://github.com/videojs/video.js/blob/master/src/js/player.js#L410)
+_defined in_: [src/js/player.js#L422](https://github.com/videojs/video.js/blob/master/src/js/player.js#L422)
 
 ---
 
 ### loadedmetadata `EVENT`
 > Fired when the player has initial duration and dimension information
 
-_defined in_: [src/js/player.js#L404](https://github.com/videojs/video.js/blob/master/src/js/player.js#L404)
+_defined in_: [src/js/player.js#L416](https://github.com/videojs/video.js/blob/master/src/js/player.js#L416)
 
 ---
 
 ### loadstart `EVENT`
 > Fired when the user agent begins looking for media data
 
-_defined in_: [src/js/player.js#L360](https://github.com/videojs/video.js/blob/master/src/js/player.js#L360)
+_defined in_: [src/js/player.js#L410](https://github.com/videojs/video.js/blob/master/src/js/player.js#L410)
 
 ---
 
 ### pause `EVENT`
 > Fired whenever the media has been paused
 
-_defined in_: [src/js/player.js#L482](https://github.com/videojs/video.js/blob/master/src/js/player.js#L482)
+_defined in_: [src/js/player.js#L462](https://github.com/videojs/video.js/blob/master/src/js/player.js#L462)
 
 ---
 
 ### play `EVENT`
 > Fired whenever the media begins or resumes playback
 
-_defined in_: [src/js/player.js#L422](https://github.com/videojs/video.js/blob/master/src/js/player.js#L422)
+_defined in_: [src/js/player.js#L434](https://github.com/videojs/video.js/blob/master/src/js/player.js#L434)
 
 ---
 
 ### progress `EVENT`
 > Fired while the user agent is downloading media data
 
-_defined in_: [src/js/player.js#L500](https://github.com/videojs/video.js/blob/master/src/js/player.js#L500)
+_defined in_: [src/js/player.js#L480](https://github.com/videojs/video.js/blob/master/src/js/player.js#L480)
 
 ---
 
 ### resize `EVENT`
 > Fired when the width and/or height of the component changes
 
-_inherited from_: [src/js/component.js#L863](https://github.com/videojs/video.js/blob/master/src/js/component.js#L863)
-
----
-
-### seeked `EVENT`
-> Fired when the player has finished jumping to a new time
-
-_defined in_: [src/js/player.js#L455](https://github.com/videojs/video.js/blob/master/src/js/player.js#L455)
-
----
-
-### seeking `EVENT`
-> Fired whenever the player is jumping to a new time
-
-_defined in_: [src/js/player.js#L447](https://github.com/videojs/video.js/blob/master/src/js/player.js#L447)
+_inherited from_: [src/js/component.js#L823](https://github.com/videojs/video.js/blob/master/src/js/component.js#L823)
 
 ---
 
@@ -1082,21 +958,14 @@ _defined in_: [src/js/player.js#L447](https://github.com/videojs/video.js/blob/m
 > During playback this is fired every 15-250 milliseconds, depnding on the
 > playback technology in use.
 
-_defined in_: [src/js/player.js#L494](https://github.com/videojs/video.js/blob/master/src/js/player.js#L494)
+_defined in_: [src/js/player.js#L474](https://github.com/videojs/video.js/blob/master/src/js/player.js#L474)
 
 ---
 
 ### volumechange `EVENT`
 > Fired when the volume changes
 
-_defined in_: [src/js/player.js#L545](https://github.com/videojs/video.js/blob/master/src/js/player.js#L545)
-
----
-
-### waiting `EVENT`
-> Fired whenever the media begins wating
-
-_defined in_: [src/js/player.js#L431](https://github.com/videojs/video.js/blob/master/src/js/player.js#L431)
+_defined in_: [src/js/player.js#L516](https://github.com/videojs/video.js/blob/master/src/js/player.js#L516)
 
 ---
 

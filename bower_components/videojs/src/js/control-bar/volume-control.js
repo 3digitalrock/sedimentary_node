@@ -49,6 +49,7 @@ vjs.VolumeBar = vjs.Slider.extend({
     vjs.Slider.call(this, player, options);
     player.on('volumechange', vjs.bind(this, this.updateARIAAttributes));
     player.ready(vjs.bind(this, this.updateARIAAttributes));
+    setTimeout(vjs.bind(this, this.update), 0); // update when elements is in DOM
   }
 });
 

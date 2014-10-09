@@ -195,15 +195,6 @@ vjs.Component.prototype.createEl = function(tagName, attributes){
   return vjs.createEl(tagName, attributes);
 };
 
-vjs.Component.prototype.localize = function(string){
-  var lang = this.player_.language(),
-      languages = this.player_.languages();
-  if (languages && languages[lang] && languages[lang][string]) {
-    return languages[lang][string];
-  }
-  return string;
-};
-
 /**
  * Get the component's DOM element
  *
@@ -448,62 +439,31 @@ vjs.Component.prototype.removeChild = function(component){
  *         myChildOption: true
  *       }
  *     }
- *
- *     // Or when creating the component
- *     var myComp = new MyComponent(player, {
- *       children: {
- *         myChildComponent: {
- *           myChildOption: true
- *         }
- *       }
- *     });
- *
- * The children option can also be an Array of child names or
- * child options objects (that also include a 'name' key).
- *
- *     var myComp = new MyComponent(player, {
- *       children: [
- *         'button',
- *         {
- *           name: 'button',
- *           someOtherOption: true
- *         }
- *       ]
- *     });
- *
  */
 vjs.Component.prototype.initChildren = function(){
-  var parent, children, child, name, opts;
+  var options = this.options_;
 
-  parent = this;
-  children = this.options()['children'];
+  if (options && options['children']) {
+    var self = this;
 
-  if (children) {
-    // Allow for an array of children details to passed in the options
-    if (vjs.obj.isArray(children)) {
-      for (var i = 0; i < children.length; i++) {
-        child = children[i];
+    // Loop through components and add them to the player
+    vjs.obj.each(options['children'], function(name, opts){
+      // Allow for disabling default components
+      // e.g. vjs.options['children']['posterImage'] = false
+      if (opts === false) return;
 
-        if (typeof child == 'string') {
-          name = child;
-          opts = {};
-        } else {
-          name = child.name;
-          opts = child;
-        }
-
-        parent[name] = parent.addChild(name, opts);
-      }
-    } else {
-      vjs.obj.each(children, function(name, opts){
-        // Allow for disabling default components
-        // e.g. vjs.options['children']['posterImage'] = false
-        if (opts === false) return;
-
+      // Allow waiting to add components until a specific event is called
+      var tempAdd = function(){
         // Set property name on player. Could cause conflicts with other prop names, but it's worth making refs easy.
-        parent[name] = parent.addChild(name, opts);
-      });
-    }
+        self[name] = self.addChild(name, opts);
+      };
+
+      if (opts['loadEvent']) {
+        // this.one(opts.loadEvent, tempAdd)
+      } else {
+        tempAdd();
+      }
+    });
   }
 };
 
@@ -572,13 +532,13 @@ vjs.Component.prototype.one = function(type, fn) {
  * Trigger an event on an element
  *
  *     myComponent.trigger('eventName');
- *     myComponent.trigger({'type':'eventName'});
  *
- * @param  {Event|Object|String} event  A string (the type) or an event object with a type attribute
- * @return {vjs.Component}       self
+ * @param  {String}       type  The event type to trigger, e.g. 'click'
+ * @param  {Event|Object} event The event object to be passed to the listener
+ * @return {vjs.Component}      self
  */
-vjs.Component.prototype.trigger = function(event){
-  vjs.trigger(this.el_, event);
+vjs.Component.prototype.trigger = function(type, event){
+  vjs.trigger(this.el_, type, event);
   return this;
 };
 
@@ -873,61 +833,35 @@ vjs.Component.prototype.onResize;
  * @private
  */
 vjs.Component.prototype.emitTapEvents = function(){
-  var touchStart, firstTouch, touchTime, couldBeTap, noTap,
-      xdiff, ydiff, touchDistance, tapMovementThreshold;
+  var touchStart, touchTime, couldBeTap, noTap;
 
   // Track the start time so we can determine how long the touch lasted
   touchStart = 0;
-  firstTouch = null;
-
-  // Maximum movement allowed during a touch event to still be considered a tap
-  tapMovementThreshold = 22;
 
   this.on('touchstart', function(event) {
-    // If more than one finger, don't consider treating this as a click
-    if (event.touches.length === 1) {
-      firstTouch = event.touches[0];
-      // Record start time so we can detect a tap vs. "touch and hold"
-      touchStart = new Date().getTime();
-      // Reset couldBeTap tracking
-      couldBeTap = true;
-    }
-  });
-
-  this.on('touchmove', function(event) {
-    // If more than one finger, don't consider treating this as a click
-    if (event.touches.length > 1) {
-      couldBeTap = false;
-    } else if (firstTouch) {
-      // Some devices will throw touchmoves for all but the slightest of taps.
-      // So, if we moved only a small distance, this could still be a tap
-      xdiff = event.touches[0].pageX - firstTouch.pageX;
-      ydiff = event.touches[0].pageY - firstTouch.pageY;
-      touchDistance = Math.sqrt(xdiff * xdiff + ydiff * ydiff);
-      if (touchDistance > tapMovementThreshold) {
-        couldBeTap = false;
-      }
-    }
+    // Record start time so we can detect a tap vs. "touch and hold"
+    touchStart = new Date().getTime();
+    // Reset couldBeTap tracking
+    couldBeTap = true;
   });
 
   noTap = function(){
     couldBeTap = false;
   };
   // TODO: Listen to the original target. http://youtu.be/DujfpXOKUp8?t=13m8s
+  this.on('touchmove', noTap);
   this.on('touchleave', noTap);
   this.on('touchcancel', noTap);
 
   // When the touch ends, measure how long it took and trigger the appropriate
   // event
   this.on('touchend', function(event) {
-    firstTouch = null;
     // Proceed only if the touchmove/leave/cancel event didn't happen
     if (couldBeTap === true) {
       // Measure how long the touch lasted
       touchTime = new Date().getTime() - touchStart;
       // The touch needs to be quick in order to consider it a tap
       if (touchTime < 250) {
-        event.preventDefault(); // Don't let browser turn this into a click
         this.trigger('tap');
         // It may be good to copy the touchend event object and change the
         // type to tap, if the other event properties aren't exact after

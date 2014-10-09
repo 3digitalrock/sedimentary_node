@@ -21,11 +21,6 @@ The `vjs` function can be used to initialize or retrieve a player.
   - [options](#options)
   - [players](#players)
 
-- [METHODS](#methods)
-  - [addLanguage](#addlanguage-code-data-)
-  - [parseUrl](#parseurl-url-)
-  - [plugin](#plugin-name-init-)
-
 - CLASSES
   - [BigPlayButton](vjs.BigPlayButton.md)
   - [Button](vjs.Button.md)
@@ -39,14 +34,11 @@ The `vjs` function can be used to initialize or retrieve a player.
   - [CoreObject](vjs.CoreObject.md)
   - [CurrentTimeDisplay](vjs.CurrentTimeDisplay.md)
   - [DurationDisplay](vjs.DurationDisplay.md)
-  - [ErrorDisplay](vjs.ErrorDisplay.md)
   - [Flash](vjs.Flash.md)
   - [FullscreenToggle](vjs.FullscreenToggle.md)
   - [Html5](vjs.Html5.md)
-  - [LiveDisplay](vjs.LiveDisplay.md)
   - [LoadProgressBar](vjs.LoadProgressBar.md)
   - [LoadingSpinner](vjs.LoadingSpinner.md)
-  - [MediaError](vjs.MediaError.md)
   - [MediaLoader](vjs.MediaLoader.md)
   - [MediaTechController](vjs.MediaTechController.md)
   - [Menu](vjs.Menu.md)
@@ -56,8 +48,6 @@ The `vjs` function can be used to initialize or retrieve a player.
   - [OffTextTrackMenuItem](vjs.OffTextTrackMenuItem.md)
   - [PlayProgressBar](vjs.PlayProgressBar.md)
   - [PlayToggle](vjs.PlayToggle.md)
-  - [PlaybackRateMenuButton](vjs.PlaybackRateMenuButton.md)
-  - [PlaybackRateMenuItem](vjs.PlaybackRateMenuItem.md)
   - [Player](vjs.Player.md)
   - [PosterImage](vjs.PosterImage.md)
   - [ProgressControl](vjs.ProgressControl.md)
@@ -80,8 +70,10 @@ The `vjs` function can be used to initialize or retrieve a player.
   - [VolumeMenuButton](vjs.VolumeMenuButton.md)
 
 - NAMESPACES
-  - [log](vjs.log.md)
   - [util](vjs.util.md)
+
+- [METHODS](#methods)
+  - [plugin](#plugin-name-init-)
 
 ---
 
@@ -93,48 +85,18 @@ The `vjs` function can be used to initialize or retrieve a player.
 > All options should use string keys so they avoid
 > renaming by closure compiler
 
-_defined in_: [src/js/core.js#L76](https://github.com/videojs/video.js/blob/master/src/js/core.js#L76)
+_defined in_: [src/js/core.js#L77](https://github.com/videojs/video.js/blob/master/src/js/core.js#L77)
 
 ---
 
 ### players
 > Global player list
 
-_defined in_: [src/js/core.js#L144](https://github.com/videojs/video.js/blob/master/src/js/core.js#L144)
+_defined in_: [src/js/core.js#L118](https://github.com/videojs/video.js/blob/master/src/js/core.js#L118)
 
 ---
 
 ## METHODS
-
-### addLanguage( code, data )
-> Utility function for adding languages to the default options. Useful for
-> amending multiple language support at runtime.
-> 
-> Example: vjs.addLanguage('es', {'Hello':'Hola'});
-
-##### PARAMETERS: 
-* __code__ `String` The language code or dictionary property
-* __data__ `Object` The data values to be translated
-
-##### RETURNS: 
-* `Object` The resulting global languages dictionary object
-
-_defined in_: [src/js/core.js#L131](https://github.com/videojs/video.js/blob/master/src/js/core.js#L131)
-
----
-
-### parseUrl( url )
-> Resolve and parse the elements of a URL
-
-##### PARAMETERS: 
-* __url__ `String` The url to parse
-
-##### RETURNS: 
-* `Object` An object of url details
-
-_defined in_: [src/js/lib.js#L723](https://github.com/videojs/video.js/blob/master/src/js/lib.js#L723)
-
----
 
 ### plugin( name, init )
 > the method for registering a video.js plugin
