@@ -5,7 +5,7 @@
 				{{#each this.items}}
 					<div class="listing_item">
 						<div class="vid_thumbnail_wrap">
-							<a ui-sref="watch({uid: '{{this.uid}}' })" href="/watch/{{this.uid}}/{{this.slug}}"><img class="vid_thumbnail" alt="{{ this.title }}" title="{{this.title}}" src="{{ this.thumbnails.[0] }}" /></a>
+							<a href="/watch/{{this.uid}}/{{this.slug}}"><img class="vid_thumbnail" alt="{{ this.title }}" title="{{this.title}}" src="{{ this.thumbnails.[0] }}" /></a>
 						</div>
 					</div>
 				{{/each}}

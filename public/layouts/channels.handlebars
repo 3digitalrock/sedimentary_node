@@ -78,20 +78,7 @@
         techOrder: ["youtube"],
         src: "{{video.src}}"
       });
-    });
-  </script>{{/if}}
-  {{#unless youtube}}<script type="text/javascript">
-    $(document).ready(function(){
-      videojs('video-player', {
-        plugins: {
-          resolutions: true
-        }
-      });
-    });
-  </script>{{/unless}}
-  <script type="text/javascript">
-      $(document).ready(function(){
-        videojs.options.flash.swf = "/js/vendor/video-js.swf";
+       videojs.options.flash.swf = "/js/vendor/video-js.swf";
         videojs('video-player').ready(function(){
           var singlePlayer = this;
           singlePlayer.volume(0.75);
@@ -110,7 +97,35 @@
           resizeVideoJS(); // Initialize the function
           window.onresize = resizeVideoJS; // Call the function on resize
         });
-      });
+    });
   </script>{{/if}}
+  {{#unless youtube}}<script type="text/javascript">
+    $(document).ready(function(){
+      videojs('video-player', {
+        plugins: {
+          resolutions: true
+        }
+      });
+       videojs.options.flash.swf = "/js/vendor/video-js.swf";
+        videojs('video-player').ready(function(){
+          var singlePlayer = this;
+          singlePlayer.volume(0.75);
+          var aspectRatio = 9/16; // Make up an aspect ratio
+        
+          function resizeVideoJS(){
+            // Get the parent element's actual width
+            var width = document.getElementById(singlePlayer.id()).parentElement.offsetWidth;
+            // Remove the padding from the calculation
+            width = width - parseInt($("#video-player").parent().css('padding-left'));
+            width = width - parseInt($("#video-player").parent().css('padding-right'));
+            // Set width to fill parent element, Set height
+            singlePlayer.width(width).height( width * aspectRatio );
+          }
+        
+          resizeVideoJS(); // Initialize the function
+          window.onresize = resizeVideoJS; // Call the function on resize
+        });
+    });
+  </script>{{/unless}}{{/if}}
 </body>
 </html>
