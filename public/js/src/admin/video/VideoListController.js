@@ -1,5 +1,5 @@
 angular.module('videoModule')
-  .controller('AdminVideoListCtrl', ['$scope', 'Restangular', 'videosPromise', function ($scope, Restangular, videosPromise) {
+  .controller('AdminVideoListCtrl', ['$scope', 'videosPromise', function ($scope, videosPromise) {
       $scope.videos = videosPromise;
   }])
   .directive('vidstatus', function () {

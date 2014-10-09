@@ -18,6 +18,9 @@ angular.module('studioModule', ['ngRoute', 'ui.router'])
             resolve: {
               studioPromise: function(Restangular, $stateParams){
                 return Restangular.one('studios', $stateParams.studioId).get().then(function(studio){return studio});
+              },
+              videosPromise: function(Restangular, $stateParams){
+                return Restangular.one('studios', $stateParams.studioId).getList('videos', {limit: 5, fields: 'uid,title,slug,description,created,status'}).then(function(videos){return videos});
               }
             },
             controller: 'AdminStudioDetailsCtrl'

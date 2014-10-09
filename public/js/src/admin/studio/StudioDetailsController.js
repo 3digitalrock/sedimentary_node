@@ -1,4 +1,5 @@
 angular.module('studioModule')
-  .controller('AdminStudioDetailsCtrl', function () {
-      
-  });
+  .controller('AdminStudioDetailsCtrl', ['$scope','studioPromise', 'videosPromise', function ($scope, studioPromise, videosPromise) {
+      $scope.studio = studioPromise;
+      $scope.videos = videosPromise;
+  }]);

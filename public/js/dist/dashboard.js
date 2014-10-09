@@ -67,8 +67,9 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
           });
   }]);
 angular.module('videoModule')
-  .controller('AdminVideoListCtrl', ['$scope', 'Restangular', 'videosPromise', function ($scope, Restangular, videosPromise) {
+  .controller('AdminVideoListCtrl', ['$scope', 'videosPromise', function ($scope, videosPromise) {
       $scope.videos = videosPromise;
+      console.log('list');
   }])
   .directive('vidstatus', function () {
       var labelMap = {
@@ -246,15 +247,19 @@ angular.module('studioModule', ['ngRoute', 'ui.router'])
             resolve: {
               studioPromise: ['Restangular', '$stateParams', function(Restangular, $stateParams){
                 return Restangular.one('studios', $stateParams.studioId).get().then(function(studio){return studio});
+              }],
+              videosPromise: ['Restangular', '$stateParams', function(Restangular, $stateParams){
+                return Restangular.one('studios', $stateParams.studioId).getList('videos', {limit: 5, fields: 'uid,title,slug,description,created,status'}).then(function(videos){return videos});
               }]
             },
             controller: 'AdminStudioDetailsCtrl'
           });
   }]);
 angular.module('studioModule')
-  .controller('AdminStudioDetailsCtrl', function () {
-      
-  });
+  .controller('AdminStudioDetailsCtrl', ['$scope','studioPromise', 'videosPromise', function ($scope, studioPromise, videosPromise) {
+      $scope.studio = studioPromise;
+      $scope.videos = videosPromise;
+  }]);
 angular.module('studioModule')
   .controller('AdminStudioCreateCtrl', function () {
       
