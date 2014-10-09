@@ -8,7 +8,7 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
             controller: 'AdminVideoListCtrl',
             resolve: {
               videosPromise: function(Restangular){
-                return Restangular.all('videos').getList({limit: 5, fields: 'uid,title,slug,description,studio,created,status'}).then(function(videos){return videos});
+                return Restangular.all('videos').getList({fields: 'uid,title,slug,description,studio,created,status'}).then(function(videos){return videos});
               }
             }
           })

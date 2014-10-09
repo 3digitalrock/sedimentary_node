@@ -40,7 +40,7 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
             controller: 'AdminVideoListCtrl',
             resolve: {
               videosPromise: ['Restangular', function(Restangular){
-                return Restangular.all('videos').getList({limit: 5, fields: 'uid,title,slug,description,studio,created,status'}).then(function(videos){return videos});
+                return Restangular.all('videos').getList({fields: 'uid,title,slug,description,studio,created,status'}).then(function(videos){return videos});
               }]
             }
           })
@@ -69,7 +69,6 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
 angular.module('videoModule')
   .controller('AdminVideoListCtrl', ['$scope', 'videosPromise', function ($scope, videosPromise) {
       $scope.videos = videosPromise;
-      console.log('list');
   }])
   .directive('vidstatus', function () {
       var labelMap = {
