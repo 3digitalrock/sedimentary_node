@@ -22,12 +22,10 @@ module.exports = function(app){
     });
     
     app.get('/watch/:video/:title?.html', function (req, res) {
-        console.log('space html');
         channel.videoPage(req, res, true);
     });
     
     app.get('/watch/:video/:title?', function (req, res) {
-        console.log('space');
         channel.videoPage(req, res);
     });
     

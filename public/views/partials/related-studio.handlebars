@@ -1,1 +1,5 @@
-Haha! Ice cream!
+<h4>More by {{this.studio.name}}</h4>
+
+{{#each relatedVideos.studio}}
+    <div>{{this.title}}</div>
+{{/each}}
