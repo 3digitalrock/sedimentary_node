@@ -1,6 +1,7 @@
 angular.module('videoModule')
   .controller('AdminVideoListCtrl', ['$scope', 'videosPromise', function ($scope, videosPromise) {
       $scope.videos = videosPromise;
+      $scope.predicate = 'upload';
   }])
   .directive('vidstatus', function () {
       var labelMap = {

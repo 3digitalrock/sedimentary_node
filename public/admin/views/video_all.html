@@ -18,24 +18,21 @@
                                 <div class="box-header">
                                     <div class="box-tools">
                                         <div class="input-group">
-                                            <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-                                            </div>
+                                            <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search" ng-model="searchVideos" />
                                         </div>
                                     </div>
                                 </div><!-- /.box-header -->
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
                                         <tr>
-                                            <th>Title</th>
+                                            <th ng-click="predicate = 'title'; reverse=!reverse">Title</th>
                                             <th>Studio</th>
                                             <th>Description</th>
-                                            <th>Date Uploaded</th>
+                                            <th ng-click="predicate = 'upload'; reverse=!reverse">Date Uploaded</th>
                                             <th>Status</th>
                                             <th>Operations</th>
                                         </tr>
-                                        <tr ng-repeat="video in videos">
+                                        <tr ng-repeat="video in videos | filter:searchVideos | orderBy:predicate:reverse">
                                             <td><a ui-sref="videosDetails({videoId: '{[{video.uid}]}'})">{[{video.title}]}</a></td>
                                             <td><a ui-sref="studiosDetails({studioId: '{[{video.studio.uid}]}'})">{[{video.studio.name}]}</a></td>
                                             <td>{[{video.description}]}</td>
