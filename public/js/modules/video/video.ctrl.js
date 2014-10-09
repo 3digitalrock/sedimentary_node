@@ -14,9 +14,6 @@ angular.module('videoApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router',
             })
             .state('watch', {
               url: '/watch/:uid',
-              templateUrl: function(params){
-                return '/watch/'+params.uid+'.html';
-              },
               controller: 'WatchVideoCtrl'
             });
     }])
@@ -26,14 +23,3 @@ angular.module('videoApp', ['ngRoute', 'apiClient', 'ui.bootstrap', 'ui.router',
     .controller('WatchVideoCtrl', ['$scope', '$location', function($scope, $location){
       
 }]);
-    
-var VideoModalCtrl = function ($scope, $modalInstance, videoInfo) {
-  $scope.video = videoInfo;
-  $scope.ok = function () {
-    $modalInstance.close();
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-};
