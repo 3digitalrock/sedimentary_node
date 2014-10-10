@@ -11,7 +11,9 @@
     "angular-loading-bar": "~0.6.0",
     "angular-moment": "~0.8.2",
     "videojs-youtube": "~1.2.6",
-    "videojs-persistvolume": "~0.1.1"
+    "videojs-persistvolume": "~0.1.1",
+    "videojs-ga": "mickey/videojs-ga#~0.4.1",
+    "videojs-seek": "aervans/videojs-seek"
   },
   "private": true
 }
