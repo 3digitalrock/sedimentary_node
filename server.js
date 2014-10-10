@@ -8,7 +8,24 @@ var express = require('express'),
     _ = require('underscore'),
     config = require('./config/dev'),
     UserAppStrategy = require('passport-userapp').Strategy,
-    cookieParser = require('cookie-parser');
+    cookieParser = require('cookie-parser'),
+    bunyan = require('bunyan'),
+    bunyanLogentries = require('bunyan-logentries');
+    
+var log = bunyan.createLogger({
+  name: 'sedimentary',
+  streams: [
+    {
+      level: 'info',
+      stream: bunyanLogentries.createStream({token: '4e3db9e1-e2ef-44d1-a09f-9de34de3ae6b'}),  // log INFO and above to bunyanLogentries
+      type: 'raw'
+    },
+    {
+      level: 'error',
+      path: './error.log'  // log ERROR and above to a file
+    }
+  ]
+});
     
 var users = [];
 
@@ -104,6 +121,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
+        log.error(err);
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -116,6 +134,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+    log.error(err);
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
