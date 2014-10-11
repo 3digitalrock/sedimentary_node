@@ -75,7 +75,7 @@ angular.module('videoModule')
       var labelMap = {
           "1": '<span class="label label-success">Approved</span>',
           "2": '<span class="label label-warning">Pending</span>',
-          "3": '<span class="label">Processing</span>',
+          "3": '<span class="label label-info">Processing</span>',
           "4": '<span class="label label-alert">Rejected</span>',
           "0": '<span class="label label-default">Unknown</span>'
       };
@@ -104,7 +104,7 @@ angular.module('videoModule')
   function ($scope, $filter, Restangular, $route, $location, $timeout, videoPromise, studiosPromise, channelsPromise) {
       $scope.video = videoPromise;
       var observer = jsonpatch.observe($scope.video);
-
+      
       $scope.studios = [];
       _.forEach(studiosPromise, function(key){
         $scope.studios.push({value: key.uid, text: key.name});
@@ -114,10 +114,9 @@ angular.module('videoModule')
       _.forEach(channelsPromise, function(key){
         $scope.channels.push({value: key.uid, text: key.name});
       });
-      console.log($scope.video);
+    
       $scope.showStudio = function() {
         var selected = $filter('filter')($scope.studios, {value: $scope.video.studio.uid});
-        console.log(selected);
         return ($scope.video.studio.uid && selected.length) ? selected[0].text : 'Not set';
       };
       
@@ -130,7 +129,7 @@ angular.module('videoModule')
         });
         return selected.length ? selected.join(', ') : 'Not set';
       };
-
+      
       $scope.updateVideo = function() {
         var patch = jsonpatch.generate(observer);
         Restangular.one('videos', $scope.video.uid).patch(patch).then(function(){
