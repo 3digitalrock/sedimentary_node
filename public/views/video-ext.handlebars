@@ -11,7 +11,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
       videojs('video-player', {
-        techOrder: ["youtube"],
+        techOrder: ["{{video.type}}"],
         src: "{{video.src}}"
       });
       videojs.options.flash.swf = "/js/vendor/video-js.swf";

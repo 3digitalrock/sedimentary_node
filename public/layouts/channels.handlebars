@@ -84,11 +84,13 @@
   <script src="/videojs-persistvolume/videojs.persistvolume.js"></script>
   <script src="/videojs-seek/dist/videojs-seek.min.js"></script>
   <script src="/js/video-js-resolutions.js"></script>
+  {{#if external}}<script src="/videojs-vimeo/vjs.vimeo.js"></script>
   <script src="/videojs-youtube/dist/vjs.youtube.js"></script>
-  {{#if youtube}}<script type="text/javascript">
+  {{video}}
+  <script type="text/javascript">
     $(document).ready(function(){
       videojs('video-player', {
-        techOrder: ["youtube"],
+        techOrder: ["{{video.type}}"],
         src: "{{video.src}}"
       });
       videojs('video-player').persistvolume({
@@ -117,7 +119,7 @@
         });
     });
   </script>{{/if}}
-  {{#unless youtube}}<script type="text/javascript">
+  {{#unless external}}<script type="text/javascript">
     $(document).ready(function(){
       videojs('video-player', {
         plugins: {
