@@ -55,7 +55,7 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
             controller: 'AdminVideoDetailsCtrl',
             resolve: {
               videoPromise: ['Restangular', '$stateParams', function(Restangular, $stateParams){
-                return Restangular.one('videos', $stateParams.videoId).get().then(function(video){return video});
+                return Restangular.one('videos', $stateParams.videoId).get({fields: 'uid,title,description,channels,studio,status,files,thumbnails'}).then(function(video){return video});
               }],
               studiosPromise: ['Restangular', function(Restangular){
                 return Restangular.all('studios').getList().then(function(studios){return studios});
@@ -104,7 +104,7 @@ angular.module('videoModule')
   function ($scope, $filter, Restangular, $route, $location, $timeout, videoPromise, studiosPromise, channelsPromise) {
       $scope.video = videoPromise;
       var observer = jsonpatch.observe($scope.video);
-      
+
       $scope.studios = [];
       _.forEach(studiosPromise, function(key){
         $scope.studios.push({value: key.uid, text: key.name});
@@ -114,9 +114,10 @@ angular.module('videoModule')
       _.forEach(channelsPromise, function(key){
         $scope.channels.push({value: key.uid, text: key.name});
       });
-    
+      console.log($scope.video);
       $scope.showStudio = function() {
         var selected = $filter('filter')($scope.studios, {value: $scope.video.studio.uid});
+        console.log(selected);
         return ($scope.video.studio.uid && selected.length) ? selected[0].text : 'Not set';
       };
       
@@ -129,7 +130,7 @@ angular.module('videoModule')
         });
         return selected.length ? selected.join(', ') : 'Not set';
       };
-      
+
       $scope.updateVideo = function() {
         var patch = jsonpatch.generate(observer);
         Restangular.one('videos', $scope.video.uid).patch(patch).then(function(){

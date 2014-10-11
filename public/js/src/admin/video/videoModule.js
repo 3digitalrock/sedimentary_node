@@ -23,7 +23,7 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
             controller: 'AdminVideoDetailsCtrl',
             resolve: {
               videoPromise: function(Restangular, $stateParams){
-                return Restangular.one('videos', $stateParams.videoId).get().then(function(video){return video});
+                return Restangular.one('videos', $stateParams.videoId).get({fields: 'uid,title,description,channels,studio,status,files,thumbnails'}).then(function(video){return video});
               },
               studiosPromise: function(Restangular){
                 return Restangular.all('studios').getList().then(function(studios){return studios});
