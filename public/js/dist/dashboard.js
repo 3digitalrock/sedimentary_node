@@ -274,7 +274,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRout
       cfpLoadingBarProvider.includeSpinner = false;
       $sceDelegateProvider.resourceUrlWhitelist([
         'self',
-        'http://3digitalrock.s3.amazonaws.com/**'
+        'http://slate.3digitalrockstudios.com.s3.amazonaws.com/**'
       ]);
       // add a response intereceptor
       RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
