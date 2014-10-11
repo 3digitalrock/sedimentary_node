@@ -224,7 +224,7 @@
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu" >
+                    <ul class="sidebar-menu" ng-show="user.authenticated">
                         <li>
                             <a href="/dashboard">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -280,6 +280,6 @@
         <script src="https://app.userapp.io/js/userapp.client.js"></script>
         <script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
         <script src="/js/dist/vendors/dashboard.js" type="text/javascript"></script>
-        <script src="/js/dist/dashboard.min.js" type="text/javascript"></script>
+        <script src="/js/dist/dashboard.js" type="text/javascript"></script>
     </body>
 </html>

@@ -1,6 +1,7 @@
 angular.module('videoModule')
-  .controller('AdminVideoListCtrl', ['$scope', 'videosPromise', function ($scope, videosPromise) {
-      $scope.videos = videosPromise;
+  .controller('AdminVideoListCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
+      //$scope.videos = videosPromise;
+      Restangular.all('videos').getList({fields: 'uid,title,slug,description,studio,created,status'}).then(function(videos){$scope.videos=videos});
       $scope.predicate = 'upload';
   }])
   .directive('vidstatus', function () {
@@ -15,15 +16,6 @@ angular.module('videoModule')
       return {
           restrict: 'E',
           replace: true,
-          /*compile: function(element, attrs) {
-            var labelTpl = labelMap[attrs.code];
-            //console.log(attrs.tcode);
-            element.html(labelTpl);
-      
-            return function (scope, element, attrs) {
-              element.html($compile(element.html())(scope));
-            };
-          },*/
           link: function (scope, elem, attrs) {
             attrs.$observe("code", function(v){
               elem.html(labelMap[v]);

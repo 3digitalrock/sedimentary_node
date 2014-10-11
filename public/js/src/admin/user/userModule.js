@@ -1,4 +1,4 @@
-angular.module('userModule', ['ngRoute', 'ui.router'])
+angular.module('userModule', ['ngRoute', 'ui.router', 'UserApp'])
   .config(['$stateProvider', '$urlRouterProvider',
       function($stateProvider, $urlRouterProvider) {
         $stateProvider

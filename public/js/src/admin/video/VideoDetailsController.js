@@ -1,36 +1,41 @@
 angular.module('videoModule')
-  .controller('AdminVideoDetailsCtrl', ['$scope', '$filter', 'Restangular', '$route', '$location', '$timeout', 'videoPromise', 'studiosPromise', 'channelsPromise',
-  function ($scope, $filter, Restangular, $route, $location, $timeout, videoPromise, studiosPromise, channelsPromise) {
-      $scope.video = videoPromise;
-      var observer = jsonpatch.observe($scope.video);
-      
-      $scope.studios = [];
-      _.forEach(studiosPromise, function(key){
-        $scope.studios.push({value: key.uid, text: key.name});
+  .controller('AdminVideoDetailsCtrl', ['$scope', '$filter', 'Restangular', '$stateParams', '$route', '$location', '$timeout',
+  function ($scope, $filter, Restangular, $stateParams, $route, $location, $timeout) {
+      //$scope.video = videoPromise;
+      Restangular.one('videos', $stateParams.videoId).get({fields: 'uid,title,description,channels,studio,status,files,thumbnails'}).then(function(video){
+        $scope.video=video;
+        $scope.observer = jsonpatch.observe($scope.video);
       });
-      
-      $scope.channels = [];
-      _.forEach(channelsPromise, function(key){
-        $scope.channels.push({value: key.uid, text: key.name});
-      });
-    
-      $scope.showStudio = function() {
-        var selected = $filter('filter')($scope.studios, {value: $scope.video.studio.uid});
-        return ($scope.video.studio.uid && selected.length) ? selected[0].text : 'Not set';
-      };
-      
-      $scope.showChannels = function() {
-        var selected = [];
-        angular.forEach($scope.channels, function(s) { 
-          if ($scope.video.channels.indexOf(s.value) > -1) {
-            selected.push(s.text);
-          }
+      Restangular.all('studios').getList().then(function(studios){
+        $scope.studios = [];
+        _.forEach(studios, function(key){
+          $scope.studios.push({value: key.uid, text: key.name});
         });
-        return selected.length ? selected.join(', ') : 'Not set';
-      };
+        
+        $scope.showStudio = function() {
+          var selected = $filter('filter')($scope.studios, {value: $scope.video.studio.uid});
+          return ($scope.video.studio.uid && selected.length) ? selected[0].text : 'Not set';
+        };
+      });
+      Restangular.all('channels').getList().then(function(channels){
+        $scope.channels = [];
+        _.forEach(channels, function(key){
+          $scope.channels.push({value: key.uid, text: key.name});
+        });
+        
+        $scope.showChannels = function() {
+          var selected = [];
+          angular.forEach($scope.channels, function(s) { 
+            if ($scope.video.channels.indexOf(s.value) > -1) {
+              selected.push(s.text);
+            }
+          });
+          return selected.length ? selected.join(', ') : 'Not set';
+        };
+      });
       
       $scope.updateVideo = function() {
-        var patch = jsonpatch.generate(observer);
+        var patch = jsonpatch.generate($scope.observer);
         Restangular.one('videos', $scope.video.uid).patch(patch).then(function(){
           // video saved
         }, function(){

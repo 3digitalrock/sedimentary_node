@@ -1,4 +1,4 @@
-angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment'])
+angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment', 'UserApp'])
   .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider, $stateProvider, $urlRouterProvider) {
       $interpolateProvider.startSymbol('{[{');
       $interpolateProvider.endSymbol('}]}');
@@ -33,10 +33,10 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRout
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
     
   }])
-  .run(function($rootScope, editableOptions){
-    /*user.init({
+  .run(function($rootScope, editableOptions, user){
+    user.init({
       appId: '542b63aff0d72',
       heartbeatInterval: 0
-    });*/
+    });
     editableOptions.theme = 'default';
   });
