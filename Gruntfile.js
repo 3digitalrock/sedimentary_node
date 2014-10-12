@@ -23,6 +23,17 @@ module.exports = function(grunt) {
                     'bower_components/angular-slick/dist/slick.min.js'],
             dest:   'public/js/dist/vendors/frontend.js',
             nonull: true
+        },
+        videoplayer: {
+            src:    ['public/js/dist/vendor/video.dev.js',
+                    'bower_components/videojs-ga/dist/videojs.ga.min.js',
+                    'bower_components/videojs-persistvolume/videojs.persistvolume.js',
+                    'bower_components/videojs-seek/dist/videojs-seek.min.js',
+                    'public/js/video-js-resolutions.js',
+                    'bower_components/videojs-vimeo/vjs.vimeo.js',
+                    'bower_components/videojs-youtube/dist/vjs.youtube.js'],
+            dest:   'public/js/dist/videoplayer.js',
+            nonull: true
         }
     },
     ngAnnotate: {
@@ -44,7 +55,7 @@ module.exports = function(grunt) {
                                                 'public/js/src/admin/app.js'],
             }
         },
-        frontEnd: {
+        frontend: {
             files: {
                 'public/js/dist/frontend.js':   ['public/js/src/common/api_client.js',
                                                 'public/js/src/front/video/videoModule.js',
@@ -60,9 +71,13 @@ module.exports = function(grunt) {
             src: 'public/js/dist/dashboard.js',
             dest: 'public/js/dist/dashboard.min.js',
         },
-        frontEnd: {
+        frontend: {
             src: 'public/js/dist/frontend.js',
             dest: 'public/js/dist/frontend.min.js',
+        },
+        videojs:  {
+            src: 'public/js/vendor/video.dev.js',
+            dest: 'public/js/dist/vendor/video.dev.js'
         }
     },
     copy: {
@@ -82,7 +97,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ng-annotate');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'ngAnnotate', 'uglify', 'copy']);
+  grunt.registerTask('default', ['uglify:videojs', 'concat', 'ngAnnotate', 'uglify:dashboard', 'uglify:frontend', 'copy']);
   
   grunt.registerTask('dev', ['ngAnnotate']);
 
