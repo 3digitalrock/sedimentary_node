@@ -45,7 +45,7 @@
                                         </tr>
                                         <tr>
                                             <td>Status:</td>
-                                            <td>{[{video.status}]}</td>
+                                            <td><a href="#" editable-select="video.status" onaftersave="updateVideo()" e-ng-options="s.value as s.text for s in statuses">{[{ video.status }]}</a></td>
                                         </tr>
                                     </tbody></table>
                                 </div>

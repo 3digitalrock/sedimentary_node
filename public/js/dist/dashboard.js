@@ -127,6 +127,11 @@ angular.module('videoModule')
           return selected.length ? selected.join(', ') : 'Not set';
         };
       });
+      $scope.statuses = [{value: '1', text: 'Approved'},
+                        {value: '2', text: 'Pending'},
+                        {value: '3', text: 'Processing'},
+                        {value: '4', text: 'Rejected'}
+                      ];
       
       $scope.updateVideo = function() {
         var patch = jsonpatch.generate($scope.observer);
