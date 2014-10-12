@@ -4,29 +4,21 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
-        dashboard: {
-            src: [  'public/js/src/admin/user/userModule.js',
-                    'public/js/src/admin/user/LoginController.js',
-                    'public/js/src/admin/video/videoModule.js',
-                    'public/js/src/admin/video/VideoListController.js',
-                    'public/js/src/admin/video/VideoDetailsController.js',
-                    'public/js/src/admin/video/VideoUploadController.js',
-                    'public/js/src/admin/video/VideoDeleteController.js',
-                    'public/js/src/admin/studio/studioModule.js',
-                    'public/js/src/admin/studio/StudioDetailsController.js',
-                    'public/js/src/admin/studio/StudioCreateController.js',
-                    'public/js/src/admin/app.js'],
-            dest:   'public/js/dist/dashboard.js',
-            nonull: true,
-        },
         vendorsDashboard: {
-            src: [  'bower_components/moment/min/moment.min.js',
+            src:    ['bower_components/moment/min/moment.min.js',
                     'bower_components/angular-moment/angular-moment.min.js',
                     'bower_components/angular-loading-bar/build/loading-bar.min.js',
                     'bower_components/fast-json-patch/dist/json-patch-duplex.min.js',
                     'bower_components/angular-xeditable/dist/js/xeditable.min.js',
                     'public/js/vendor/checklist-model.js'],
             dest:   'public/js/dist/vendors/dashboard.js',
+            nonull: true
+        },
+        vendorsFrontend: {
+            src:    ['public/js/foundation.min.js',
+                    'bower_components/fittext/jquery.fittext.js',
+                    'bower_components/responsive-nav/responsive-nav.min.js'],
+            dest:   'public/js/dist/vendors/frontend.js',
             nonull: true
         }
     },
@@ -36,9 +28,26 @@ module.exports = function(grunt) {
         },
         dashboard: {
             files: {
-                'public/js/dist/dashboard.js': ['public/js/dist/dashboard.js'],
+                'public/js/dist/dashboard.js': ['public/js/src/admin/user/userModule.js',
+                                                'public/js/src/admin/user/LoginController.js',
+                                                'public/js/src/admin/video/videoModule.js',
+                                                'public/js/src/admin/video/VideoListController.js',
+                                                'public/js/src/admin/video/VideoDetailsController.js',
+                                                'public/js/src/admin/video/VideoUploadController.js',
+                                                'public/js/src/admin/video/VideoDeleteController.js',
+                                                'public/js/src/admin/studio/studioModule.js',
+                                                'public/js/src/admin/studio/StudioDetailsController.js',
+                                                'public/js/src/admin/studio/StudioCreateController.js',
+                                                'public/js/src/admin/app.js'],
             }
         },
+        frontEnd: {
+            files: {
+                'public/js/dist/frontend.js':   ['public/js/src/common/api_client.js',
+                                                'public/js/src/front/video/videoModule.js',
+                                                'public/js/src/app.js']
+            }
+        }
     },
     uglify: {
         options: {
@@ -48,6 +57,10 @@ module.exports = function(grunt) {
             src: 'public/js/dist/dashboard.js',
             dest: 'public/js/dist/dashboard.min.js',
         },
+        frontEnd: {
+            src: 'public/js/dist/frontend.js',
+            dest: 'public/js/dist/frontend.min.js',
+        }
     },
     copy: {
         jsonPatchMap: {
@@ -68,6 +81,6 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['concat', 'ngAnnotate', 'uglify', 'copy']);
   
-  grunt.registerTask('dev', ['concat']);
+  grunt.registerTask('dev', ['ngAnnotate']);
 
 };

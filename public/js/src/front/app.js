@@ -1,10 +1,11 @@
-angular.module('homeApp', [])
-    .config(function($interpolateProvider) {
+angular.module('frontend', ['videoModule'])
+    .config(function($interpolateProvider, $locationProvider) {
         //cfpLoadingBarProvider.includeSpinner = false;
         $interpolateProvider.startSymbol('{[{');
         $interpolateProvider.endSymbol('}]}');
+        $locationProvider.html5Mode(true);
     })
-    .controller('HomeCtrl', function ($scope) {
+    .controller('HomeVideoCtrl', function ($scope) {
         $scope.videoFullscreen = false;
         $scope.fullToggle = function() {
             this.videoFullscreen = !this.videoFullscreen;
