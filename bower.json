@@ -14,7 +14,8 @@
     "videojs-persistvolume": "~0.1.1",
     "videojs-ga": "mickey/videojs-ga#~0.4.1",
     "videojs-seek": "aervans/videojs-seek",
-    "videojs-vimeo": "eXon/videojs-vimeo"
+    "videojs-vimeo": "eXon/videojs-vimeo",
+    "videojs-hotkeys": "ctd1500/videojs-hotkeys#~0.2.1"
   },
   "private": true
 }

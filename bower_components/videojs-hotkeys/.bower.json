@@ -1,0 +1,15 @@
+{
+  "name": "videojs-hotkeys",
+  "homepage": "https://github.com/ctd1500/videojs-hotkeys",
+  "version": "0.2.1",
+  "_release": "0.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.1",
+    "commit": "f07c08a4079742fae9785fef799cb74ff939f51e"
+  },
+  "_source": "git://github.com/ctd1500/videojs-hotkeys.git",
+  "_target": "~0.2.1",
+  "_originalSource": "ctd1500/videojs-hotkeys",
+  "_direct": true
+}

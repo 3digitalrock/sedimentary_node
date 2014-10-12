@@ -31,7 +31,8 @@ module.exports = function(grunt) {
                     'bower_components/videojs-seek/dist/videojs-seek.min.js',
                     'public/js/video-js-resolutions.js',
                     'bower_components/videojs-vimeo/vjs.vimeo.js',
-                    'bower_components/videojs-youtube/dist/vjs.youtube.js'],
+                    'bower_components/videojs-youtube/dist/vjs.youtube.js',
+                    'bower_components/videojs-hotkeys/videojs.hotkeys.js'],
             dest:   'public/js/dist/videoplayer.js',
             nonull: true
         }
