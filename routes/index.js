@@ -4,11 +4,13 @@ var awsUpload = require('../lib/upload'),
     passport = require('passport'),
     UserApp = require("userapp"),
     form = require('express-form'),
-    field = form.field;
+    field = form.field,
+    MobileDetect = require('mobile-detect');
 
 module.exports = function(app){
     app.get('/', function (req, res) {
-        res.render('home', {showVideo: true, atHome: true, pageTitle: '3 Digital Rock Studios'});
+        var isPhone = new MobileDetect(req.headers['user-agent']).phone();
+        res.render('home', {showVideo: true, atHome: true, phone: isPhone, pageTitle: '3 Digital Rock Studios'});
     });
     
     app.get('/about', function (req, res) {

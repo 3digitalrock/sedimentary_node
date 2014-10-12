@@ -1,4 +1,4 @@
-<div class="videoWrapper" ng-controller="HomeVideoCtrl">
+{{#unless phone}}<div class="videoWrapper" ng-controller="HomeVideoCtrl">
 	<!-- I may or may not have stole this from PlayFight. Sowwy! www.playfight.com -->
 	<div class="main-title" ng-class="{true: 'videoFullscreen', false: ''}[videoFullscreen]">
         <div class="title-container">
@@ -22,4 +22,4 @@
 	 <source src="https://s3.amazonaws.com/3digitalrock/videos/transcoded/9b5ee24a2e37.ogv" type='video/ogg' />
 	 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 	</video>-->
-</div>
+</div>{{/unless}}

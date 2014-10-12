@@ -19,6 +19,7 @@
     "express-session": "^1.8.2",
     "fast-json-patch": "^0.4.0",
     "knox": "~0.8.9",
+    "mobile-detect": "^0.4.0",
     "passport": "^0.2.1",
     "passport-userapp": "^1.1.2",
     "reqwest": "appsforartists/reqwest",
