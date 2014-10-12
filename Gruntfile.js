@@ -17,7 +17,10 @@ module.exports = function(grunt) {
         vendorsFrontend: {
             src:    ['public/js/foundation.min.js',
                     'bower_components/fittext/jquery.fittext.js',
-                    'bower_components/responsive-nav/responsive-nav.min.js'],
+                    'bower_components/responsive-nav/responsive-nav.min.js',
+                    'public/js/loading-bar.js',
+                    'bower_components/slick-carousel/slick/slick.min.js',
+                    'bower_components/angular-slick/dist/slick.min.js'],
             dest:   'public/js/dist/vendors/frontend.js',
             nonull: true
         }
@@ -45,7 +48,7 @@ module.exports = function(grunt) {
             files: {
                 'public/js/dist/frontend.js':   ['public/js/src/common/api_client.js',
                                                 'public/js/src/front/video/videoModule.js',
-                                                'public/js/src/app.js']
+                                                'public/js/src/front/app.js']
             }
         }
     },

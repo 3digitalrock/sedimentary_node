@@ -48,3 +48,17 @@ angular.module('videoModule', ['ngRoute', 'ui.router', 'slick', 'angular-loading
     .controller('WatchVideoCtrl', ['$scope', '$location', function($scope, $location){
       
 }]);
+angular.module('frontend', ['videoModule'])
+    .config(['$interpolateProvider', '$locationProvider', function($interpolateProvider, $locationProvider) {
+        //cfpLoadingBarProvider.includeSpinner = false;
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
+        $locationProvider.html5Mode(true);
+    }])
+    .controller('HomeVideoCtrl', ['$scope', function ($scope) {
+        $scope.videoFullscreen = false;
+        $scope.fullToggle = function() {
+            this.videoFullscreen = !this.videoFullscreen;
+            videojs("video-bg").muted(!this.videoFullscreen);
+        };
+    }]);
