@@ -4,23 +4,33 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
-        vendorsDashboard: {
-            src:    ['bower_components/moment/min/moment.min.js',
+        vendorsangular: {
+            src:    ['bower_components/angular/angular.min.js',
+                    'bower_components/angular-route/angular-route.min.js',
+                    'bower_components/angular-resource/angular-resource.min.js',
+                    'bower_components/angular-animate/angular-animate.min.js',
+                    'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+                    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                     'bower_components/angular-moment/angular-moment.min.js',
                     'bower_components/angular-loading-bar/build/loading-bar.min.js',
-                    'bower_components/fast-json-patch/dist/json-patch-duplex.min.js',
                     'bower_components/angular-xeditable/dist/js/xeditable.min.js',
+                    'public/js/loading-bar.js',
+                    'bower_components/angular-slick/dist/slick.min.js'],
+            dest:   'public/js/dist/vendors/angular.js',
+            nonull: true
+        },
+        vendorsdashboard: {
+            src:    ['bower_components/moment/min/moment.min.js',
+                    'bower_components/fast-json-patch/dist/json-patch-duplex.min.js',
                     'public/js/vendor/checklist-model.js'],
             dest:   'public/js/dist/vendors/dashboard.js',
             nonull: true
         },
-        vendorsFrontend: {
+        vendorsfrontend: {
             src:    ['public/js/foundation.min.js',
                     'bower_components/fittext/jquery.fittext.js',
                     'bower_components/responsive-nav/responsive-nav.min.js',
-                    'public/js/loading-bar.js',
-                    'bower_components/slick-carousel/slick/slick.min.js',
-                    'bower_components/angular-slick/dist/slick.min.js'],
+                    'bower_components/slick-carousel/slick/slick.min.js'],
             dest:   'public/js/dist/vendors/frontend.js',
             nonull: true
         },
@@ -88,6 +98,12 @@ module.exports = function(grunt) {
             flatten: true,
             filter: 'isFile'
         },
+        angularMomentMap: {
+            src: 'bower_components/angular-moment/angular-moment.min.js.map',
+            dest: 'public/js/dist/vendors/angular-moment.min.js.map',
+            flatten: true,
+            filter: 'isFile'
+        }
     },
   });
 

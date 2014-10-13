@@ -132,7 +132,7 @@ angular.module('videoModule')
                         {value: '3', text: 'Processing'},
                         {value: '4', text: 'Rejected'}
                       ];
-      
+
       $scope.updateVideo = function() {
         var patch = jsonpatch.generate($scope.observer);
         Restangular.one('videos', $scope.video.uid).patch(patch).then(function(){

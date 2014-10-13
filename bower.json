@@ -15,7 +15,14 @@
     "videojs-ga": "mickey/videojs-ga#~0.4.1",
     "videojs-seek": "aervans/videojs-seek",
     "videojs-vimeo": "eXon/videojs-vimeo",
-    "videojs-hotkeys": "ctd1500/videojs-hotkeys#~0.2.1"
+    "videojs-hotkeys": "ctd1500/videojs-hotkeys#~0.2.1",
+    "jquery": "1.11.1",
+    "angular": "1.2.23",
+    "angular-route": "1.2.23",
+    "angular-resource": "1.2.23",
+    "angular-animate": "1.2.23",
+    "angular-bootstrap": "0.10.0",
+    "angular-ui-router": "~0.2.11"
   },
   "private": true
 }
