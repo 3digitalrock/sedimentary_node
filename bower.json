@@ -22,7 +22,8 @@
     "angular-resource": "1.2.23",
     "angular-animate": "1.2.23",
     "angular-bootstrap": "0.10.0",
-    "angular-ui-router": "~0.2.11"
+    "angular-ui-router": "~0.2.11",
+    "videojs-sharetools": "~0.1.4"
   },
   "private": true
 }
