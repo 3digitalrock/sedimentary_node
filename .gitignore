@@ -28,4 +28,4 @@ build/Release
 .lock-wscript
 
 # App configuration
-#config
+config

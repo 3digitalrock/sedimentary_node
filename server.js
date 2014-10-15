@@ -6,18 +6,21 @@ var express = require('express'),
     flash = require('connect-flash'),
     passport = require('passport'),
     _ = require('underscore'),
-    config = require('./config/dev'),
     UserAppStrategy = require('passport-userapp').Strategy,
     cookieParser = require('cookie-parser'),
     bunyan = require('bunyan'),
     bunyanLogentries = require('bunyan-logentries');
     
+var dotenv = require('dotenv');
+dotenv._getKeysAndValuesFromEnvFilePath('./config/.env');
+dotenv._setEnvs();
+
 var log = bunyan.createLogger({
   name: 'sedimentary',
   streams: [
     {
       level: 'info',
-      stream: bunyanLogentries.createStream({token: '4e3db9e1-e2ef-44d1-a09f-9de34de3ae6b'}),  // log INFO and above to bunyanLogentries
+      stream: bunyanLogentries.createStream({token: process.env.BUNYAN_TOKEN}),  // log INFO and above to bunyanLogentries
       type: 'raw'
     },
     {
@@ -48,7 +51,7 @@ passport.deserializeUser(function (username, done) {
 // Use the UserAppStrategy within Passport
 passport.use(
     new UserAppStrategy({
-        appId: config.userapp.appId
+        appId: process.env.USERAPP_APPID
     },
     function (userprofile, done) {
         process.nextTick(function () {
