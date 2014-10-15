@@ -39,11 +39,12 @@
     "grunt-contrib-copy": "^0.6.0",
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-ng-annotate": "^0.4.0",
+    "mocha": "^1.21.5",
     "sinon": "^1.10.3",
     "supertest": "^0.14.0"
   },
   "scripts": {
     "test": "npm run test-node",
-    "test-node": "mocha -R spec ./test/test.js"
+    "test-node": "node node_modules/mocha/bin/mocha -R spec ./test/test.js"
   }
 }
