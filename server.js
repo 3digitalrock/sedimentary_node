@@ -65,7 +65,7 @@ passport.use(
     }
 ));
 
-var app = express();
+var app = module.exports = express();
 
 // disable detection of node and friends
 app.disable('x-powered-by');
