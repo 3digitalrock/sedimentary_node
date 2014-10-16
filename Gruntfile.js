@@ -14,7 +14,7 @@ module.exports = function(grunt) {
                     'bower_components/angular-moment/angular-moment.min.js',
                     'bower_components/angular-loading-bar/build/loading-bar.min.js',
                     'bower_components/angular-xeditable/dist/js/xeditable.min.js',
-                    'public/js/loading-bar.js',
+                    'bower_components/restangular/dist/restangular.min.js',
                     'bower_components/angular-slick/dist/slick.min.js'],
             dest:   'public/js/dist/vendors/angular.js',
             nonull: true
@@ -22,7 +22,8 @@ module.exports = function(grunt) {
         vendorsdashboard: {
             src:    ['bower_components/moment/min/moment.min.js',
                     'bower_components/fast-json-patch/dist/json-patch-duplex.min.js',
-                    'public/js/vendor/checklist-model.js'],
+                    'public/js/vendor/checklist-model.js',
+                    'bower_components/lodash/dist/lodash.min.js'],
             dest:   'public/js/dist/vendors/dashboard.js',
             nonull: true
         },
