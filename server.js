@@ -95,9 +95,6 @@ var hbs = exphbs.create({
 // Use Handlebars as default express template engine
 app.engine('handlebars', hbs.engine);
 
-// only for dev
-app.disable('view cache');
-
 // Use custom views/static directories
 app.set('views', __dirname + '/public/views');
 app.use(express.static(__dirname + '/public'));
