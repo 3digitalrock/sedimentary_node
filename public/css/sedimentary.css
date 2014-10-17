@@ -26,13 +26,13 @@ img {
 }
 
 #logo {
-    background-image:url('../img/logo.png');
+    background:url('../img/logo.png') center center no-repeat;
     display:block;
     height:150px;
     overflow:hidden;
     text-indent:100%;
     white-space:nowrap;
-    width:252px;
+    width:100%;
     margin: 0 auto;
 }
 
