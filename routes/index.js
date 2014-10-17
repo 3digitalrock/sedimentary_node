@@ -7,6 +7,9 @@ var awsUpload = require('../lib/upload'),
     field = form.field,
     MobileDetect = require('mobile-detect'),
     db = require('../lib/rethinkdb');
+    
+var MailComposer = require("mailcomposer").MailComposer;
+var mailgun = require('mailgun-js')({apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
 
 module.exports = function(app){
     app.get('/', function (req, res) {
@@ -46,6 +49,18 @@ module.exports = function(app){
             } else {
                 var message = "Thank you for contacting us! We'll be in touch shortly.";
                 db.submitContact(req.form);
+                
+                var data = {
+                  from: req.form.name+' <'+req.form.email+'>',
+                  to: 'davidt@3digitalrockstudios.com',
+                  subject: 'You\'ve Got Mail!',
+                  text: req.form.comment
+                };
+                
+                mailgun.messages().send(data, function (error, body) {
+                  if(error)console.log(error);
+                });
+                
                 // Or, use filtered form data from the form object:
                 if(req.query.json){
                     var okData = {success: true, message: message};
