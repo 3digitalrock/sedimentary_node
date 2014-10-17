@@ -15,6 +15,14 @@ var dotenv = require('dotenv');
 dotenv._getKeysAndValuesFromEnvFilePath('./config/.env');
 dotenv._setEnvs();
 
+function reqSerializer(req) {
+  return {
+    method: req.method,
+    url: req.url,
+    headers: req.headers
+  }
+}
+
 var log = bunyan.createLogger({
   name: 'sedimentary',
   streams: [
@@ -27,7 +35,10 @@ var log = bunyan.createLogger({
       level: 'error',
       path: './error.log'  // log ERROR and above to a file
     }
-  ]
+  ],
+  serializers: {
+    req: reqSerializer
+  },
 });
     
 var users = [];
@@ -69,6 +80,11 @@ passport.use(
 ));
 
 var app = module.exports = express();
+
+app.use(function(req, res, next){
+    log.info({req: req});
+    next();
+});
 
 // disable detection of node and friends
 app.disable('x-powered-by');
