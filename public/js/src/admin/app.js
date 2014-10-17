@@ -25,7 +25,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRout
       $stateProvider
         .state('dashboard', {
           url: '/dashboard',
-          templateUrl: '/admin/views/home.html',
+          templateUrl: '/templates/admin/home.html',
           controller: 'AdminDashboardCtrl'
         });
       $urlRouterProvider.otherwise("/dashboard");

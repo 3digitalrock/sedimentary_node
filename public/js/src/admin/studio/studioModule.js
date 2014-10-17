@@ -4,17 +4,17 @@ angular.module('studioModule', ['ngRoute', 'ui.router'])
         $stateProvider
           .state('studiosAll', {
             url: '/dashboard/studios/all',
-            templateUrl: '/admin/views/studios_all.html',
+            templateUrl: '/templates/admin/studios_all.html',
             controller: 'AdminStudioAllCtrl'
           })
           .state('studiosCreate', {
             url: '/dashboard/studios/new',
-            templateUrl: '/admin/views/studio_create.html',
+            templateUrl: '/templates/admin/studio_create.html',
             controller: 'AdminStudioCreateCtrl'
           })
           .state('studiosDetails', {
             url: '/dashboard/studios/:studioId',
-            templateUrl: '/admin/views/studio_detail.html',
+            templateUrl: '/templates/admin/studio_detail.html',
             /*resolve: {
               studioPromise: function(Restangular, $stateParams){
                 return Restangular.one('studios', $stateParams.studioId).get().then(function(studio){return studio});

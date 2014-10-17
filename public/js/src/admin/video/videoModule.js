@@ -4,12 +4,12 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
         $stateProvider
           .state('videosUpload', {
             url: '/dashboard/videos/upload',
-            templateUrl: '/admin/views/video_create.html',
+            templateUrl: '/templates/admin/video_create.html',
             controller: 'AdminVideoUploadCtrl'
           })
           .state('videosList', {
             url: '/dashboard/videos/all',
-            templateUrl: '/admin/views/video_all.html',
+            templateUrl: '/templates/admin/video_all.html',
             controller: 'AdminVideoListCtrl',
             /*resolve: {
               videosPromise: function(){
@@ -20,7 +20,7 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
           })
           .state('videosDetails', {
             url: '/dashboard/videos/:videoId',
-            templateUrl: '/admin/views/video_detail.html',
+            templateUrl: '/templates/admin/video_detail.html',
             controller: 'AdminVideoDetailsCtrl',
             /*resolve: {
               videoPromise: function(Restangular, $stateParams){

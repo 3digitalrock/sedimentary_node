@@ -113,7 +113,7 @@ module.exports = function(app){
     });
     
     app.get('/dashboard*', function (req, res, next) {
-        res.render('../admin/index', {layout:false});
+        res.render('admin', {layout:false});
     });
     
     app.post('/upload', function(req, res){

@@ -4,12 +4,12 @@ angular.module('userModule', ['ngRoute', 'ui.router', 'UserApp'])
         $stateProvider
           .state('usersAll', {
             url: '/dashboard/users/all',
-            templateUrl: '/admin/views/user_all.html',
+            templateUrl: '/templates/admin/user_all.html',
             controller: 'AdminUserAllCtrl'
           })
           .state('usersDetails', {
             url: '/dashboard/users/:userId',
-            templateUrl: '/admin/views/user_detail.html',
+            templateUrl: '/templates/admin/user_detail.html',
             resolve: {
               userPromise: function(Restangular, $stateParams){
                 return Restangular.one('users', $stateParams.userId).get().then(function(studio){return studio});
@@ -19,7 +19,7 @@ angular.module('userModule', ['ngRoute', 'ui.router', 'UserApp'])
           })
           .state('dashLogin', {
             url: '/dashboard/login',
-            templateUrl: '/admin/views/login.html',
+            templateUrl: '/templates/admin/login.html',
             data: {
               login: true
             },

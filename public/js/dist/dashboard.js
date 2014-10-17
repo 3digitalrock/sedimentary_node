@@ -4,12 +4,12 @@ angular.module('userModule', ['ngRoute', 'ui.router', 'UserApp'])
         $stateProvider
           .state('usersAll', {
             url: '/dashboard/users/all',
-            templateUrl: '/admin/views/user_all.html',
+            templateUrl: '/templates/admin/user_all.html',
             controller: 'AdminUserAllCtrl'
           })
           .state('usersDetails', {
             url: '/dashboard/users/:userId',
-            templateUrl: '/admin/views/user_detail.html',
+            templateUrl: '/templates/admin/user_detail.html',
             resolve: {
               userPromise: ['Restangular', '$stateParams', function(Restangular, $stateParams){
                 return Restangular.one('users', $stateParams.userId).get().then(function(studio){return studio});
@@ -19,7 +19,7 @@ angular.module('userModule', ['ngRoute', 'ui.router', 'UserApp'])
           })
           .state('dashLogin', {
             url: '/dashboard/login',
-            templateUrl: '/admin/views/login.html',
+            templateUrl: '/templates/admin/login.html',
             data: {
               login: true
             },
@@ -36,12 +36,12 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
         $stateProvider
           .state('videosUpload', {
             url: '/dashboard/videos/upload',
-            templateUrl: '/admin/views/video_create.html',
+            templateUrl: '/templates/admin/video_create.html',
             controller: 'AdminVideoUploadCtrl'
           })
           .state('videosList', {
             url: '/dashboard/videos/all',
-            templateUrl: '/admin/views/video_all.html',
+            templateUrl: '/templates/admin/video_all.html',
             controller: 'AdminVideoListCtrl',
             /*resolve: {
               videosPromise: function(){
@@ -52,7 +52,7 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
           })
           .state('videosDetails', {
             url: '/dashboard/videos/:videoId',
-            templateUrl: '/admin/views/video_detail.html',
+            templateUrl: '/templates/admin/video_detail.html',
             controller: 'AdminVideoDetailsCtrl',
             /*resolve: {
               videoPromise: function(Restangular, $stateParams){
@@ -236,17 +236,17 @@ angular.module('studioModule', ['ngRoute', 'ui.router'])
         $stateProvider
           .state('studiosAll', {
             url: '/dashboard/studios/all',
-            templateUrl: '/admin/views/studios_all.html',
+            templateUrl: '/templates/admin/studios_all.html',
             controller: 'AdminStudioAllCtrl'
           })
           .state('studiosCreate', {
             url: '/dashboard/studios/new',
-            templateUrl: '/admin/views/studio_create.html',
+            templateUrl: '/templates/admin/studio_create.html',
             controller: 'AdminStudioCreateCtrl'
           })
           .state('studiosDetails', {
             url: '/dashboard/studios/:studioId',
-            templateUrl: '/admin/views/studio_detail.html',
+            templateUrl: '/templates/admin/studio_detail.html',
             /*resolve: {
               studioPromise: function(Restangular, $stateParams){
                 return Restangular.one('studios', $stateParams.studioId).get().then(function(studio){return studio});
@@ -296,7 +296,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRout
       $stateProvider
         .state('dashboard', {
           url: '/dashboard',
-          templateUrl: '/admin/views/home.html',
+          templateUrl: '/templates/admin/home.html',
           controller: 'AdminDashboardCtrl'
         });
       $urlRouterProvider.otherwise("/dashboard");
