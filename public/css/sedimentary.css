@@ -20,6 +20,8 @@ img {
   max-width: 100%; 
 }
 
+.ng-cloak { display: none; }
+
 /*** Header ***/
 .header {
     background: url('../img/header_bg.png') top left repeat-x;

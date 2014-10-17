@@ -25,24 +25,33 @@ module.exports = function(app){
         // Form filter and validation middleware
         form(
             field("name").trim().required().is(/^[a-zA-Z]+$/),
-            field("phone").trim().required().is(/^[0-9]+$/),
-            field("email").trim().isEmail()
+            field("email").trim().isEmail(),
+            field("comment").trim().required()
         ),
         
         // Express request-handler now receives filtered and validated data
         function(req, res){
             if (!req.form.isValid) {
                 // Handle errors
-                req.flash('form', req.form.errors);
-                res.redirect('/contact');
-            
+                
+                if(req.query.json){
+                    res.setHeader('Content-Type', 'application/json');
+                    var errData = { success: false, errors: req.form.errors };
+                    res.end(JSON.stringify(errData));
+                } else {
+                    req.flash('form', req.form.errors);
+                    res.redirect('/contact');
+                }
             } else {
+                var message = "Thank you for contacting us! We'll be in touch shortly.";
                 // Or, use filtered form data from the form object:
-                console.log("Name:", req.form.name);
-                console.log("Email:", req.form.email);
-                console.log("Phone:", req.form.phone);
-                req.flash('form', "Thank you for contacting us! We'll be in touch shortly.");
-                res.redirect('/contact');
+                if(req.query.json){
+                    var okData = {success: true, message: message};
+                    res.end(JSON.stringify(okData));
+                } else {
+                    req.flash('form', message);
+                    res.redirect('/contact');
+                }
             }
         }
     );

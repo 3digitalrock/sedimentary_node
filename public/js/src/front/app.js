@@ -1,4 +1,4 @@
-angular.module('frontend', ['videoModule'])
+angular.module('frontend', ['videoModule', 'contactModule'])
     .config(function($interpolateProvider, $locationProvider) {
         //cfpLoadingBarProvider.includeSpinner = false;
         $interpolateProvider.startSymbol('{[{');

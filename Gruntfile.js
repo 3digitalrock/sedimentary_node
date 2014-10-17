@@ -72,6 +72,7 @@ module.exports = function(grunt) {
             files: {
                 'public/js/dist/frontend.js':   ['public/js/src/common/api_client.js',
                                                 'public/js/src/front/video/videoModule.js',
+                                                'public/js/src/front/contact/contactModule.js',
                                                 'public/js/src/front/app.js']
             }
         }
@@ -118,6 +119,6 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['uglify:videojs', 'concat', 'ngAnnotate', 'uglify:dashboard', 'uglify:frontend', 'copy']);
   
-  grunt.registerTask('dev', ['ngAnnotate']);
+  grunt.registerTask('dev', ['ngAnnotate', 'uglify:dashboard', 'uglify:frontend']);
 
 };
