@@ -5,7 +5,8 @@ var awsUpload = require('../lib/upload'),
     UserApp = require("userapp"),
     form = require('express-form'),
     field = form.field,
-    MobileDetect = require('mobile-detect');
+    MobileDetect = require('mobile-detect'),
+    db = require('../lib/rethinkdb');
 
 module.exports = function(app){
     app.get('/', function (req, res) {
@@ -44,6 +45,7 @@ module.exports = function(app){
                 }
             } else {
                 var message = "Thank you for contacting us! We'll be in touch shortly.";
+                db.submitContact(req.form);
                 // Or, use filtered form data from the form object:
                 if(req.query.json){
                     var okData = {success: true, message: message};

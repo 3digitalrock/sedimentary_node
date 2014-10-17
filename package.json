@@ -25,6 +25,7 @@
     "passport-userapp": "^1.1.2",
     "reqwest": "appsforartists/reqwest",
     "restler": "*",
+    "rethinkdb": "^1.15.0-0",
     "underscore": "^1.7.0",
     "userapp": "^2.0.0",
     "zencoder": "*"
