@@ -28,8 +28,9 @@ module.exports = function(app){
     app.post('/contact',
         // Form filter and validation middleware
         form(
-            field("name").trim().required().is(/^[a-zA-Z]+$/),
+            field("name").trim().required().is(/^[-\sa-zA-Z]+$/),
             field("email").trim().isEmail(),
+            field("subject").trim().required(),
             field("comment").trim().required()
         ),
         
@@ -53,7 +54,7 @@ module.exports = function(app){
                 var data = {
                   from: req.form.name+' <'+req.form.email+'>',
                   to: 'davidt@3digitalrockstudios.com',
-                  subject: 'You\'ve Got Mail!',
+                  subject: req.form.subject,
                   text: req.form.comment
                 };
                 
