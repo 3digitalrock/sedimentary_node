@@ -20,8 +20,7 @@ module.exports = function(grunt) {
             nonull: true
         },
         vendorsdashboard: {
-            src:    ['bower_components/moment/min/moment.min.js',
-                    'bower_components/fast-json-patch/dist/json-patch-duplex.min.js',
+            src:    ['bower_components/fast-json-patch/dist/json-patch-duplex.min.js',
                     'public/js/vendor/checklist-model.js',
                     'bower_components/lodash/dist/lodash.min.js'],
             dest:   'public/js/dist/vendors/dashboard.js',
