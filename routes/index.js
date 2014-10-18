@@ -11,17 +11,26 @@ var awsUpload = require('../lib/upload'),
 var MailComposer = require("mailcomposer").MailComposer;
 var mailgun = require('mailgun-js')({apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
 
+var cacheMiddleware;
+
+cacheMiddleware = cacheMiddleware = function(seconds) {
+  return function(req, res, next) {
+    res.setHeader("Cache-Control", "public, max-age=" + seconds);
+    return next();
+  };
+};
+
 module.exports = function(app){
-    app.get('/', function (req, res) {
+    app.get('/', cacheMiddleware(60 * 60), function (req, res) {
         var isPhone = new MobileDetect(req.headers['user-agent']).phone();
         res.render('home', {showVideo: true, atHome: true, phone: isPhone, pageTitle: '3 Digital Rock Studios'});
     });
     
-    app.get('/about', function (req, res) {
+    app.get('/about', cacheMiddleware(24 * 60 * 60), function (req, res) {
         res.render('about', {atAbout: true, pageTitle: 'About Our Team'});
     });
     
-    app.get('/contact', function (req, res) {
+    app.get('/contact', cacheMiddleware(24 * 60 * 60), function (req, res) {
         res.render('contact', {atContact: true, pageTitle: 'Contact Us', messages: req.flash('form')});
     });
     
