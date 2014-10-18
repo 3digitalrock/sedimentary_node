@@ -87,6 +87,28 @@ module.exports = function(app){
         channel.channelRouter(req, res);
     });
     
+    app.get('/featured/:playlist', function(req, res, next){
+        db.getFeatured(req.params.playlist, function(err, results){
+            if(err){
+                console.log(err);
+                res.send(500);
+            } else {
+                res.send(results);
+            }
+        });
+    });
+    
+    app.post('/featured', function(req, res, next){
+        var playlists = Object.prototype.toString.call(req.body.playlist) == "[object Array]" ? req.body.playlist : [req.body.playlist];
+        db.postFeatured({uid: req.body.uid, playlists: playlists}, function(err){
+            if(err){
+                console.log(err);
+            } else {
+                res.status(204).end();
+            }
+        });
+    });
+    
     app.get('/watch/:video/:title?.html', function (req, res) {
         channel.videoPage(req, res, true);
     });
