@@ -1,5 +1,5 @@
 <h4>More by {{video.studio.name}}</h4>
 
 {{#each relatedVideos.studio}}
-    <div>{{this.title}}</div>
+    <div class="vid_thumbnail_wrap"><a href="/watch/{{this.uid}}/{{this.slug}}"><img src="{{this.thumbnails.[0]}}" title="{{this.title}}"></a></div>
 {{/each}}
