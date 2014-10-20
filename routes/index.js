@@ -98,7 +98,7 @@ module.exports = function(app){
         });
     });
     
-    app.post('/featured', function(req, res, next){
+    app.put('/featured', function(req, res, next){
         var playlists = Object.prototype.toString.call(req.body.playlist) == "[object Array]" ? req.body.playlist : [req.body.playlist];
         db.postFeatured({uid: req.body.uid, playlists: playlists}, function(err){
             if(err){
