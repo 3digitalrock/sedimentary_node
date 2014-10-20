@@ -22,7 +22,7 @@
     {{> video_bg}}
   {{/if}}
       
-  <nav class="nav-collapse">
+  <nav id="primary-nav" class="nav-collapse">
     <ul class="main-nav">
       <li class="nav-item {{#if atHome}}current{{/if}}"><a href="/">Home</a></li>
       <li class="nav-item {{#if atAbout}}current{{/if}}"><a href="/about">About</a></li>
@@ -66,6 +66,11 @@
     $(document).foundation();
     var nav = responsiveNav(".nav-collapse");
     jQuery(".nav-item").fitText();
+    smoothScroll.init({
+      speed: 500,
+      easing: 'easeInOutCubic',
+      updateURL: false
+    });
   </script>
   {{#if atHome}}<script src="/js/dist/videoplayer.js"></script>
   <script type="text/javascript">

@@ -30,7 +30,8 @@ module.exports = function(grunt) {
             src:    ['public/js/foundation.min.js',
                     'bower_components/fittext/jquery.fittext.js',
                     'bower_components/responsive-nav/responsive-nav.min.js',
-                    'bower_components/slick-carousel/slick/slick.min.js'],
+                    'bower_components/slick-carousel/slick/slick.min.js',
+                    'bower_components/smooth-scroll/dist/js/smooth-scroll.min.js'],
             dest:   'public/js/dist/vendors/frontend.js',
             nonull: true
         },

@@ -271,7 +271,7 @@ angular.module('studioModule')
     $scope.createStudio = function() {
       $scope.submitted = true;
       Restangular.all('studios').post({name: $scope.studio_name, description: $scope.studio_description}).then(function(studio){
-        console.log(studio);
+        
       }, function(response) {
         $scope.submitted = false;
         console.log("Error: Status code", response.status);

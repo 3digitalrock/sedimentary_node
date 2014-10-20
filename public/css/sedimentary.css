@@ -104,16 +104,43 @@ img {
     font-size: 1em;
 }
 
+.overlay-wrap {
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    position: absolute;
+    text-align: center;
+}
+
+.overlay-wrap.video-toggle-wrap {
+    bottom: 20%;
+}
+
+.overlay-wrap.video-toggle-wrap div {
+    display: inline-block;
+}
+
 #video_toggle {
     width: 65px;
     height: 65px;
     background-image: url('../img/video_toggle.png');
     background-repeat: no-repeat;
     display: inline-block;
-    z-index: 10;
-    position: absolute;
-    bottom: 20%;
-    left: 50%;
+}
+
+.overlay-wrap.hinthint {
+    color: #fff;
+    bottom: 10%;
+    font-size: 1.4em;
+}
+
+.hinthint a {
+    padding: 6px 10px;
+    border: 4px solid #fff;
+}
+
+.hinthint a, .hinthint a:active, .hinthint a:hover, .hinthint a:visited {
+    color: #fff;
 }
 
 .fixed {
