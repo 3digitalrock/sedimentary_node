@@ -30,6 +30,11 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRout
         });
       $urlRouterProvider.otherwise("/dashboard");
   })
+  .factory('WebApi', function(Restangular) {
+    return Restangular.withConfig(function(RestangularConfigurer) {
+      RestangularConfigurer.setBaseUrl('http://3drs.synth3tk.com');
+    });
+  })
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
     
   }])

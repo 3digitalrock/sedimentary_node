@@ -266,9 +266,19 @@ angular.module('studioModule')
       Restangular.one('studios', $stateParams.studioId).getList('videos', {limit: 5, fields: 'uid,title,slug,description,created,status'}).then(function(videos){$scope.videos=videos});
   }]);
 angular.module('studioModule')
-  .controller('AdminStudioCreateCtrl', function () {
-      
-  });
+  .controller('AdminStudioCreateCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
+    
+    $scope.createStudio = function() {
+      $scope.submitted = true;
+      Restangular.all('studios').post({name: $scope.studio_name, description: $scope.studio_description}).then(function(studio){
+        console.log(studio);
+      }, function(response) {
+        $scope.submitted = false;
+        console.log("Error: Status code", response.status);
+        console.log(response.data);
+      });
+    };
+  }]);
 angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment', 'UserApp'])
   .config(['$interpolateProvider', '$locationProvider', '$sceDelegateProvider', 'RestangularProvider', 'cfpLoadingBarProvider', '$stateProvider', '$urlRouterProvider', function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider, $stateProvider, $urlRouterProvider) {
       $interpolateProvider.startSymbol('{[{');
@@ -300,6 +310,11 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'ngRout
           controller: 'AdminDashboardCtrl'
         });
       $urlRouterProvider.otherwise("/dashboard");
+  }])
+  .factory('WebApi', ['Restangular', function(Restangular) {
+    return Restangular.withConfig(function(RestangularConfigurer) {
+      RestangularConfigurer.setBaseUrl('http://3drs.synth3tk.com');
+    });
   }])
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
     
