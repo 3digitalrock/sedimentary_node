@@ -65,6 +65,11 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
                 return Restangular.all('channels').getList().then(function(channels){return channels});
               }
             }*/
+          })
+          .state('videosTrailers', {
+            url: '/dashboard/trailers',
+            templateUrl: '/templates/admin/video_trailers.html',
+            controller: 'AdminVideoTrailersCtrl'
           });
   }]);
 angular.module('videoModule')
@@ -230,6 +235,11 @@ var ModalInstanceCtrl = ['$scope', '$modalInstance', 'delVideo', function ($scop
     $modalInstance.dismiss('cancel');
   };
 }];
+angular.module('videoModule')
+  .controller('AdminVideoTrailersCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
+      Restangular.all('trailers').getList().then(function(trailers){$scope.trailers=trailers});
+      $scope.predicate = 'order';
+  }]);
 angular.module('studioModule', ['ngRoute', 'ui.router'])
   .config(['$stateProvider', '$urlRouterProvider',
       function($stateProvider, $urlRouterProvider) {

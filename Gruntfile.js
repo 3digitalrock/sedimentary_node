@@ -62,6 +62,7 @@ module.exports = function(grunt) {
                                                 'public/js/src/admin/video/VideoDetailsController.js',
                                                 'public/js/src/admin/video/VideoUploadController.js',
                                                 'public/js/src/admin/video/VideoDeleteController.js',
+                                                'public/js/src/admin/video/VideoTrailersController.js',
                                                 'public/js/src/admin/studio/studioModule.js',
                                                 'public/js/src/admin/studio/StudioDetailsController.js',
                                                 'public/js/src/admin/studio/StudioCreateController.js',

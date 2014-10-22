@@ -33,5 +33,10 @@ angular.module('videoModule', ['ngRoute', 'ui.router'])
                 return Restangular.all('channels').getList().then(function(channels){return channels});
               }
             }*/
+          })
+          .state('videosTrailers', {
+            url: '/dashboard/trailers',
+            templateUrl: '/templates/admin/video_trailers.html',
+            controller: 'AdminVideoTrailersCtrl'
           });
   }]);
