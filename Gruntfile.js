@@ -65,6 +65,10 @@ module.exports = function(grunt) {
                                                 'public/js/src/admin/studio/studioModule.js',
                                                 'public/js/src/admin/studio/StudioDetailsController.js',
                                                 'public/js/src/admin/studio/StudioCreateController.js',
+                                                'public/js/src/admin/mail/mailModule.js',
+                                                'public/js/src/admin/mail/MailInboxController.js',
+                                                'public/js/src/admin/mail/MailViewController.js',
+                                                'public/js/src/admin/mail/MailReplyController.js',
                                                 'public/js/src/admin/app.js'],
             }
         },
