@@ -1,11 +1,11 @@
-angular.module('videoModule', ['ngRoute', 'ui.router'])
+angular.module('videoModule', ['ngRoute', 'ui.router', 'angularFileUpload', 'checklist-model'])
   .config(['$stateProvider', '$urlRouterProvider', '$routeProvider',
       function($stateProvider, $urlRouterProvider, $routeProvider) {
         $stateProvider
+          // This controller is global (app.js)
           .state('videosUpload', {
             url: '/dashboard/videos/upload',
-            templateUrl: '/templates/admin/video_create.html',
-            controller: 'AdminVideoUploadCtrl'
+            templateUrl: '/templates/admin/video_create.html'
           })
           .state('videosList', {
             url: '/dashboard/videos/all',

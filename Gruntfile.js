@@ -5,7 +5,8 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     concat: {
         vendorsangular: {
-            src:    ['bower_components/angular/angular.min.js',
+            src:    ['bower_components/ng-file-upload/angular-file-upload-shim.js',
+                    'bower_components/angular/angular.min.js',
                     'bower_components/angular-route/angular-route.min.js',
                     'bower_components/angular-resource/angular-resource.min.js',
                     'bower_components/angular-animate/angular-animate.min.js',
@@ -15,7 +16,9 @@ module.exports = function(grunt) {
                     'bower_components/angular-loading-bar/build/loading-bar.min.js',
                     'bower_components/angular-xeditable/dist/js/xeditable.min.js',
                     'bower_components/restangular/dist/restangular.min.js',
-                    'bower_components/angular-slick/dist/slick.min.js'],
+                    'bower_components/angular-slick/dist/slick.min.js',
+                    'bower_components/ng-file-upload/angular-file-upload.js',
+                    'bower_components/checklist-model/checklist-model.js'],
             dest:   'public/js/dist/vendors/angular.js',
             nonull: true
         },

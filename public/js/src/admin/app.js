@@ -8,7 +8,8 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'mailMo
       cfpLoadingBarProvider.includeSpinner = false;
       $sceDelegateProvider.resourceUrlWhitelist([
         'self',
-        'http://slate.3digitalrockstudios.com.s3.amazonaws.com/**'
+        'http://slate.3digitalrockstudios.com.s3.amazonaws.com/**',
+        'http://slate.3digitalrockstudios.com/**'
       ]);
       // add a response intereceptor
       RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
@@ -25,8 +26,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'mailMo
       $stateProvider
         .state('dashboard', {
           url: '/dashboard',
-          templateUrl: '/templates/admin/home.html',
-          controller: 'AdminDashboardCtrl'
+          templateUrl: '/templates/admin/home.html'
         });
       $urlRouterProvider.otherwise("/dashboard");
   })

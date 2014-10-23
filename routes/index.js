@@ -1,4 +1,4 @@
-var awsUpload = require('../lib/upload'),
+var aws = require('../lib/aws'),
     transcode = require('../lib/transcode'),
     channel = require('../lib/channel'),
     passport = require('passport'),
@@ -148,7 +148,7 @@ module.exports = function(app){
     });
     
     app.post('/upload', function(req, res){
-        return awsUpload(req, function(err, url){res.redirect(url)});
+        return aws.s3UploadService(req, function(err){res.end()});
     });
     
     app.post('/transcode_callback', function(req, res){
