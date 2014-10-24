@@ -1,4 +1,4 @@
-angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'mailModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment', 'UserApp'])
+angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settingsModule', 'mailModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment', 'UserApp'])
   .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider, $stateProvider, $urlRouterProvider) {
       $interpolateProvider.startSymbol('{[{');
       $interpolateProvider.endSymbol('}]}');
@@ -22,6 +22,12 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'mailMo
           extractedData = data;
         }
         return extractedData;
+      });
+      // Adds '.originalElement' option to return response "unrestangularized"
+      RestangularProvider.setResponseExtractor(function(response) {
+        var newResponse = response;
+        newResponse.originalElement = angular.copy(response);
+        return newResponse;
       });
       $stateProvider
         .state('dashboard', {

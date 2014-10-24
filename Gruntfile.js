@@ -18,7 +18,8 @@ module.exports = function(grunt) {
                     'bower_components/restangular/dist/restangular.min.js',
                     'bower_components/angular-slick/dist/slick.min.js',
                     'bower_components/ng-file-upload/angular-file-upload.js',
-                    'bower_components/checklist-model/checklist-model.js'],
+                    'bower_components/checklist-model/checklist-model.js',
+                    'bower_components/angular-typeahead/angular-typeahead.min.js'],
             dest:   'public/js/dist/vendors/angular.js',
             nonull: true
         },
@@ -69,6 +70,8 @@ module.exports = function(grunt) {
                                                 'public/js/src/admin/studio/studioModule.js',
                                                 'public/js/src/admin/studio/StudioDetailsController.js',
                                                 'public/js/src/admin/studio/StudioCreateController.js',
+                                                'public/js/src/admin/settings/settingsModule.js',
+                                                'public/js/src/admin/settings/SettingsFeaturedController.js',
                                                 'public/js/src/admin/mail/mailModule.js',
                                                 'public/js/src/admin/mail/MailInboxController.js',
                                                 'public/js/src/admin/mail/MailViewController.js',

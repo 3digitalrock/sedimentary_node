@@ -247,6 +247,15 @@
                                 <li ua-has-permission="super_admin"><a href="/dashboard/mail/inbox"><i class="fa fa-pencil-square-o"></i> Form Mail</a></li>
                             </ul>
                         </li>
+                        <li class="treeview active">
+                            <a>
+                                <i class="fa fa-cogs"></i> <span>Settings</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li ua-has-permission="super_admin"><a href="/dashboard/settings/featured"><i class="fa fa-cog"></i> Featured Videos</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <div ng-show="uploads.length > 0"><strong>Uploads:</strong></div>
         			<div ng-repeat="upload in uploads">
@@ -277,6 +286,7 @@
         <script src="/js/dist/videoplayer.js"></script>
         
         <script src="/moment/min/moment.min.js"></script>
+        <script src="/typeahead.js/dist/typeahead.bundle.min.js"></script>
         <script src="/js/dist/vendors/angular.js" type="text/javascript"></script>
         <script src="//app.userapp.io/js/userapp.client.js"></script>
         <script src="//app.userapp.io/js/angularjs.userapp.js"></script>
