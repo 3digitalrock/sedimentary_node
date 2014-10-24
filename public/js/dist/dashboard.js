@@ -236,7 +236,6 @@ angular.module('videoModule')
       }
       // Since everything is ready, start uploading
       UploadService.save($scope.type[$scope.path]);
-      console.log($scope.uploads);
     };
   
   }])
@@ -245,32 +244,21 @@ angular.module('videoModule')
     
     var uploads = [];
     
-    //save method create a new contact if not already exists
+    //save method create a new upload if not already exists
     //else update the existing object
     this.save = function (item) {
-        console.log(item.id);
         if (item.id === null) {
-            console.log('saving');
-            //if this is new contact, add it in contacts array
+            //if this is new upload, add it in uploads array
             item.id = item.type+itemId[item.type]++;
-            console.log('1: ',item);
             uploads.push(item);
             upload(item);
-            console.log('2: ',uploads);
         } else {
-            console.log('saving2');
-            //for existing contact, find this contact using id
-            //and update it.
-            for (var i in uploads) {
-                if (uploads[i].id == item.id) {
-                    uploads[i] = item;
-                }
-            }
+            //do stuff later to make this actually save an existing upload
         }
     };
     
-    //simply search contacts list for given id
-    //and returns the contact object if found
+    //simply search uploads list for given id
+    //and returns the upload object if found
     this.get = function (id) {
       console.log('getting');
         for (var i in uploads) {
@@ -280,7 +268,7 @@ angular.module('videoModule')
         }
     };
      
-    //iterate through contacts list and delete 
+    //iterate through uploads list and delete 
     //contact if found
     this.delete = function (id) {
       console.log('deleting');
@@ -312,10 +300,9 @@ angular.module('videoModule')
         });
       };
     
-    //simply returns the contacts list
+    //simply returns the uploads list
     this.list = function () {
-      console.log('listing');
-        return uploads;
+      return uploads;
     };
   }])
   .directive('progressActive', function() {

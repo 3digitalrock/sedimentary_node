@@ -49,7 +49,6 @@ angular.module('videoModule')
       }
       // Since everything is ready, start uploading
       UploadService.save($scope.type[$scope.path]);
-      console.log($scope.uploads);
     };
   
   }])
@@ -61,7 +60,6 @@ angular.module('videoModule')
     //save method create a new upload if not already exists
     //else update the existing object
     this.save = function (item) {
-        console.log(item.id);
         if (item.id === null) {
             //if this is new upload, add it in uploads array
             item.id = item.type+itemId[item.type]++;
@@ -117,8 +115,7 @@ angular.module('videoModule')
     
     //simply returns the uploads list
     this.list = function () {
-      console.log('listing');
-        return uploads;
+      return uploads;
     };
   })
   .directive('progressActive', function() {
