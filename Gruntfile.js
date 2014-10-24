@@ -48,7 +48,8 @@ module.exports = function(grunt) {
                     'bower_components/videojs-vimeo/vjs.vimeo.js',
                     'bower_components/videojs-youtube/dist/vjs.youtube.js',
                     'bower_components/videojs-hotkeys/videojs.hotkeys.js',
-                    'bower_components/videojs-sharetools/videojs.sharetools.js'],
+                    'bower_components/videojs-sharetools/videojs.sharetools.js',
+                    'bower_components/videojs-playlists/dist/videojs-playlists.min.js'],
             dest:   'public/js/dist/videoplayer.js',
             nonull: true
         }

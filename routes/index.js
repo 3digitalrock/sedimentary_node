@@ -21,9 +21,16 @@ cacheMiddleware = cacheMiddleware = function(seconds) {
 };
 
 module.exports = function(app){
-    app.get('/', cacheMiddleware(60 * 60), function (req, res) {
+    app.get('/', cacheMiddleware(24 * 60 * 60), function (req, res) {
         var isPhone = new MobileDetect(req.headers['user-agent']).phone();
-        res.render('home', {showVideo: true, atHome: true, phone: isPhone, pageTitle: '3 Digital Rock Studios'});
+        db.getFeatured('home', function(err, results){
+            if(!err){
+                res.render('home', {showVideo: true, atHome: true, phone: isPhone, trailers: results, pageTitle: '3 Digital Rock Studios'});
+            } else {
+                console.log(err);
+                res.status(500).end();
+            }
+        });
     });
     
     app.get('/about', cacheMiddleware(24 * 60 * 60), function (req, res) {

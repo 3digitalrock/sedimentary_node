@@ -71,14 +71,20 @@
       }
       loadTitleAnimated();
 	  });
-    videojs("video-bg", {
-        techOrder: ["youtube"],
-        quality: "480p",
-        src: "https://www.youtube.com/watch?v=fG-UhJd9YRw"
-    }).ready(function(){
+	  var videos = [{{#each trailers}}{"src": [{{#each this.files}}"{{this}}",{{/each}}],"poster": "{{this.thumbnails.[0]}}","title": "{{this.title}}"}{{#unless @last}},{{/unless}}{{/each}}];
+	  videojs("video-bg").ready(function(){
       var myPlayer = this;
       myPlayer.ga();
       myPlayer.muted(true);
+      myPlayer.playList(videos, {
+        getVideoSource: function(vid, cb) {
+          cb(vid.src, vid.poster);
+        }
+      });
+      myPlayer.on('lastVideoEnded', function(e){
+        myPlayer.playList(0);
+        myPlayer.play();
+      });
     });
   </script>{{/if}}
 </body>
