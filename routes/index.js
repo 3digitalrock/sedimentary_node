@@ -147,7 +147,7 @@ module.exports = function(app){
         res.render('admin', {layout:false});
     });
     
-    app.post('/upload', function(req, res){
+    app.post('/upload/:type', function(req, res){
         return aws.s3UploadService(req, function(err){res.end()});
     });
     

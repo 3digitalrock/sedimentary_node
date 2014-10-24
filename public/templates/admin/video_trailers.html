@@ -31,7 +31,7 @@
                                             <th>Operations</th>
                                         </tr>
                                         <tr ng-repeat="trailer in trailers | filter:searchTrailers | orderBy:predicate:reverse">
-                                            <td>{[{trailer.order}]}></td>
+                                            <td>{[{trailer.order}]}</td>
                                             <td>{[{trailer.title}]}</td>
                                             <td>{[{trailer.description}]}</td>
                                             <td><a class="btn btn-danger" ng-controller="AdminDeleteCtrl" ng-click="delModal(trailer.uid,trailer.title);"><i class="fa fa-times"></i></a></div>
@@ -49,29 +49,27 @@
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="title">Title</label>
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="Title" ng-model="form.title" required>
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="Title" ng-model="type.trailers.form.title" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <input type="text" class="form-control" id="description" name="description" placeholder="Description" ng-model="form.description" required>
+                                        <input type="text" class="form-control" id="description" name="description" placeholder="Description" ng-model="type.trailers.form.description" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="file">Video File</label>
                                         <input type="file" ng-file-select="onFileSelect($files)">
                                         <p class="help-block">Example block-level help text here.</p>
                                     </div>
-                            		<div ng-show="selectedFiles">
-                            			<div class="sel-file" ng-repeat="f in selectedFiles">
-                                            <div class="progress sm progress-striped active" progress-active ng-attr-progress="{[{progress[$index]}]}" ng-show="progress[$index] >= 0">
-                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{[{progress[$index]}]}" aria-valuemin="0" aria-valuemax="100" style="width: {[{progress[$index]}]}%">
-                                                    <span class="sr-only">{[{progress[$index]}]}%</span>
-                                                </div>
+                            		<div ng-show="type.trailers.file">
+                                        <div class="progress sm progress-striped active" progress-active ng-attr-progress="{[{type.trailers.progress}]}" ng-show="type.trailers.progress >= 0">
+                                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{[{type.trailers.progress}]}" aria-valuemin="0" aria-valuemax="100" style="width: {[{type.trailers.progress}]}%">
+                                                <span class="sr-only">{[{type.trailers.progress}]}%</span>
                                             </div>
-                            			</div>
+                                        </div>
                             		</div>
                                 </div><!-- /.box-body -->
                                 <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary" ng-click="onFormSubmit()" ng-disabled="progress[$index] >= 0" value="submit">Submit</button>
+                                    <button type="submit" class="btn btn-primary" ng-click="onFormSubmit()" ng-disabled="type.trailers.progress >= 0" value="submit">Submit</button>
                                 </div>
                             </div><!-- /.box -->
                         </div>

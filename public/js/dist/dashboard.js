@@ -186,7 +186,7 @@ angular.module('videoModule')
       });
   }]);
 angular.module('videoModule')
-  .controller('AdminVideoUploadCtrl', ['$scope', '$upload', 'Restangular', function($scope, $upload, Restangular){
+  .controller('AdminVideoUploadCtrl', ['$scope', '$upload', 'Restangular', '$location', '$rootScope', 'UploadService', function($scope, $upload, Restangular, $location, $rootScope, UploadService){
     // Get all channels and studios for selection
     Restangular.all('channels').getList().then(function(channels){
       $scope.channellist = [];
@@ -202,52 +202,121 @@ angular.module('videoModule')
       });
     });
     
-    $scope.progress = [];
-    $scope.form = {};
+    $scope.type = {};
+    $scope.path = '';
+    $scope.uploads = UploadService.list();
+    
+    $scope.$on('$locationChangeSuccess', function(event) {
+      $scope.path = $location.path().split( '/' )[2];
+      if(!$scope.type[$scope.path]){
+        $scope.type[$scope.path] = {
+          file: [],
+          progress: [],
+          form: {},
+          type: $scope.path
+        };
+      }
+    });
     
     $scope.onFileSelect = function($files) {
-      $scope.selectedFiles = $files;
-      for (var i = 0; i < $scope.selectedFiles.length; i++) {
-        $scope.progress[i] = -1;
-      }
+      $scope.type[$scope.path].file = $files;
+      $scope.type[$scope.path].progress = -1;
     };
   
     $scope.onFormSubmit = function(){
-      for (var i = 0; i < $scope.selectedFiles.length; i++) {
-        $scope.iteration = i;
-        
-        $scope.progress[$scope.iteration] = 0;
-        var file = $scope.selectedFiles[$scope.iteration];
-
-        $scope.upload = $upload.upload({
-          url: '/upload',
+      $scope.type[$scope.path].id = null;
+      
+      $scope.type[$scope.path].progress = 0;
+      
+      $scope.type[$scope.path].file = $scope.type[$scope.path].file;
+      if($scope.path=="trailers"){
+        $scope.type[$scope.path].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, order: '99'};
+      } else {
+        $scope.type[$scope.path].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, studio: {uid: $scope.type[$scope.path].form.studio.uid}, channels: $scope.type[$scope.path].form.channels};
+      }
+      // Since everything is ready, start uploading
+      UploadService.save($scope.type[$scope.path]);
+      console.log($scope.uploads);
+    };
+  
+  }])
+  .service('UploadService', ['$upload', function($upload){
+    var itemId = {trailers: 1, videos: 1};
+    
+    var uploads = [];
+    
+    //save method create a new contact if not already exists
+    //else update the existing object
+    this.save = function (item) {
+        console.log(item.id);
+        if (item.id === null) {
+            console.log('saving');
+            //if this is new contact, add it in contacts array
+            item.id = item.type+itemId[item.type]++;
+            console.log('1: ',item);
+            uploads.push(item);
+            upload(item);
+            console.log('2: ',uploads);
+        } else {
+            console.log('saving2');
+            //for existing contact, find this contact using id
+            //and update it.
+            for (var i in uploads) {
+                if (uploads[i].id == item.id) {
+                    uploads[i] = item;
+                }
+            }
+        }
+    };
+    
+    //simply search contacts list for given id
+    //and returns the contact object if found
+    this.get = function (id) {
+      console.log('getting');
+        for (var i in uploads) {
+            if (uploads[i].id == id) {
+                return uploads[i];
+            }
+        }
+    };
+     
+    //iterate through contacts list and delete 
+    //contact if found
+    this.delete = function (id) {
+      console.log('deleting');
+        for (var i in uploads) {
+            if (uploads[i].id == id) {
+                uploads.splice(i, 1);
+            }
+        }
+    };
+    
+    var upload = function (item) {
+      console.log('uploading');
+      $upload.upload({
+          url: '/upload/'+item.type,
           method: 'POST',
-          data: {title: $scope.form.title, description: $scope.form.description, studio: {uid: $scope.form.studio.uid}, channels: $scope.form.channels},
-          file: file,
+          data: item.formData,
+          file: item.file,
           // customize how data is added to formData. See #40#issuecomment-28612000 for sample code
           //formDataAppender: function(formData, key, val){}
         }).progress(function(evt) {
-          //console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-          $scope.progress[$scope.iteration] = parseInt(100.0 * evt.loaded / evt.total);
-          //console.log($scope.progress[$scope.iteration]);
+          item.progress = parseInt(100.0 * evt.loaded / evt.total);
+          //console.log(item.id+': '+item.progress);
         }).success(function(data, status, headers, config) {
           // file is uploaded successfully
           console.log(status);
-          console.log(data);
         })
         .error(function(err){
           console.log(err);
         });
-        //.then(success, error, progress); 
-        // access or attach event listeners to the underlying XMLHttpRequest.
-        //.xhr(function(xhr){xhr.upload.addEventListener(...)})
-      }
-      /* alternative way of uploading, send the file binary with the file's content-type.
-         Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed. 
-         It could also be used to monitor the progress of a normal http post/put request with large data*/
-      // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
+      };
+    
+    //simply returns the contacts list
+    this.list = function () {
+      console.log('listing');
+        return uploads;
     };
-  
   }])
   .directive('progressActive', function() {
       return {

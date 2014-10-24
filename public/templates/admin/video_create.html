@@ -24,11 +24,11 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="title">Title</label>
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" ng-model="form.title" required>
+                                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" ng-model="type.videos.form.title" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="description">Description</label>
-                                            <input type="text" class="form-control" id="description" name="description" placeholder="Description" ng-model="form.description" required>
+                                            <input type="text" class="form-control" id="description" name="description" placeholder="Description" ng-model="type.videos.form.description" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="file">Video File</label>
@@ -37,12 +37,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Studio</label>
-                                            <select ng-model="form.studio" ng-options="studio.name for studio in studiolist track by studio.uid" required></select>
+                                            <select ng-model="type.videos.form.studio" ng-options="studio.name for studio in studiolist track by studio.uid" required></select>
                                         </div>
                                         <div class="form-group">
                                             <div><strong>Channels (select at least one)</strong></div>
                                             <label ng-repeat="channel in channellist">
-                                              <input type="checkbox" checklist-model="form.channels" checklist-value="channel.uid"> {[{channel.name}]}
+                                              <input type="checkbox" checklist-model="type.videos.form.channels" checklist-value="channel.uid"> {[{channel.name}]}
                                             </label>
                                         </div>
                                     </div><!-- /.box-body -->
@@ -53,14 +53,12 @@
                                 </form>
                             </div><!-- /.box -->
                             
-                    		<div ng-show="selectedFiles">
-                    			<div class="sel-file" ng-repeat="f in selectedFiles">
-                                    <div class="progress sm progress-striped active" progress-active ng-attr-progress="{[{progress[$index]}]}" ng-show="progress[$index] >= 0">
-                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{[{progress[$index]}]}" aria-valuemin="0" aria-valuemax="100" style="width: {[{progress[$index]}]}%">
-                                            <span class="sr-only">{[{progress[$index]}]}%</span>
-                                        </div>
+                    		<div ng-show="type.videos.file">
+                                <div class="progress sm progress-striped active" progress-active ng-attr-progress="{[{type.videos.progress}]}" ng-show="type.videos.progress >= 0">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{[{type.videos.progress}]}" aria-valuemin="0" aria-valuemax="100" style="width: {[{type.videos.progress}]}%">
+                                        <span class="sr-only">{[{type.videos.progress}]}%</span>
                                     </div>
-                    			</div>
+                                </div>
                     		</div>
                             
                         </div>

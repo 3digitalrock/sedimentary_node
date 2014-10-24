@@ -248,6 +248,15 @@
                             </ul>
                         </li>
                     </ul>
+                    <div ng-show="uploads.length > 0"><strong>Uploads:</strong></div>
+        			<div ng-repeat="upload in uploads">
+        			    <div>{[{upload.form.title}]}</div>
+                        <div class="progress sm progress-striped active" progress-active ng-attr-progress="{[{upload.progress}]}" ng-show="upload.progress >= 0">
+                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{[{upload.progress}]}" aria-valuemin="0" aria-valuemax="100" style="width: {[{upload.progress}]}%">
+                                <span class="sr-only">{[{upload.progress}]}%</span>
+                            </div>
+                        </div>
+        			</div>
                 </section>
                 <!-- /.sidebar -->
             </aside>
