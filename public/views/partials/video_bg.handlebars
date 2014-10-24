@@ -20,3 +20,6 @@
         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
     </video>
 </div>{{/unless}}
+{{#if phone}}<ul class="rslides" id="video-bg-slider">
+    {{#each trailers}}<li><img src="{{this.thumbnails.[0]}}" alt=""></li>{{/each}}
+</ul>{{/if}}
