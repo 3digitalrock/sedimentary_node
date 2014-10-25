@@ -27,6 +27,7 @@
       </section>
       <section class="row">
         <div class="large-6 columns">
+          <h3>For The Viewers...</h3>
           <form ng-submit="processForm()" action="/contact" method="POST" onSubmit="return false;">
             <label for="name">Name</label>
               <input name="name" type="text" placeholder="John Jacob Jingleheimersmith" autocomplete="off" ng-model="formData.name" required />
@@ -40,7 +41,9 @@
           </form>
         </div>
         <div class="large-6 columns">
-          Talk to us today!
+          <h3>For The Filmmakers...</h3>
+          <p>If you're a filmmaker who wants to submit a short film to the site for consideration, click here:</p>
+          <a class="button expand" href="/dashboard/videos/upload">Upload A Film</a>
         </div>
       </section>
     </div>
