@@ -1,11 +1,11 @@
-angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settingsModule', 'mailModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment', 'UserApp'])
+angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settingsModule', 'mailModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment', 'UserApp', 'rcWizard', 'rcForm', 'rcDisabledBootstrap'])
   .config(function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider, $stateProvider, $urlRouterProvider) {
       $interpolateProvider.startSymbol('{[{');
       $interpolateProvider.endSymbol('}]}');
       $locationProvider.html5Mode(true);
       RestangularProvider.setBaseUrl('http://api.3drs.synth3tk.com');
       cfpLoadingBarProvider.latencyThreshold = 500;
-      cfpLoadingBarProvider.includeSpinner = false;
+      cfpLoadingBarProvider.includeSpinner = true;
       $sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'http://slate.3digitalrockstudios.com.s3.amazonaws.com/**',
@@ -42,7 +42,9 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
     });
   })
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
-    
+    if(!$scope.user.first_name){
+      $scope.user.first_name = 'Friend';
+    }
   }])
   .run(function($rootScope, editableOptions, user){
     user.init({

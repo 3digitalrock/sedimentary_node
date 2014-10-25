@@ -2,6 +2,7 @@
                 <section class="content-header">
                     <h1>
                         Upload A New Video
+                        <small>Show your creation to the world!</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -17,50 +18,85 @@
                             <!-- general form elements -->
                             <div class="box box-primary">
                                 <div class="box-header">
-                                    <h3 class="box-title">Upload New Video</h3>
+                                    <h3 class="box-title">In Just 3 Easy Steps...</h3>
                                 </div><!-- /.box-header -->
-                                <!-- form start -->
-                                <form role="form">
-                                    <div class="box-body">
-                                        <div class="form-group">
-                                            <label for="title">Title</label>
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" ng-model="type.videos.form.title" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" id="description" name="description" placeholder="Description" ng-model="type.videos.form.description" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="file">Video File</label>
-                                            <input type="file" ng-file-select="onFileSelect($files)" accept="videos/*">
-                                            <p class="help-block">Example block-level help text here.</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Studio</label>
-                                            <select ng-model="type.videos.form.studio" ng-options="studio.name for studio in studiolist track by studio.uid" required></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <div><strong>Channels (select at least one)</strong></div>
-                                            <label ng-repeat="channel in channellist">
-                                              <input type="checkbox" checklist-model="type.videos.form.channels" checklist-value="channel.uid"> {[{channel.name}]}
-                                            </label>
-                                        </div>
-                                    </div><!-- /.box-body -->
-
-                                    <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary" ng-click="onFormSubmit()" value="submit">Submit</button>
+                                <div class="box-body" rc-wizard="sampleWizard">
+                                    <ul class="nav rc-nav-wizard">
+                                      <li class="active">
+                                        <a class="active" href="#first" data-toggle="tab">
+                                          <span class="badge">1</span>
+                                          <span>Guidelines</span>
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#second" data-toggle="tab">
+                                          <span class="badge">2</span>
+                                          <span>Terms & Conditions</span>
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#last" data-toggle="tab">
+                                          <span class="badge">3</span>
+                                          <span>Upload Video</span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <!-- form start -->
+                                        <form class="tab-pane active" id="first" name="guidelines" rc-submit rc-step>
+                                            <div>Dos and do nots.</div>
+                                        </form>
+                                        <form class="tab-pane" id="second" name="agreement" rc-submit rc-step>
+                                            <div>Agree to my terms right meow!</div>
+                                            <div class="form-group" ng-class="{'has-error': rc.agreement.needsAttention(agreement.agreed)}">
+                                                <div class="radio">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" id="checkboxError" class="checkbox" value="option1" name="agreed" ng-model="type.videos.form.agreed" required>
+                                                        I agree!
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form class="tab-pane" id="last" name="video" rc-submit="onFormSubmit()" rc-step>
+                                            <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.title)}">
+                                                <label for="title">Title</label>
+                                                <input type="text" class="form-control" id="title" name="title" placeholder="Title" ng-model="type.videos.form.title" required>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.description)}">
+                                                <label for="description">Description</label>
+                                                <input type="text" class="form-control" id="description" name="description" placeholder="Description" ng-model="type.videos.form.description" required>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.file)}">
+                                                <label for="file">Video File</label>
+                                                <input type="file" name="file" ng-file-select="onFileSelect($files)" accept="videos/*">
+                                                <p class="help-block">Film must have a length of 5-90 minutes. Maximum filesize is xxGB. <span>The original uploaded file will not be saved on our servers once it has been transcoded!</span></p>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.studio)}">
+                                                <label>Studio</label>
+                                                <select name="studio" ng-model="type.videos.form.studio" ng-options="studio.name for studio in studiolist track by studio.uid" required></select>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.channels)}">
+                                                <div><strong>Channels (select at least one)</strong></div>
+                                                <div class="radio">
+                                                    <label class="checkbox" ng-repeat="channel in channellist">
+                                                        <input name="channels" type="checkbox" checklist-model="type.videos.form.channels" checklist-value="channel.uid"> {[{channel.name}]}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                </form>
+                                    <div class="form-group">
+                                      <div class="pull-right">
+                                        <a class="btn btn-default" ng-click="rc.sampleWizard.backward()"
+                                           ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
+                                        <a class="btn btn-primary" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
+                                           ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
+                                        <a class="btn btn-primary" ng-click="rc.sampleWizard.forward()" 
+                                           ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
+                                      </div>
+                                    </div>
+                                </div><!-- /.box-body -->
                             </div><!-- /.box -->
-                            
-                    		<div ng-show="type.videos.file">
-                                <div class="progress sm progress-striped active" progress-active ng-attr-progress="{[{type.videos.progress}]}" ng-show="type.videos.progress >= 0">
-                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{[{type.videos.progress}]}" aria-valuemin="0" aria-valuemax="100" style="width: {[{type.videos.progress}]}%">
-                                        <span class="sr-only">{[{type.videos.progress}]}%</span>
-                                    </div>
-                                </div>
-                    		</div>
-                            
                         </div>
                     </div>
                 </section>

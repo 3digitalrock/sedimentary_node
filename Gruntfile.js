@@ -19,7 +19,11 @@ module.exports = function(grunt) {
                     'bower_components/angular-slick/dist/slick.min.js',
                     'bower_components/ng-file-upload/angular-file-upload.js',
                     'bower_components/checklist-model/checklist-model.js',
-                    'bower_components/angular-typeahead/angular-typeahead.min.js'],
+                    'bower_components/angular-typeahead/angular-typeahead.min.js',
+                    'public/js/vendor/realcrowd/rcSubmit.js',
+                    'public/js/vendor/realcrowd/rcForms.js',
+                    'public/js/vendor/realcrowd/rcDisabled.js',
+                    'public/js/vendor/realcrowd/rcWizard.js'],
             dest:   'public/js/dist/vendors/angular.js',
             nonull: true
         },

@@ -1,5 +1,6 @@
 angular.module('videoModule')
-  .controller('AdminVideoUploadCtrl', ['$scope', '$upload', 'Restangular', '$location', '$rootScope', 'UploadService', function($scope, $upload, Restangular, $location, $rootScope, UploadService){
+  .controller('AdminVideoUploadCtrl', ['$scope', '$upload', 'Restangular', '$location', '$rootScope', 'UploadService',
+  function($scope, $upload, Restangular, $location, $rootScope, UploadService){
     // Get all channels and studios for selection
     Restangular.all('channels').getList().then(function(channels){
       $scope.channellist = [];

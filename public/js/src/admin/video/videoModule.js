@@ -5,7 +5,10 @@ angular.module('videoModule', ['ngRoute', 'ui.router', 'angularFileUpload', 'che
           // This controller is global (app.js)
           .state('videosUpload', {
             url: '/dashboard/videos/upload',
-            templateUrl: '/templates/admin/video_create.html'
+            templateUrl: '/templates/admin/video_create.html',
+            data: {
+              public: true
+            }
           })
           .state('videosList', {
             url: '/dashboard/videos/all',

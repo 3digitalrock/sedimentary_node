@@ -37,7 +37,10 @@ angular.module('videoModule', ['ngRoute', 'ui.router', 'angularFileUpload', 'che
           // This controller is global (app.js)
           .state('videosUpload', {
             url: '/dashboard/videos/upload',
-            templateUrl: '/templates/admin/video_create.html'
+            templateUrl: '/templates/admin/video_create.html',
+            data: {
+              public: true
+            }
           })
           .state('videosList', {
             url: '/dashboard/videos/all',
@@ -186,7 +189,8 @@ angular.module('videoModule')
       });
   }]);
 angular.module('videoModule')
-  .controller('AdminVideoUploadCtrl', ['$scope', '$upload', 'Restangular', '$location', '$rootScope', 'UploadService', function($scope, $upload, Restangular, $location, $rootScope, UploadService){
+  .controller('AdminVideoUploadCtrl', ['$scope', '$upload', 'Restangular', '$location', '$rootScope', 'UploadService',
+  function($scope, $upload, Restangular, $location, $rootScope, UploadService){
     // Get all channels and studios for selection
     Restangular.all('channels').getList().then(function(channels){
       $scope.channellist = [];
@@ -497,14 +501,14 @@ angular.module('mailModule')
   .controller('AdminMailReplyCtrl', ['$scope', function ($scope) {
       
   }]);
-angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settingsModule', 'mailModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment', 'UserApp'])
+angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settingsModule', 'mailModule', 'ngRoute', 'ui.bootstrap', 'ui.router', 'xeditable', 'restangular', 'angular-loading-bar', 'checklist-model', 'angularMoment', 'UserApp', 'rcWizard', 'rcForm', 'rcDisabledBootstrap'])
   .config(['$interpolateProvider', '$locationProvider', '$sceDelegateProvider', 'RestangularProvider', 'cfpLoadingBarProvider', '$stateProvider', '$urlRouterProvider', function($interpolateProvider, $locationProvider, $sceDelegateProvider, RestangularProvider, cfpLoadingBarProvider, $stateProvider, $urlRouterProvider) {
       $interpolateProvider.startSymbol('{[{');
       $interpolateProvider.endSymbol('}]}');
       $locationProvider.html5Mode(true);
       RestangularProvider.setBaseUrl('http://api.3drs.synth3tk.com');
       cfpLoadingBarProvider.latencyThreshold = 500;
-      cfpLoadingBarProvider.includeSpinner = false;
+      cfpLoadingBarProvider.includeSpinner = true;
       $sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'http://slate.3digitalrockstudios.com.s3.amazonaws.com/**',
@@ -541,7 +545,9 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
     });
   }])
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
-    
+    if(!$scope.user.first_name){
+      $scope.user.first_name = 'Friend';
+    }
   }])
   .run(['$rootScope', 'editableOptions', 'user', function($rootScope, editableOptions, user){
     user.init({
