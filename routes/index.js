@@ -98,7 +98,7 @@ module.exports = function(app){
         db.getFeatured(req.params.playlist, function(err, results){
             if(err){
                 console.log(err);
-                res.send(500);
+                res.status(500).end();
             } else {
                 res.send(results);
             }

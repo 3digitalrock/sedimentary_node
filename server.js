@@ -1,3 +1,7 @@
+var dotenv = require('dotenv');
+dotenv._getKeysAndValuesFromEnvFilePath('./config/.env');
+dotenv._setEnvs();
+
 var express = require('express'),
     exphbs = require('express-handlebars'),
     bodyParser = require('body-parser'),
@@ -8,39 +12,8 @@ var express = require('express'),
     _ = require('underscore'),
     UserAppStrategy = require('passport-userapp').Strategy,
     cookieParser = require('cookie-parser'),
-    bunyan = require('bunyan'),
-    bunyanLogentries = require('bunyan-logentries');
-    
-var dotenv = require('dotenv');
-dotenv._getKeysAndValuesFromEnvFilePath('./config/.env');
-dotenv._setEnvs();
+    log = require('./lib/logger.js');
 
-function reqSerializer(req) {
-  return {
-    method: req.method,
-    url: req.url,
-    headers: req.headers
-  }
-}
-
-var log = bunyan.createLogger({
-  name: 'sedimentary',
-  streams: [
-    {
-      level: 'info',
-      stream: bunyanLogentries.createStream({token: process.env.BUNYAN_TOKEN}),  // log INFO and above to bunyanLogentries
-      type: 'raw'
-    },
-    {
-      level: 'error',
-      path: './error.log'  // log ERROR and above to a file
-    }
-  ],
-  serializers: {
-    req: reqSerializer
-  },
-});
-    
 var users = [];
 
 // Passport session setup
