@@ -2,12 +2,14 @@
   background: #000;
 }
 
-.skin-blue .logo {
-    background-color: #000;
+.header {
+  background: #333;
 }
 
-.skin-blue .navbar {
-    background-color: #8c8c8c;
+.logo img {
+  z-index: 9999;
+  margin-top: -50px;
+  position: relative;
 }
 
 .right-side.inner-wrapper {
