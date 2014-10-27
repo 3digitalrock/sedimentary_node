@@ -12,7 +12,8 @@ var express = require('express'),
     _ = require('underscore'),
     UserAppStrategy = require('passport-userapp').Strategy,
     cookieParser = require('cookie-parser'),
-    log = require('./lib/logger.js');
+    log = require('./lib/logger.js'),
+    compression = require('compression');
 
 var users = [];
 
@@ -53,6 +54,9 @@ passport.use(
 ));
 
 var app = module.exports = express();
+
+// Gzip the output
+app.use(compression());
 
 app.use(function(req, res, next){
     log.info({req: req});
