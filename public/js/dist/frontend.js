@@ -69,8 +69,9 @@ angular.module('contactModule', [])
                     $scope.errors = data.errors;
                 } else {
                     $scope.errors = [];
-                	// if successful, bind success message to message
+                	// if successful, bind success message to message and remove form
                     $scope.message = data.message;
+                    $scope.success = true;
                 }
             });
 		};
