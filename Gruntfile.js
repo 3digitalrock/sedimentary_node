@@ -96,7 +96,7 @@ module.exports = function(grunt) {
     },
     uglify: {
         options: {
-            banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            banner: '/*! <%= pkg.name %> js */\n'
         },
         dashboard: {
             src: 'public/js/dist/dashboard.js',
@@ -125,6 +125,44 @@ module.exports = function(grunt) {
             filter: 'isFile'
         }
     },
+    cssmin: {
+        sedimentary_common: {
+            options: {
+                banner: '/*! <%= pkg.name %> common */',
+                keepSpecialComments: 0
+            },
+            files: {
+                'public/css/dist/sedimentary-common.min.css':   ['public/css/video-js.css',
+                                                                'public/css/video-js-resolutions.css',
+                                                                'bower_components/videojs-sharetools/videojs.sharetools.css',
+                                                                'bower_components/angular-loading-bar/build/loading-bar.min.css']
+            }
+        },
+        sedimentary_front: {
+            options: {
+                banner: '/*! <%= pkg.name %> front */',
+                keepSpecialComments: 0
+            },
+            files: {
+                'public/css/dist/sedimentary-front.min.css':    ['public/css/imports.css',
+                                                                'public/css/foundation.css',
+                                                                'bower_components/responsive-nav/responsive-nav.css',
+                                                                'public/css/sedimentary.css',
+                                                                'public/css/focal-point.min.css']
+            }
+        },
+        sedimentary_dash: {
+            options: {
+                banner: '/*! <%= pkg.name %> dash */',
+                keepSpecialComments: 0
+            },
+            files: {
+                'public/css/dist/sedimentary-dash.min.css': ['bower_components/angular-xeditable/dist/css/xeditable.css',
+                                                            'public/css/dashboard.css',
+                                                            'public/css/admin.css']
+            }
+        }
+    }
   });
 
   // Load the plugins
@@ -132,10 +170,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-ng-annotate');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('assetflow');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify:videojs', 'concat', 'ngAnnotate', 'uglify:dashboard', 'uglify:frontend', 'copy']);
+  grunt.registerTask('default', ['uglify:videojs', 'concat', 'ngAnnotate', 'uglify:dashboard', 'uglify:frontend', 'copy', 'cssmin']);
   
-  grunt.registerTask('dev', ['ngAnnotate', 'uglify:dashboard', 'uglify:frontend']);
+  grunt.registerTask('dev', ['ngAnnotate', 'uglify:dashboard', 'uglify:frontend', 'cssmin']);
 
 };

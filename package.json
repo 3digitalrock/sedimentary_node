@@ -37,10 +37,12 @@
     "url": "https://gitlab.com/3-digital-rock/sedimentary.git"
   },
   "devDependencies": {
+    "assetflow": "^0.1.6",
     "chai": "^1.9.2",
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-copy": "^0.6.0",
+    "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-ng-annotate": "^0.4.0",
     "mocha": "^1.21.5",
