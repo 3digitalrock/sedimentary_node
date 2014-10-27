@@ -1,4 +1,7 @@
 angular.module('mailModule')
-  .controller('AdminMailInboxCtrl', ['$scope', function ($scope) {
-      
+  .controller('AdminMailInboxCtrl', ['$scope', '$http', function ($scope, $http) {
+      $http.get('/contact/messages').
+        success(function(data, status, headers, config) {
+          $scope.messages=data;
+        });
   }]);

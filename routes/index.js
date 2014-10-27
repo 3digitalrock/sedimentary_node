@@ -41,6 +41,18 @@ module.exports = function(app){
         res.render('contact', {atContact: true, pageTitle: 'Contact Us', messages: req.flash('form')});
     });
     
+    app.get('/contact/messages', function (req, res) {
+        db.getContact(function(err, results){
+           if(err){
+               console.log(err);
+               res.status(500).end();
+           } else {
+               res.send(results);
+               //res.end(JSON.stringify(okData));
+           }
+        });
+    });
+    
     app.post('/contact',
         // Form filter and validation middleware
         form(

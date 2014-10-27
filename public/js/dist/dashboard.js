@@ -490,8 +490,13 @@ angular.module('mailModule', ['ngRoute', 'ui.router'])
           });
   }]);
 angular.module('mailModule')
-  .controller('AdminMailInboxCtrl', ['$scope', function ($scope) {
-      
+  .controller('AdminMailInboxCtrl', ['$scope', '$http', function ($scope, $http) {
+      //WebApi.all('contact').getList('messages').then(function(messages){console.log(messages);$scope.messages=messages});
+      $http.get('/contact/messages').
+        success(function(data, status, headers, config) {
+          $scope.messages=data;
+          console.log(data);
+        });
   }]);
 angular.module('mailModule')
   .controller('AdminMailViewCtrl', ['$scope', function ($scope) {

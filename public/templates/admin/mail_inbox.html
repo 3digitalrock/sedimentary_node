@@ -19,7 +19,7 @@
                                             <div style="margin-top: 15px;">
                                                 <ul class="nav nav-pills nav-stacked">
                                                     <li class="header">Folders</li>
-                                                    <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox (14)</a></li>
+                                                    <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox ({[{messages.length}]})</a></li>
                                                     <li><a href="#"><i class="fa fa-pencil-square-o"></i> Drafts</a></li>
                                                     <li><a href="#"><i class="fa fa-mail-forward"></i> Sent</a></li>
                                                     <li><a href="#"><i class="fa fa-star"></i> Starred</a></li>
@@ -64,82 +64,13 @@
                                             <div class="table-responsive">
                                                 <!-- THE MESSAGES -->
                                                 <table class="table table-mailbox">
-                                                    <tr class="unread">
+                                                    <tr class="unread" ng-repeat="message in messages">
                                                         <td class="small-col"><input type="checkbox" /></td>
                                                         <td class="small-col"><i class="fa fa-star"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star-o"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star-o"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr class="unread">
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star-o"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star-o"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr class="unread">
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star-o"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr class="unread">
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star-o"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="small-col"><input type="checkbox" /></td>
-                                                        <td class="small-col"><i class="fa fa-star-o"></i></td>
-                                                        <td class="name"><a href="#">John Doe</a></td>
-                                                        <td class="subject"><a href="#">Urgent! Please read</a></td>
-                                                        <td class="time">12:30 PM</td>
+                                                        <td class="name"><a href="#">{[{message.name}]} ({[{message.email}]})</a></td>
+                                                        <td class="subject"><a href="#">{[{message.subject}]}</a></td>
+                                                        <td class="preview"><a href="#">{[{message.comment | limitTo: 140}]}...</a></td>
+                                                        <td class="time" title="{[{message.created | amDateFormat:'dddd, MMMM Do YYYY, hh:mm'}]}" am-time-ago="message.created"></td>
                                                     </tr>
                                                 </table>
                                             </div><!-- /.table-responsive -->
