@@ -6,6 +6,6 @@ describe('GET /', function(){
         app.listen(3333);
     });
     it('respond successfully', function(done){
-        request(app).get('/').expect(200, done);
+        request(app).get('/contact').expect(200, done);
     });
 });
