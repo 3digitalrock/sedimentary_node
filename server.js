@@ -151,5 +151,5 @@ app.use(function(err, req, res, next) {
 if(dotenv.keys_and_values.PORT) process.env.PORT=dotenv.keys_and_values.PORT;
 
 app.listen(process.env.PORT, function () {
-    console.info(' ✈ HTTPServer listening at http://localhst:'+process.env.PORT);
+    console.info(' ✈ HTTPServer listening at http://localhost:'+process.env.PORT);
 });
