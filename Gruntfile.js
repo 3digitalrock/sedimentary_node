@@ -132,7 +132,7 @@ module.exports = function(grunt) {
                 keepSpecialComments: 0
             },
             files: {
-                'public/css/dist/sedimentary-common.min.css':   ['public/css/video-js.css',
+                'public/css/dist/sedimentary-common.css':   ['public/css/video-js.css',
                                                                 'public/css/video-js-resolutions.css',
                                                                 'bower_components/videojs-sharetools/videojs.sharetools.css',
                                                                 'bower_components/angular-loading-bar/build/loading-bar.min.css']
@@ -144,7 +144,7 @@ module.exports = function(grunt) {
                 keepSpecialComments: 0
             },
             files: {
-                'public/css/dist/sedimentary-front.min.css':    ['public/css/imports.css',
+                'public/css/dist/sedimentary-front.css':    ['public/css/imports.css',
                                                                 'public/css/foundation.css',
                                                                 'bower_components/responsive-nav/responsive-nav.css',
                                                                 'public/css/sedimentary.css',
@@ -157,11 +157,54 @@ module.exports = function(grunt) {
                 keepSpecialComments: 0
             },
             files: {
-                'public/css/dist/sedimentary-dash.min.css': ['bower_components/angular-xeditable/dist/css/xeditable.css',
+                'public/css/dist/sedimentary-dash.css': ['bower_components/angular-xeditable/dist/css/xeditable.css',
                                                             'public/css/dashboard.css',
                                                             'public/css/admin.css']
             }
         }
+    },
+    assets: {
+      options: {
+        cdnurl: '//slate.3digitalrockstudios.com/assets/',
+        truncateHash: 8,
+        manifest: 'temp/manifest.json',
+        prepend: '/'
+      },
+      css: {
+        options: {
+            rel: 'public/',
+        },
+        src: 'public/css/dist/**',
+        dest: 'temp/assets'
+      },
+      js: {
+        options: {
+            rel: 'public/',
+        },
+        src: 'public/js/dist/**',
+        dest: 'temp/assets'
+      }
+    },
+    assetsReplace: {
+      // global task options
+      options: {
+        // don't output debug information
+        debug: false,
+        // define the location of the manifest file.
+        manifest: 'temp/manifest.json',
+      },
+      // the handlebars target
+      handlebars: {
+        options: {
+          // a regex for lax matching {{asset "%"}} allowing for spaces in between
+          // and single quotes.
+          keyRegex: '\\\{\\\{[\\\s]*asset[\\\s]+[\\\'\\\"]{1}%[\\\'\\\"]{1}[\\\s]*\\\}\\\}',
+          // prepend the slash on every asset query
+          prepend: '/'
+        },
+        src: 'public/layouts/*.handlebars',
+        dest: 'public/layouts/release/'
+      }
     }
   });
 
@@ -173,9 +216,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('assetflow');
 
-  // Default task(s).
-  grunt.registerTask('default', ['uglify:videojs', 'concat', 'ngAnnotate', 'uglify:dashboard', 'uglify:frontend', 'copy', 'cssmin']);
-  
+  grunt.registerTask('build', ['uglify:videojs', 'concat', 'ngAnnotate', 'uglify:dashboard', 'uglify:frontend', 'copy', 'cssmin']);
   grunt.registerTask('dev', ['ngAnnotate', 'uglify:dashboard', 'uglify:frontend', 'cssmin']);
 
 };
