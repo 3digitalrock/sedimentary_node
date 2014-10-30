@@ -1,6 +1,6 @@
 angular.module('apiClient',['ngResource'])
-  .factory('Video', ['$resource', function($resource) {
-    return $resource('http://api.3drs.synth3tk.com/videos/:id', { id: '@id' }, {
+  .factory('Video', ['$resource', function($resource, $location) {
+    return $resource('http://api.'+$location.host()+'/videos/:id', { id: '@id' }, {
       'save': {
         method: 'PUT'
       },
@@ -13,8 +13,8 @@ angular.module('apiClient',['ngResource'])
       }
     });
   }])
-  .factory('Channel', ['$resource', function($resource) {
-    return $resource('http://api.3drs.synth3tk.com/channels/:id', { id: '@id' }, {
+  .factory('Channel', ['$resource', function($resource, $location) {
+    return $resource('http://api.'+$location.host()+'/channels/:id', { id: '@id' }, {
       'save': {
         method: 'PUT'
       },
@@ -27,8 +27,8 @@ angular.module('apiClient',['ngResource'])
       }
     });
   }])
-  .factory('Studio', ['$resource', function($resource) {
-    return $resource('http://api.3drs.synth3tk.com/studios/:id', { id: '@id' }, {
+  .factory('Studio', ['$resource', function($resource, $location) {
+    return $resource('http://api.'+$location.host()+'/studios/:id', { id: '@id' }, {
       'save': {
         method: 'PUT'
       },

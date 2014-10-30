@@ -509,12 +509,13 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
       $interpolateProvider.startSymbol('{[{');
       $interpolateProvider.endSymbol('}]}');
       $locationProvider.html5Mode(true);
-      RestangularProvider.setBaseUrl('http://api.3drs.synth3tk.com');
+      RestangularProvider.setBaseUrl('http://api.'+window.location.host);
       cfpLoadingBarProvider.latencyThreshold = 500;
       cfpLoadingBarProvider.includeSpinner = true;
       $sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'http://slate.3digitalrockstudios.com.s3.amazonaws.com/**',
+        'http://slate.3digitalrock.com/**',
         'http://slate.3digitalrockstudios.com/**'
       ]);
       // add a response intereceptor
@@ -542,9 +543,9 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
         });
       $urlRouterProvider.otherwise("/dashboard");
   }])
-  .factory('WebApi', ['Restangular', function(Restangular) {
+  .factory('WebApi', ['Restangular', '$location', function(Restangular, $location) {
     return Restangular.withConfig(function(RestangularConfigurer) {
-      RestangularConfigurer.setBaseUrl('http://3drs.synth3tk.com');
+      RestangularConfigurer.setBaseUrl($location.protocol()+$location.host());
     });
   }])
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
@@ -552,7 +553,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
       $scope.user.first_name = 'Friend';
     }
   }])
-  .run(['$rootScope', 'editableOptions', 'user', function($rootScope, editableOptions, user){
+  .run(['editableOptions', 'user', function(editableOptions, user){
     user.init({
       appId: '542b63aff0d72',
       heartbeatInterval: 0
