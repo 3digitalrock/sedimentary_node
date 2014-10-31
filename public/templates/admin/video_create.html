@@ -18,7 +18,7 @@
                             <!-- general form elements -->
                             <div class="box box-primary">
                                 <div class="box-header">
-                                    <h3 class="box-title">In Just 3 Easy Steps...</h3>
+                                    <h3 class="box-title">In Just A Few Easy Steps...</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body" rc-wizard="sampleWizard">
                                     <ul class="nav rc-nav-wizard">
@@ -35,8 +35,14 @@
                                         </a>
                                       </li>
                                       <li>
-                                        <a href="#last" data-toggle="tab">
+                                        <a href="#third" data-toggle="tab">
                                           <span class="badge">3</span>
+                                          <span>Contact Info</span>
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#last" data-toggle="tab">
+                                          <span class="badge">4</span>
                                           <span>Upload Video</span>
                                         </a>
                                       </li>
@@ -44,17 +50,61 @@
                                     <div class="tab-content">
                                         <!-- form start -->
                                         <form class="tab-pane active" id="first" name="guidelines" rc-submit rc-step>
-                                            <div>Dos and do nots.</div>
+                                            <h3>3DRS Guidelines:</h3>
+                                            <ol>
+                                                <li>Project(s) must be in the Action, Comedy, or Horror genre(s).  These genres can be mixed and matched with other genres, but the main ingredient should contain at least one the three.</li>
+                                                <li>No pornographic content.</li>
+                                                <li>No home videos of any kind will be excepted. We only except professional content, from low/no budget and up. </li>
+                                                <li>Respect the copyright of others. If you have copyrighted material in your project it will not be accepted. However if some does slip through to our site, you, the filmmaker, will be held responsible for it being in the material.</li>
+                                                <li>Gratuitous violence will be monitored and subject to being pulled off of the site if deemed to offensive by the community or 3DRS Staff.</li>
+                                            </ol>
+                                            <strong>Please take these rules seriously. It is to protect you and to create great filmmaking experiences and a viewer community.</strong>
                                         </form>
                                         <form class="tab-pane" id="second" name="agreement" rc-submit rc-step>
-                                            <div>Agree to my terms right meow!</div>
+                                            <textarea rows="20" style="resize:none;width:100%;" data-role="none">
+NON-EXCLUSIVE BROADCASTING AND DISTRIBUTION AGREEMENT
+The agreement is entered by and between You, the content producer(s) (hereafter referred to as “Partner”), located in the United States or Internationally, and 3 Digital Rock Studios (3DRS) (hereafter referred to as “Broadcaster”), having a company address at 49 Bard Dr. Hudson, Ohio 44236, concerning the licensing of certain non-exclusive broadcasting and distribution rights as further specified below, in and of Partner’s content, comprised of videos, photo images and audio, contained in Web series or short film (hereafter referred to as “Program”), pursuant to the following terms:
+ 
+1. RIGHTS: Broadcaster hereby acquires and Partner hereby grants and assigns to the Broadcaster to the full extent owned or controlled by Partner, the non-exclusive broadcasting and exploitation of rights set forth herein. Rights granted by the Partner during the Term as defined below in and of the Program, on any television, online and mobile media distribution platforms, including but not limited to mobile applications, internet broadcasting and cable television. The Broadcaster may place the content licensed under this agreement on all media outlets and content delivery platforms. The Rights granted do not include the right to edit or alter any Content contained in the Program, absent Partner’s express prior written permission in each instance.
+
+Broadcaster may however, remove any Program from the Partner, at the Broadcasters discretion which is considered to be offensive, lacking quality or taste standards, or is in violation of any laws or copyrights; however, the Broadcaster may only remove, but not edit, any such Program. Lastly, the Broadcaster, may use the Partner’s logo and selected and edited content segments in Broadcaster’s promotional and marketing initiatives.
+ 
+2. TERM: The "Term" shall commence on the date hereof uploading content and shall continue until the date of content deletion from the date first written above for distribution. The foregoing notwithstanding, the parties may prematurely terminate this agreement by mutual consent, or with a 30 day written notice to the other, for any reason at all.
+ 
+3. CONSIDERATION: a. Films, shows and merchandise sold in the 3 Digital Rock Studios online store will be on a consignment agreement of 70/30 split payout, (70% - the content producer(s), 30% - 3 Digital Rock Studios). Prices will be set by the content producer(s) for items they produce for being sold in the 3DRS Online Store. b. Online Advertising profits will be split 30/70 payout. (30% - the content producer(s), 70% - 3 Digital Rock Studios). 3 Digital Rock Studios will handle negotiations with Advertisers for the website and app. c. Sponsorships will be the responsibility of the content producer(s).  At which they will receive 100% of profit from sponsorship.
+ 
+4. REPRESENTATIONS AND WARRANTIES: Partner hereby represents and warrants that it is duly organized and validly existing under the laws of the jurisdiction of its organization set forth above and that it has the right to enter into this Agreement. Furthermore, to the best of Partner’s knowledge obtained in the exercise of reasonable professional diligence, the Rights are, Non-Infringed, Unimpaired, Free and Clear upon the trademark, trade name, copyright, literary, dramatic, music, artistic, personal, private, civil or property right or rights of privacy, or any other right whatsoever, of any third party during the Term. 
+
+5. OWNERSHIP: Nothing herein contained grants Broadcaster rights beyond those stated in the agreement, and Program remains the sole ownership of Partner.
+ 
+6. MISCELLANEOUS: This Agreement shall be binding when executed by duly authorized parties of Partner and Broadcaster. This Agreement may not be modified or supplemented except by written consent of both parties.
+                                            </textarea>
                                             <div class="form-group" ng-class="{'has-error': rc.agreement.needsAttention(agreement.agreed)}">
-                                                <div class="radio">
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" id="checkboxError" class="checkbox" value="option1" name="agreed" ng-model="type.videos.form.agreed" required>
-                                                        I agree!
+                                                <span>If the above provisions are acceptable, please indicate by checking “I Agree”:</span>
+                                                <div class="radio" style="margin-top:0px;">
+                                                    <label class="checkbox" style="display:inline-block;margin-top:0px;">
+                                                        <input type="checkbox" id="checkboxError" class="checkbox" value="true" name="agreed" ng-model="type.videos.form.agreed" required>
+                                                        I Agree
                                                     </label>
                                                 </div>
+                                            </div>
+                                        </form>
+                                        <form class="tab-pane" id="third" name="contact" rc-submit rc-step>
+                                            <div class="form-group" ng-class="{'has-error': rc.contact.needsAttention(contact.name)}">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-model="type.videos.form.contact.name" required>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error': rc.contact.needsAttention(contact.studioName)}">
+                                                <label for="studioName">Studio Name</label>
+                                                <input type="text" class="form-control" id="studioName" name="studioName" placeholder="Studio Name" ng-model="type.videos.form.contact.studioName" required>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error': rc.contact.needsAttention(contact.email)}">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" ng-model="type.videos.form.contact.email" required>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error': rc.contact.needsAttention(contact.phone)}">
+                                                <label for="phone">Phone</label>
+                                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone" ng-model="type.videos.form.contact.phone">
                                             </div>
                                         </form>
                                         <form class="tab-pane" id="last" name="video" rc-submit="onFormSubmit()" rc-step>
@@ -92,7 +142,7 @@
                                         <a class="btn btn-primary" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
                                            ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
                                         <a class="btn btn-primary" ng-click="rc.sampleWizard.forward()" 
-                                           ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Complete</a>
+                                           ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Upload & Go!</a>
                                       </div>
                                     </div>
                                 </div><!-- /.box-body -->
