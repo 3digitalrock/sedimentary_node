@@ -128,6 +128,10 @@ module.exports = function(app){
         });
     });
     
+    app.get('/store', function(req, res){
+        res.render('store', {atStore: true, pageTitle: 'Coming Soon | 3 Digital Rock Online Shop'});
+    });
+    
     app.get('/watch/:video/:title?.html', function (req, res) {
         channel.videoPage(req, res, true);
     });
