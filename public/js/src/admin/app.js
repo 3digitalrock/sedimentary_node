@@ -8,7 +8,6 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
       cfpLoadingBarProvider.includeSpinner = true;
       $sceDelegateProvider.resourceUrlWhitelist([
         'self',
-        'http://slate.3digitalrockstudios.com.s3.amazonaws.com/**',
         'http://slate.3digitalrock.com/**',
         'http://slate.3digitalrockstudios.com/**'
       ]);
