@@ -13,7 +13,7 @@
   <div class="row full-width">
     <header class="header large-12 columns">
       <div class="row">
-        <div class="{{#if showVideo}}large-12 logo-overlay{{else}}small-12 small-centered{{/if}} {{#if atHome}}{{#if phone}}no-logo{{/if}}{{/if}} columns"><a href="/" title="3 Digital Rock Studios" id="logo">3 Digital Rock Studios</a></div>
+        <div class="{{#if showVideo}}large-12 logo-overlay{{else}}small-12 small-centered{{/if}} {{#if atHome}}{{#if phone}}no-logo{{/if}}{{/if}} columns"><a {{#unless atHome}}href="/"{{/unless}} alt="3 Digital Rock Studios" id="logo" {{#if atHome}}style="cursor:default;"{{/if}}>3 Digital Rock Studios</a></div>
       </div>
     </header>
   </div>
