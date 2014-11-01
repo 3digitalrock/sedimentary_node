@@ -9,6 +9,10 @@ img {
     width: 100%;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans', sans-serif;
+}
+
 /* ------------------------------------------
   GLOBAL STYLES
 --------------------------------------------- */
@@ -384,6 +388,15 @@ z-index: 1;
 	transition: opacity 0.3s ease-in-out;
 	transition-timing-function: ease;
 	-webkit-transition-timing-function: ease; /* Safari and Chrome */
+}
+
+.bio-bio-text {
+  text-align: left;
+  padding: 16px;
+}
+
+.history {
+  font-family: 'Open Sans', sans-serif;
 }
 
 .bio-wrap:hover .bio-text-wrap {
