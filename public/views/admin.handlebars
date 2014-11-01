@@ -205,7 +205,7 @@
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu" ng-show="user.authenticated">
+                    <ul class="sidebar-menu ng-cloak" ng-show="user.authenticated">
                         <li>
                             <a href="/dashboard">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -228,7 +228,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li ua-has-permission="super_admin"><a href="/dashboard/studios/new"><i class="fa fa-pencil-square-o"></i> Create New Studio</a></li>
+                                <li ua-has-permission="staff"><a href="/dashboard/studios/new"><i class="fa fa-pencil-square-o"></i> Create New Studio</a></li>
                             </ul>
                         </li>
                         <li class="treeview active">
@@ -237,7 +237,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li ua-has-permission="super_admin"><a href="/dashboard/mail/inbox"><i class="fa fa-pencil-square-o"></i> Form Mail</a></li>
+                                <li ua-has-permission="staff"><a href="/dashboard/mail/inbox"><i class="fa fa-pencil-square-o"></i> Form Mail</a></li>
                             </ul>
                         </li>
                         <li class="treeview active">
@@ -246,7 +246,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li ua-has-permission="super_admin"><a href="/dashboard/settings/featured"><i class="fa fa-cog"></i> Featured Videos</a></li>
+                                <li ua-has-permission="staff"><a href="/dashboard/settings/featured"><i class="fa fa-cog"></i> Featured Videos</a></li>
                             </ul>
                         </li>
                     </ul>
