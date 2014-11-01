@@ -231,15 +231,15 @@ angular.module('videoModule')
       $scope.type[$scope.path].id = null;
       
       $scope.type[$scope.path].progress = 0;
-      console.log($scope.type[$scope.path].form.contact);
+      
       $scope.type[$scope.path].file = $scope.type[$scope.path].file;
       if($scope.path=="trailers"){
         $scope.type[$scope.path].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, order: '99'};
       } else {
-        $scope.type[$scope.path].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, studio: {uid: $scope.type[$scope.path].form.studio.uid}, channels: $scope.type[$scope.path].form.channels};
+        $scope.type[$scope.path].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, /*studio: {uid: $scope.type[$scope.path].form.studio.uid},*/ channels: $scope.type[$scope.path].form.channels, contact: $scope.type[$scope.path].form.contact};
       }
       // Since everything is ready, start uploading
-      //UploadService.save($scope.type[$scope.path]);
+      UploadService.save($scope.type[$scope.path]);
     };
   
   }])
