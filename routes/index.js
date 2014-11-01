@@ -11,9 +11,7 @@ var aws = require('../lib/aws'),
 var MailComposer = require("mailcomposer").MailComposer;
 var mailgun = require('mailgun-js')({apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
 
-var cacheMiddleware;
-
-cacheMiddleware = cacheMiddleware = function(seconds) {
+var cacheMiddleware = function(seconds) {
   return function(req, res, next) {
     res.setHeader("Cache-Control", "public, max-age=" + seconds);
     return next();
