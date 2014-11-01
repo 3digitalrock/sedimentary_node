@@ -5,7 +5,11 @@
     {{#if atVideo}}<meta property="og:description" content="{{video.description}}" />
     <meta property="og:image" content="{{video.thumbnails.[0]}}" />
     <meta property="og:type" content="video" />
-    {{#if external}}<meta property="og:url" content="{{video.src}}" />{{/if}}
+    {{#if external}}<meta property="og:url" content="{{video.src}}" />
+    <meta property="og:video" content="http://www.youtube.com/v/{{video.uid}}">
+    <meta property="og:video:type" content="application/x-shockwave-flash">
+    <meta property="og:video:width" content="398">
+    <meta property="og:video:height" content="224">{{/if}}
     {{#unless external}}<meta property="og:video:width" content="640"> 
     <meta property="og:video:height" content="360">
     <meta property="og:video:url" content="{{video.files.mp4_low}}" />
