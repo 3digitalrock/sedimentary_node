@@ -20,7 +20,7 @@
                                 <div class="box-header">
                                     <h3 class="box-title">In Just A Few Easy Steps...</h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body" rc-wizard="sampleWizard">
+                                <div class="box-body" rc-wizard="sampleWizard" ng-hide="uploads[0].progress >= 100">
                                     <ul class="nav rc-nav-wizard">
                                       <li class="active">
                                         <a class="active" href="#first" data-toggle="tab">
@@ -121,10 +121,10 @@ Broadcaster may however, remove any Program from the Partner, at the Broadcaster
                                                 <input type="file" name="file" ng-file-select="onFileSelect($files)" accept="videos/*">
                                                 <p class="help-block">Film must have a length of 5-90 minutes. Maximum filesize is xxGB. <span>The original uploaded file will not be saved on our servers once it has been transcoded!</span></p>
                                             </div>
-                                            <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.studio)}">
+                                            <!--<div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.studio)}">
                                                 <label>Studio</label>
                                                 <select name="studio" ng-model="type.videos.form.studio" ng-options="studio.name for studio in studiolist track by studio.uid" required></select>
-                                            </div>
+                                            </div>-->
                                             <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.channels)}">
                                                 <div><strong>Channels (select at least one)</strong></div>
                                                 <div class="radio">
@@ -135,8 +135,9 @@ Broadcaster may however, remove any Program from the Partner, at the Broadcaster
                                             </div>
                                         </form>
                                     </div>
+                                    <br />
                                     <div class="form-group">
-                                      <div class="pull-right">
+                                      <div>
                                         <a class="btn btn-default" ng-click="rc.sampleWizard.backward()"
                                            ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
                                         <a class="btn btn-primary" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
@@ -146,6 +147,11 @@ Broadcaster may however, remove any Program from the Partner, at the Broadcaster
                                       </div>
                                     </div>
                                 </div><!-- /.box-body -->
+                                <div class="box-body" ng-show="uploads[0].progress == 100">
+                                    <div class="callout callout-info">
+                                        Thank you for submitting your film! We'll be in contact with you soon to let you know whether your project has been accepted.
+                                    </div>
+                                </div>
                             </div><!-- /.box -->
                         </div>
                     </div>
