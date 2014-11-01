@@ -55,11 +55,6 @@ passport.use(
 
 var app = module.exports = express();
 
-// If this is production, gzip the output
-if (app.get('env') === 'production') {
-    app.use(compression());
-}
-
 app.use(function(req, res, next){
     log.info({req: req});
     next();
