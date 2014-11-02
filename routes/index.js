@@ -168,7 +168,7 @@ module.exports = function(app){
     });
     
     app.post('/video_uploads/:type', function(req, res){
-        return aws.s3UploadService(req, function(err){if(err){console.log(err)}res.end()});
+        return aws.s3UploadService(req, function(err){res.end()});
     });
     
     app.post('/transcode_callback', function(req, res){
