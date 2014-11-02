@@ -121,7 +121,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (process.env.NODE_ENV === 'development') {
     app.use(function(err, req, res, next) {
         log.error(err);
         res.status(err.status || 500);

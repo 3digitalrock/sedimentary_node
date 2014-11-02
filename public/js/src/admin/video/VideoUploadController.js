@@ -96,7 +96,7 @@ angular.module('videoModule')
     var upload = function (item) {
       console.log('uploading');
       $upload.upload({
-          url: '/upload/'+item.type,
+          url: '/video_uploads/'+item.type,
           method: 'POST',
           data: item.formData,
           file: item.file,

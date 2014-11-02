@@ -7,8 +7,7 @@ var aws = require('../lib/aws'),
     field = form.field,
     MobileDetect = require('mobile-detect'),
     db = require('../lib/rethinkdb');
-    
-var MailComposer = require("mailcomposer").MailComposer;
+
 var mailgun = require('mailgun-js')({apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
 
 var cacheMiddleware = function(seconds) {
@@ -168,8 +167,8 @@ module.exports = function(app){
         res.render('admin', {layout:false});
     });
     
-    app.post('/upload/:type', function(req, res){
-        return aws.s3UploadService(req, function(err){res.end()});
+    app.post('/video_uploads/:type', function(req, res){
+        return aws.s3UploadService(req, function(err){if(err){console.log(err)}res.end()});
     });
     
     app.post('/transcode_callback', function(req, res){
