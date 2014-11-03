@@ -9,7 +9,7 @@ angular.module('videoModule')
           "1": '<span class="label label-success">Approved</span>',
           "2": '<span class="label label-warning">Pending</span>',
           "3": '<span class="label label-info">Processing</span>',
-          "4": '<span class="label label-alert">Rejected</span>',
+          "4": '<span class="label label-danger">Rejected</span>',
           "0": '<span class="label label-default">Unknown</span>'
       };
       
