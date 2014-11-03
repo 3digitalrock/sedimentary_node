@@ -38,7 +38,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
   })
   .factory('WebApi', function(Restangular, $location) {
     return Restangular.withConfig(function(RestangularConfigurer) {
-      RestangularConfigurer.setBaseUrl($location.protocol()+$location.host());
+      RestangularConfigurer.setBaseUrl('http://'+$location.host());
     });
   })
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {

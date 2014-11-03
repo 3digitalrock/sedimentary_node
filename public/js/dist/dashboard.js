@@ -544,7 +544,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
   }])
   .factory('WebApi', ['Restangular', '$location', function(Restangular, $location) {
     return Restangular.withConfig(function(RestangularConfigurer) {
-      RestangularConfigurer.setBaseUrl($location.protocol()+$location.host());
+      RestangularConfigurer.setBaseUrl($location.protocol()+'://'+$location.host());
     });
   }])
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
