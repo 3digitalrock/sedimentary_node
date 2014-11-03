@@ -9,7 +9,8 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
       $sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'http://slate.3digitalrock.com/**',
-        'http://slate.3digitalrockstudios.com/**'
+        'http://slate.3digitalrockstudios.com/**',
+        'http://slate.3digitalrockstudios.com.s3.amazonaws.com/'
       ]);
       // add a response intereceptor
       RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {

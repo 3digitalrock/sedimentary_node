@@ -515,7 +515,8 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
       $sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'http://slate.3digitalrock.com/**',
-        'http://slate.3digitalrockstudios.com/**'
+        'http://slate.3digitalrockstudios.com/**',
+        'http://slate.3digitalrockstudios.com.s3.amazonaws.com/'
       ]);
       // add a response intereceptor
       RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
@@ -544,7 +545,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
   }])
   .factory('WebApi', ['Restangular', '$location', function(Restangular, $location) {
     return Restangular.withConfig(function(RestangularConfigurer) {
-      RestangularConfigurer.setBaseUrl($location.protocol()+'://'+$location.host());
+      RestangularConfigurer.setBaseUrl('http://'+$location.host());
     });
   }])
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
