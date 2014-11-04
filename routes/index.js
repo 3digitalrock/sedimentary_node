@@ -99,7 +99,7 @@ module.exports = function(app){
         }
     );
     
-    app.get('/channels', function (req, res) {
+    app.get('/channels', cacheMiddleware(60 * 60), function (req, res) {
         channel.channelRouter(req, res);
     });
     
@@ -125,7 +125,7 @@ module.exports = function(app){
         });
     });
     
-    app.get('/store', function(req, res){
+    app.get('/store', cacheMiddleware(24 * 60 * 60), function(req, res){
         res.render('store', {atStore: true, pageTitle: 'Coming Soon | 3 Digital Rock Online Shop'});
     });
     
@@ -133,7 +133,7 @@ module.exports = function(app){
         channel.videoPage(req, res, true);
     });
     
-    app.get('/watch/:video/:title?', function (req, res) {
+    app.get('/watch/:video/:title?', cacheMiddleware(60 * 60), function (req, res) {
         channel.videoPage(req, res);
     });
     
