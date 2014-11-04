@@ -78,7 +78,7 @@ module.exports = function(app){
                 
                 var data = {
                   from: req.form.name+' <'+req.form.email+'>',
-                  to: 'davidt@3digitalrockstudios.com',
+                  to: 'info@3digitalrockstudios.com',
                   subject: req.form.subject,
                   text: req.form.comment
                 };
