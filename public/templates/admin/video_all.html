@@ -25,14 +25,14 @@
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
                                         <tr>
-                                            <th ng-click="predicate = 'title'; reverse=!reverse">Title</th>
+                                            <th>Title</th>
                                             <th>Studio</th>
                                             <th>Description</th>
-                                            <th ng-click="predicate = 'upload'; reverse=!reverse">Uploaded</th>
+                                            <th>Uploaded</th>
                                             <th>Status</th>
                                             <th>Operations</th>
                                         </tr>
-                                        <tr ng-repeat="video in videos | filter:searchVideos | orderBy:predicate:reverse">
+                                        <tr ng-repeat="video in videos | filter:searchVideos | orderBy:!predicate">
                                             <td><a ui-sref="videosDetails({videoId: '{[{video.uid}]}'})">{[{video.title}]}</a></td>
                                             <td><a ui-sref="studiosDetails({studioId: '{[{video.studio.uid}]}'})">{[{video.studio.name}]}</a></td>
                                             <td>{[{video.description}]}</td>

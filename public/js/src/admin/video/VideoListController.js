@@ -2,7 +2,7 @@ angular.module('videoModule')
   .controller('AdminVideoListCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
       //$scope.videos = videosPromise;
       Restangular.all('videos').getList({fields: 'uid,title,slug,description,studio,created,status'}).then(function(videos){$scope.videos=videos});
-      $scope.predicate = 'upload';
+      $scope.predicate = 'created';
   }])
   .directive('vidstatus', function () {
       var labelMap = {
