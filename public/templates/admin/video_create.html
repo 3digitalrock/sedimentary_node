@@ -14,7 +14,7 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <!-- general form elements -->
                             <div class="box box-primary">
                                 <div class="box-header">
@@ -41,8 +41,14 @@
                                         </a>
                                       </li>
                                       <li>
-                                        <a href="#last" data-toggle="tab">
+                                        <a href="#fourth" data-toggle="tab">
                                           <span class="badge">4</span>
+                                          <span>Video Info</span>
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#last" data-toggle="tab">
+                                          <span class="badge">5</span>
                                           <span>Upload Video</span>
                                         </a>
                                       </li>
@@ -107,7 +113,7 @@ Broadcaster may however, remove any Program from the Partner, at the Broadcaster
                                                 <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone" ng-model="type.videos.form.contact.phone">
                                             </div>
                                         </form>
-                                        <form class="tab-pane" id="last" name="video" rc-submit="onFormSubmit()" rc-step>
+                                        <form class="tab-pane" id="fourth" name="video" rc-submit="submitVideoInfo()" rc-step>
                                             <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.title)}">
                                                 <label for="title">Title</label>
                                                 <input type="text" class="form-control" id="title" name="title" placeholder="Title" ng-model="type.videos.form.title" required>
@@ -115,11 +121,6 @@ Broadcaster may however, remove any Program from the Partner, at the Broadcaster
                                             <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.description)}">
                                                 <label for="description">Description</label>
                                                 <input type="text" class="form-control" id="description" name="description" placeholder="Description" ng-model="type.videos.form.description" required>
-                                            </div>
-                                            <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.file)}">
-                                                <label for="file">Video File</label>
-                                                <input type="file" name="file" ng-file-select="onFileSelect($files)" accept="video/*">
-                                                <p class="help-block">Film must have a length of 5-90 minutes. Maximum filesize is xxGB. <span>The original uploaded file will not be saved on our servers once it has been transcoded!</span></p>
                                             </div>
                                             <!--<div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.studio)}">
                                                 <label>Studio</label>
@@ -134,16 +135,29 @@ Broadcaster may however, remove any Program from the Partner, at the Broadcaster
                                                 </div>
                                             </div>
                                         </form>
+                                        <form class="tab-pane" id="last" name="video" rc-submit="uploadVideo()" rc-step>
+                                            <div class="form-group" ng-class="{'has-error': rc.video.needsAttention(video.file)}">
+                                                <label for="file">Video File</label>
+                                                <input type="file" name="file" ng-file-select="onFileSelect($files)" accept="video/*">
+                                                <p class="help-block">Film must have a length of 5-80 minutes. Maximum filesize is 10GB. <span>The original uploaded file will not be saved on our servers once it has been transcoded!</span></p>
+                                            </div>
+                                            <div class="progress sm progress-striped active" progress-active ng-attr-progress="{[{type.videos[0].progress}]}" ng-show="type.videos[0].progress > 0">
+                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{[{type.videos[0].progress}]}" aria-valuemin="0" aria-valuemax="100" style="width: {[{type.videos[0].progress}]}%">
+                                                    <span class="sr-only">{[{type.videos[0].progress}]}%</span>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                     <br />
                                     <div class="form-group">
                                       <div>
                                         <a class="btn btn-default" ng-click="rc.sampleWizard.backward()"
-                                           ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex">Back</a>
+                                           ng-show="rc.sampleWizard.currentIndex > rc.sampleWizard.firstIndex" ng-disabled="type.videos[0].progress > 0">Back</a>
                                         <a class="btn btn-primary" data-loading-text="Please Wait..." ng-click="rc.sampleWizard.forward()" 
                                            ng-show="rc.sampleWizard.currentIndex < rc.sampleWizard.navigationLength">Continue</a>
                                         <a class="btn btn-primary" ng-click="rc.sampleWizard.forward()" 
-                                           ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength">Upload & Go!</a>
+                                           ng-show="rc.sampleWizard.currentIndex == rc.sampleWizard.navigationLength" ng-disabled="type.videos[0].progress > 0">Upload & Go!</a>
+                                        <button class="btn btn-danger" ng-click="abort(videos,0,0)" ng-show="type.videos[0].progress > 0 && type.videos[0].progress < 100">Cancel</button>
                                       </div>
                                     </div>
                                 </div><!-- /.box-body -->

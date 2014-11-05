@@ -171,6 +171,15 @@ module.exports = function(app){
         return aws.s3UploadService(req, function(err){res.end()});
     });
     
+    app.post('/s3/pgen', function(req, res){
+        res.send(aws.s3PolicyGenerator(req.body.size));
+    });
+    
+    app.post('/s3/process', function(req, res){
+        transcode.createJob(req.body.videoPath, req.body.videoFilename, req.body.uploadType);
+        res.status(204).end();
+    });
+    
     app.post('/transcode_callback', function(req, res){
         transcode.jobCallback(req.body);
         res.status(204).end();

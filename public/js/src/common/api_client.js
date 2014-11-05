@@ -13,6 +13,16 @@ angular.module('apiClient',['ngResource'])
       }
     });
   }])
+  .factory('Videos', ['$resource', function($resource, $location) {
+    return $resource('http://api.'+$location.host()+'/videos', {
+      'create': {
+        method: 'PUT'
+      },
+      'query': {
+          method:'GET'
+      }
+    });
+  }])
   .factory('Channel', ['$resource', function($resource, $location) {
     return $resource('http://api.'+$location.host()+'/channels/:id', { id: '@id' }, {
       'save': {

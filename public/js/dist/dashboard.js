@@ -189,8 +189,8 @@ angular.module('videoModule')
       });
   }]);
 angular.module('videoModule')
-  .controller('AdminVideoUploadCtrl', ['$scope', '$upload', 'Restangular', '$location', '$rootScope', 'UploadService',
-  function($scope, $upload, Restangular, $location, $rootScope, UploadService){
+  .controller('AdminVideoUploadCtrl', ['$scope', '$upload', 'Restangular', '$location', '$rootScope', 'UploadService', '$http',
+  function($scope, $upload, Restangular, $location, $rootScope, UploadService, $http){
     // Get all channels and studios for selection
     Restangular.all('channels').getList().then(function(channels){
       $scope.channellist = [];
@@ -208,12 +208,13 @@ angular.module('videoModule')
     
     $scope.type = {};
     $scope.path = '';
-    $scope.uploads = UploadService.list();
+    //$scope.uploads = UploadService.list();
     
     $scope.$on('$locationChangeSuccess', function(event) {
       $scope.path = $location.path().split( '/' )[2];
-      if(!$scope.type[$scope.path]){
-        $scope.type[$scope.path] = {
+      $scope.type[$scope.path] = [];
+      if(!$scope.type[$scope.path][0]){
+        $scope.type[$scope.path][0] = {
           file: [],
           progress: [],
           form: {},
@@ -221,27 +222,84 @@ angular.module('videoModule')
         };
       }
     });
-    
-    $scope.onFileSelect = function($files) {
-      $scope.type[$scope.path].file = $files;
-      $scope.type[$scope.path].progress = -1;
-    };
   
-    $scope.onFormSubmit = function(){
-      $scope.type[$scope.path].id = null;
+    $scope.submitVideoInfo = function(){
+      $scope.type[$scope.path][0].id = null;
       
-      $scope.type[$scope.path].progress = 0;
+      $scope.type[$scope.path][0].progress = 0;
       
-      $scope.type[$scope.path].file = $scope.type[$scope.path].file;
       if($scope.path=="trailers"){
-        $scope.type[$scope.path].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, order: '99'};
+        $scope.type[$scope.path][0].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, order: '99'};
+        Restangular.all('trailers').post($scope.type[$scope.path][0].formData).then(function(newTrailer){
+          $scope.type[$scope.path][0].uid = newTrailer.uid;
+          return;
+        });
       } else {
-        $scope.type[$scope.path].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, /*studio: {uid: $scope.type[$scope.path].form.studio.uid},*/ channels: $scope.type[$scope.path].form.channels, contact: $scope.type[$scope.path].form.contact};
+        $scope.type[$scope.path][0].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, /*studio: {uid: $scope.type[$scope.path].form.studio.uid},*/ channels: $scope.type[$scope.path].form.channels, contact: $scope.type[$scope.path].form.contact};
+        delete $scope.type[$scope.path][0].formData['contact'];
+        var videoBase = Restangular.all('videos').post($scope.type[$scope.path][0].formData);
+        
+        return videoBase.then(function(newVideo){
+          $scope.type[$scope.path][0].uid = newVideo.uid;
+        });
       }
       // Since everything is ready, start uploading
-      UploadService.save($scope.type[$scope.path]);
+      //UploadService.save($scope.type[$scope.path]);
     };
-  
+    
+    $scope.onFileSelect = function($files) {
+      $scope.type[$scope.path][0].file = $files;
+      $scope.type[$scope.path][0].progress = -1;
+      
+      $http({
+          url: "/s3/pgen",
+          method: "POST",
+          data: {size: $scope.type[$scope.path][0].file[0].size}
+      }).success(function(data, status) {
+          $scope.type[$scope.path][0].file[0].policy = data.policy;
+          $scope.type[$scope.path][0].file[0].sig = data.sig;
+      });
+    };
+    
+    $scope.uploadVideo = function(){
+      var file = $scope.type[$scope.path][0].file;
+      var videoPath = 'videos/original/';
+      var videoFilename = $scope.type[$scope.path][0].uid+'.'+$scope.type[$scope.path][0].file[0].type.split('/')[1];
+      
+      $scope.type[$scope.path][0].file[0].upload = $upload.upload({
+        url: 'https://s3.amazonaws.com/slate.3digitalrockstudios.com/',
+        method: 'POST',
+        data : {
+          key: videoPath+videoFilename,
+          AWSAccessKeyId: 'AKIAJ4TXEC7GL63G5WIQ', 
+          acl: 'private',
+          policy: $scope.type[$scope.path][0].file[0].policy,
+          signature: $scope.type[$scope.path][0].file[0].sig,
+          "Content-Type": file.type !== '' ? file.type : 'application/octet-stream',
+          "Content-Length": file.size
+        },
+        file: file,
+      }).progress(function(evt) {
+          $scope.type[$scope.path][0].progress = parseInt(100.0 * evt.loaded / evt.total);
+      }).success(function(data, status, headers, config) {
+          // file is uploaded successfully
+          console.log(status);
+          $http({
+              url: "/s3/process",
+              method: "POST",
+              data: {videoPath: '/'+videoPath+videoFilename, videoFilename: $scope.type[$scope.path][0].uid, uploadType: $scope.path}
+          });
+      })
+      .error(function(err){
+          console.log(err);
+      });
+    };
+    
+    $scope.abort = function(type,typeIndex,uploadIndex) {
+      $scope.type[$scope.path][typeIndex].file[uploadIndex].upload.abort();
+      $scope.type[$scope.path][typeIndex].file[uploadIndex].upload = null;
+      $scope.type[$scope.path][typeIndex].progress = -1;
+    };
   }])
   .service('UploadService', ['$upload', function($upload){
     var itemId = {trailers: 1, videos: 1};
