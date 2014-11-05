@@ -1,7 +1,7 @@
 	<div>
 		{{#each channels}}
 			<h2 class="channel_title">{{this.name}}</h2>
-			<slick infinite="false" dots="false" slides-to-show="{{#unless isPhone}}5{{/unless}}{{#if isPhone}}1{{/if}}" slides-to-scroll="1" class="channel_listing">
+			{{#unless ../phone}}<slick infinite="false" dots="false" slides-to-show="5" slides-to-scroll="1" class="channel_listing">{{/unless}}
 				{{#each this.items}}
 					<div class="listing_item">
 						<div class="vid_thumbnail_wrap">
@@ -9,6 +9,6 @@
 						</div>
 					</div>
 				{{/each}}
-			</slick>
+			{{#unless phone}}</slick>{{/unless}}
 		{{/each}}
 	</div>
