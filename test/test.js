@@ -5,7 +5,7 @@ describe('GET /', function(){
     beforeEach(function(){
         app.listen(3333);
     });
-    it('respond successfully', function(done){
+    it('should respond successfully', function(done){
         request(app).get('/contact').expect(200, done);
     });
 });
