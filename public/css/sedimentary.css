@@ -202,6 +202,7 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     text-align: center;
     font-weight: 700;
+    margin: 0;
     
     text-shadow: 3px 4px 6px #fff;
     color: #ccc;
@@ -210,9 +211,14 @@ h1, h2, h3, h4, h5, h6 {
 
 @media screen and (min-width: 40em) {
   .nav-collapse a {
-    margin: 0;
     padding: 0.5em;
     float: left;
+  }
+}
+
+@media screen and (max-width: 39em) {
+  .nav-collapse a {
+    padding: 0em;
   }
 }
 
