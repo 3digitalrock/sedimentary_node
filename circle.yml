@@ -9,8 +9,13 @@ dependencies:
     - wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
     - sudo apt-get update; sudo apt-get install rethinkdb
     
+  override:
+    - git clone https://github.com/ansible/tower-cli.git ../tower-cli
+    - make install:
+        pwd: ../tower-cli
+    
 deployment:
   production:
     branch: master
     commands:
-      - grunt build
+      - bash -x deploy.sh
