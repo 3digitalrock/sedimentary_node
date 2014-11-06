@@ -1,11 +1,13 @@
 angular.module('videoModule')
-  .controller('AdminDeleteCtrl', ['$scope', '$modal', '$location', '$state', function($scope, $modal, $location, $state){
+  .controller('AdminDeleteCtrl', ['$scope', '$modal', '$location', '$state', '$stateParams', 'Videos', function($scope, $modal, $location, $state, $stateParams, Videos){
       function deleteVideo(vidID) {
-          /*Video.delete({id: vidID}).$promise.then(function(video) {
-             // success
-          }, function(errResponse) {
-             // fail
-          });*/
+          Videos.one(vidID).remove().then(function(){
+            $state.transitionTo($state.current, $stateParams, {
+                reload: true,
+                inherit: false,
+                notify: true
+            });
+          });
       }
       
       $scope.delModal = function(id, title){
@@ -16,7 +18,7 @@ angular.module('videoModule')
       };
       $scope.open = function () {
           var modalInstance = $modal.open({
-            templateUrl: '/admin/views/modal.html',
+            templateUrl: '/templates/admin/modal_delete.html',
             controller: ModalInstanceCtrl,
             resolve: {
                 delVideo: function(){
@@ -27,20 +29,19 @@ angular.module('videoModule')
           
           modalInstance.result.then(function () {
             deleteVideo($scope.delVideo['id']);
-            $state.reload();
           }, function () {
             // Cancelled
           });
       };
+      
+      var ModalInstanceCtrl = function ($scope, $modalInstance, delVideo) {
+        $scope.videoInfo = delVideo;
+        $scope.ok = function () {
+          $modalInstance.close();
+        };
+      
+        $scope.cancel = function () {
+          $modalInstance.dismiss('cancel');
+        };
+      };
   }]);
-  
-var ModalInstanceCtrl = function ($scope, $modalInstance, delVideo) {
-  $scope.videoInfo = delVideo;
-  $scope.ok = function () {
-    $modalInstance.close();
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-};

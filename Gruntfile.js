@@ -10,7 +10,7 @@ module.exports = function(grunt) {
                     'bower_components/angular-route/angular-route.min.js',
                     'bower_components/angular-resource/angular-resource.min.js',
                     'bower_components/angular-animate/angular-animate.min.js',
-                    'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+                    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                     'bower_components/angular-moment/angular-moment.min.js',
                     'bower_components/angular-loading-bar/build/loading-bar.min.js',

@@ -1,7 +1,8 @@
 angular.module('videoModule')
-  .controller('AdminVideoListCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
+  .controller('AdminVideoListCtrl', ['$scope', 'Restangular', 'Videos', function ($scope, Restangular, Videos) {
       //$scope.videos = videosPromise;
-      Restangular.all('videos').getList({fields: 'uid,title,slug,description,studio,created,status', limit: 100}).then(function(videos){$scope.videos=videos});
+      $scope.videos = Videos.getList({fields: 'uid,title,slug,description,studio,created,status', limit: 100}).$object;
+      //Restangular.all('videos').getList({fields: 'uid,title,slug,description,studio,created,status', limit: 100}).then(function(videos){$scope.videos=videos});
       $scope.predicate = 'created';
   }])
   .directive('vidstatus', function () {

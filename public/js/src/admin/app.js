@@ -42,6 +42,9 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
       RestangularConfigurer.setBaseUrl('http://'+$location.host());
     });
   })
+  .factory('Videos', function(Restangular){
+    return Restangular.service('videos');
+  })
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
     if(!$scope.user.first_name){
       $scope.user.first_name = 'Friend';

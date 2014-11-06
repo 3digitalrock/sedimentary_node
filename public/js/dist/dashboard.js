@@ -76,9 +76,10 @@ angular.module('videoModule', ['ngRoute', 'ui.router', 'angularFileUpload', 'che
           });
   }]);
 angular.module('videoModule')
-  .controller('AdminVideoListCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
+  .controller('AdminVideoListCtrl', ['$scope', 'Restangular', 'Videos', function ($scope, Restangular, Videos) {
       //$scope.videos = videosPromise;
-      Restangular.all('videos').getList({fields: 'uid,title,slug,description,studio,created,status', limit: 100}).then(function(videos){$scope.videos=videos});
+      $scope.videos = Videos.getList({fields: 'uid,title,slug,description,studio,created,status', limit: 100}).$object;
+      //Restangular.all('videos').getList({fields: 'uid,title,slug,description,studio,created,status', limit: 100}).then(function(videos){$scope.videos=videos});
       $scope.predicate = 'created';
   }])
   .directive('vidstatus', function () {
@@ -383,13 +384,15 @@ angular.module('videoModule')
       };
   });
 angular.module('videoModule')
-  .controller('AdminDeleteCtrl', ['$scope', '$modal', '$location', '$state', function($scope, $modal, $location, $state){
+  .controller('AdminDeleteCtrl', ['$scope', '$modal', '$location', '$state', '$stateParams', 'Videos', function($scope, $modal, $location, $state, $stateParams, Videos){
       function deleteVideo(vidID) {
-          /*Video.delete({id: vidID}).$promise.then(function(video) {
-             // success
-          }, function(errResponse) {
-             // fail
-          });*/
+          Videos.one(vidID).remove().then(function(){
+            $state.transitionTo($state.current, $stateParams, {
+                reload: true,
+                inherit: false,
+                notify: true
+            });
+          });
       }
       
       $scope.delModal = function(id, title){
@@ -400,7 +403,7 @@ angular.module('videoModule')
       };
       $scope.open = function () {
           var modalInstance = $modal.open({
-            templateUrl: '/admin/views/modal.html',
+            templateUrl: '/templates/admin/modal_delete.html',
             controller: ModalInstanceCtrl,
             resolve: {
                 delVideo: function(){
@@ -410,24 +413,25 @@ angular.module('videoModule')
           });
           
           modalInstance.result.then(function () {
+            console.log('baleeted');
             deleteVideo($scope.delVideo['id']);
-            $state.reload();
           }, function () {
+            console.log('awww');
             // Cancelled
           });
       };
+      
+      var ModalInstanceCtrl = ['$scope', '$modalInstance', 'delVideo', function ($scope, $modalInstance, delVideo) {
+        $scope.videoInfo = delVideo;
+        $scope.ok = function () {
+          $modalInstance.close();
+        };
+      
+        $scope.cancel = function () {
+          $modalInstance.dismiss('cancel');
+        };
+      }];
   }]);
-  
-var ModalInstanceCtrl = ['$scope', '$modalInstance', 'delVideo', function ($scope, $modalInstance, delVideo) {
-  $scope.videoInfo = delVideo;
-  $scope.ok = function () {
-    $modalInstance.close();
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-}];
 angular.module('videoModule')
   .controller('AdminVideoTrailersCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
       Restangular.all('trailers').getList().then(function(trailers){$scope.trailers=trailers});
@@ -605,6 +609,9 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
     return Restangular.withConfig(function(RestangularConfigurer) {
       RestangularConfigurer.setBaseUrl('http://'+$location.host());
     });
+  }])
+  .factory('Videos', ['Restangular', function(Restangular){
+    return Restangular.service('videos');
   }])
   .controller('AdminDashboardCtrl', ['$scope', function ($scope) {
     if(!$scope.user.first_name){
