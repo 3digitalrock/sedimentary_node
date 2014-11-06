@@ -413,10 +413,8 @@ angular.module('videoModule')
           });
           
           modalInstance.result.then(function () {
-            console.log('baleeted');
             deleteVideo($scope.delVideo['id']);
           }, function () {
-            console.log('awww');
             // Cancelled
           });
       };
