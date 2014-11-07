@@ -316,11 +316,17 @@ h1, h2, h3, h4, h5, h6 {
 /*** Homepage ***/
 .welcome_text {
     font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 2.8em;
+    font-size: 1.8em;
     color: #8c8c8c;
     line-height: 1.2;
     padding: 1em 0;
     text-align: center;
+}
+
+@media screen and (min-width: 768px){
+  .welcome_text {
+    font-size: 2.8em;
+  }
 }
 
 .videoWrapper {
