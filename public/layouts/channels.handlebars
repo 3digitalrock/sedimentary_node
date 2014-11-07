@@ -58,6 +58,17 @@
   
   {{> footerScripts}}
   
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.vid_thumbnail').tooltipster({
+        content: $(this).data('uid'),
+        contentAsHTML: true,
+        position: 'bottom',
+        arrow: false
+      });
+    });
+  </script>
+  
   {{{block footer}}}
 </body>
 </html>

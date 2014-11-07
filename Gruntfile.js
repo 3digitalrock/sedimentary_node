@@ -40,7 +40,8 @@ module.exports = function(grunt) {
                     'bower_components/responsive-nav/responsive-nav.min.js',
                     'bower_components/slick-carousel/slick/slick.min.js',
                     'bower_components/smooth-scroll/dist/js/smooth-scroll.min.js',
-                    'public/js/vendor/responsiveslides.min.js'],
+                    'public/js/vendor/responsiveslides.min.js',
+                    'bower_components/tooltipster/js/jquery.tooltipster.min.js'],
             dest:   'public/js/dist/vendors/frontend.js',
             nonull: true
         },
@@ -135,7 +136,9 @@ module.exports = function(grunt) {
                 'public/css/dist/sedimentary-common.css':   ['public/css/video-js.css',
                                                                 'public/css/video-js-resolutions.css',
                                                                 'bower_components/videojs-sharetools/videojs.sharetools.css',
-                                                                'bower_components/angular-loading-bar/build/loading-bar.min.css']
+                                                                'bower_components/angular-loading-bar/build/loading-bar.min.css',
+                                                                'bower_components/tooltipster/css/tooltipster.css',
+                                                                'bower_components/tooltipster/css/themes/tooltipster-shadow.css']
             }
         },
         sedimentary_front: {

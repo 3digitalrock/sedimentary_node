@@ -5,7 +5,7 @@
 				{{#each this.items}}
 					<div class="listing_item">
 						<div class="vid_thumbnail_wrap">
-							<a href="/watch/{{this.uid}}/{{this.slug}}"><img class="vid_thumbnail" alt="{{ this.title }}" title="{{this.title}}" src="{{#if this.thumbnails.[3]}}{{ this.thumbnails.[3] }}{{else}}{{ this.thumbnails.[0] }}{{/if}}" /></a>
+							<a href="/watch/{{this.uid}}/{{this.slug}}"><img class="vid_thumbnail vid_thumbnail_{{this.uid}}" alt="{{this.title}}" title="{{this.title}}" data-uid="{{this.uid}}" src="{{#if this.thumbnails.[3]}}{{ this.thumbnails.[3] }}{{else}}{{ this.thumbnails.[0] }}{{/if}}" /></a>
 						</div>
 					</div>
 				{{/each}}
