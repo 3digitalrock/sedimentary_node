@@ -101,6 +101,36 @@
         nav: false
       });
     });
-  </script>{{/if}}{{/if}}
+  </script>{{/if}}
+  <script>
+    $(document).ready(function(){
+			$('#mc-embedded-subscribe-form').submit(function(e) {
+				$( ".alert-box .close" ).trigger( "click" );
+				var $this = $(this);
+				$.ajax({
+					type: "GET", // GET & url for json slightly different
+					url: "http://3digitalrockstudios.us6.list-manage.com/subscribe/post-json?c=?",
+					data: $this.serialize(),
+					dataType    : 'json',
+					contentType: "application/json; charset=utf-8",
+					error       : function(err) { alert("Could not connect to the registration server. Please try again soon."); },
+					success     : function(data) {
+						if (data.result != "success") {
+							data.msg=data.msg.slice(4);
+							var alertBox = '<div data-alert class="alert-box alert"><strong>'+data.msg+' </strong> <a href="#" class="close">&times;</a></div>';
+							setTimeout(function() {
+								  $("#alert").append(alertBox).foundation("alert", undefined);
+							}, 300);
+						} else {
+							var alertBox = '<div data-alert class="alert-box success"><strong>'+data.msg+' </strong></div>';
+							$("#alert").append(alertBox).foundation("alert", undefined);
+							$("#mc-embedded-subscribe-form").remove();
+						}
+					}
+				});
+				return false;
+			});
+    });
+  </script>{{/if}}
 </body>
 </html>
