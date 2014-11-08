@@ -108,6 +108,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.locals.google_analytics = process.env.GOOGLE_ANALYTICS;
+app.locals.segment = process.env.SEGMENT;
 
 // All the routes are belong to this
 require('./routes/index.js')(app);
