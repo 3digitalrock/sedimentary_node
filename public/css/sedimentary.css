@@ -411,7 +411,7 @@ z-index: 1;
   font-family: 'Open Sans', sans-serif;
 }
 
-.bio-wrap:hover .bio-text-wrap {
+/*.bio-wrap:hover .bio-text-wrap {
     cursor: pointer;
     cursor: hand;
     opacity: 0;
@@ -421,8 +421,8 @@ z-index: 1;
 	-o-transition: opacity 0.3s ease-in-out;
 	transition: opacity 0.3s ease-in-out;
 	transition-timing-function: ease;
-	-webkit-transition-timing-function: ease; /* Safari and Chrome */
-}
+	-webkit-transition-timing-function: ease;
+}*/
 
 .bio-text {
     position: absolute;
