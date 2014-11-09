@@ -29,3 +29,6 @@ build/Release
 
 # App configuration
 config
+
+# Segment video.js plugin, since we're developing it.
+bower_components/videojs-segment
