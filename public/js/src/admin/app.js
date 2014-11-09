@@ -3,7 +3,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
       $interpolateProvider.startSymbol('{[{');
       $interpolateProvider.endSymbol('}]}');
       $locationProvider.html5Mode(true);
-      RestangularProvider.setBaseUrl('http://api.'+window.location.host);
+      RestangularProvider.setBaseUrl(window.location.protocol+'//api.'+window.location.host);
       cfpLoadingBarProvider.latencyThreshold = 500;
       cfpLoadingBarProvider.includeSpinner = true;
       $sceDelegateProvider.resourceUrlWhitelist([
@@ -39,7 +39,7 @@ angular.module('AdminApp', ['userModule', 'videoModule', 'studioModule', 'settin
   })
   .factory('WebApi', function(Restangular, $location) {
     return Restangular.withConfig(function(RestangularConfigurer) {
-      RestangularConfigurer.setBaseUrl('http://'+$location.host());
+      RestangularConfigurer.setBaseUrl(window.location.protocol+'//'+$location.host());
     });
   })
   .factory('Videos', function(Restangular){
