@@ -116,7 +116,8 @@ module.exports = function(app){
     
     app.put('/featured', function(req, res, next){
         var playlists = Object.prototype.toString.call(req.body.playlist) == "[object Array]" ? req.body.playlist : [req.body.playlist];
-        db.postFeatured({uid: req.body.uid, playlists: playlists}, function(err){
+        req.body.order = '99';
+        db.postFeatured({uid: req.body.uid, playlists: playlists, order: req.body.order}, function(err){
             if(err){
                 console.log(err);
             } else {
