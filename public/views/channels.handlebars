@@ -1,11 +1,11 @@
 	<div>
 		{{#each channels}}
 			<h2 class="channel_title">{{this.name}}</h2>
-			{{#unless ../phone}}<slick infinite="false" dots="false" slides-to-show="5" slides-to-scroll="1" class="channel_listing">{{/unless}}
+			{{#unless ../phone}}<slick infinite="false" dots="false" slides-to-show="5" slides-to-scroll="4" class="channel_listing">{{/unless}}
 				{{#each this.items}}
 					<div class="listing_item">
 						<div class="vid_thumbnail_wrap">
-							<a href="/watch/{{this.uid}}/{{this.slug}}"><img class="vid_thumbnail vid_thumbnail_{{this.uid}}" alt="{{this.title}}" title="{{this.title}}" data-uid="{{this.uid}}" src="{{#if this.thumbnails.[3]}}{{ this.thumbnails.[3] }}{{else}}{{ this.thumbnails.[0] }}{{/if}}" /></a>
+							<a href="/watch/{{this.uid}}/{{this.slug}}"><div class="img_round"><img class="vid_thumbnail vid_thumbnail_{{this.uid}}" alt="{{this.title}}" title="{{this.title}}" data-uid="{{this.uid}}" src="{{#if this.thumbnails.[3]}}{{ this.thumbnails.[3] }}{{else}}{{ this.thumbnails.[0] }}{{/if}}" /></div></a>
 						</div>
 					</div>
 				{{/each}}

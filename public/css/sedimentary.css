@@ -467,8 +467,26 @@ h2.channel_title {
 }
 
 .vid_thumbnail_wrap .vid_thumbnail {
-    position: absolute;
+    /*position: absolute;*/
     max-width: none;
+}
+
+.img_round {
+  padding: 4px;
+}
+
+.img_round img {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.img_round img:hover {
+  -moz-box-shadow: 2px 2px 4px #999;
+  -webkit-box-shadow: 2px 2px 4px #999;
+  box-shadow: 2px 2px 4px #999;
 }
 
 .vjs-sedimentary .vjs-menu-button .vjs-menu .vjs-menu-content {
