@@ -40,9 +40,11 @@ angular.module('videoModule')
       
       if($scope.path=="trailers"){
         $scope.type[$scope.path][0].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, order: '99'};
-        Restangular.all('trailers').post($scope.type[$scope.path][0].formData).then(function(newTrailer){
+        var trailerBase = Restangular.all('trailers').post($scope.type[$scope.path][0].formData);
+        
+        return trailerBase.then(function(newTrailer){
           $scope.type[$scope.path][0].uid = newTrailer.uid;
-          return;
+          $scope.uploadVideo();
         });
       } else {
         $scope.type[$scope.path][0].formData = {title: $scope.type[$scope.path].form.title, description: $scope.type[$scope.path].form.description, /*studio: {uid: $scope.type[$scope.path].form.studio.uid},*/ channels: $scope.type[$scope.path].form.channels, contact: $scope.type[$scope.path].form.contact};

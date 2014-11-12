@@ -60,16 +60,14 @@
                                         <input type="file" ng-file-select="onFileSelect($files)" accept="video/*">
                                         <p class="help-block">Example block-level help text here.</p>
                                     </div>
-                            		<div ng-show="type.trailers.file">
-                                        <div class="progress sm progress-striped active" progress-active ng-attr-progress="{[{type.trailers.progress}]}" ng-show="type.trailers.progress >= 0">
-                                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{[{type.trailers.progress}]}" aria-valuemin="0" aria-valuemax="100" style="width: {[{type.trailers.progress}]}%">
-                                                <span class="sr-only">{[{type.trailers.progress}]}%</span>
-                                            </div>
+                                    <div class="progress sm progress-striped active" progress-active ng-attr-progress="{[{type.trailers[0].progress}]}" ng-show="type.trailers[0].progress >= 0">
+                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{[{type.trailers[0].progress}]}" aria-valuemin="0" aria-valuemax="100" style="width: {[{type.trailers[0].progress}]}%">
+                                            <span class="sr-only">{[{type.trailers[0].progress}]}%</span>
                                         </div>
-                            		</div>
+                                    </div>
                                 </div><!-- /.box-body -->
                                 <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary" ng-click="onFormSubmit()" ng-disabled="type.trailers.progress >= 0" value="submit">Submit</button>
+                                    <button type="submit" class="btn btn-primary" ng-click="submitVideoInfo()" ng-disabled="type.trailers[0].progress >= 0" value="submit">Submit</button>
                                 </div>
                             </div><!-- /.box -->
                         </div>
