@@ -503,10 +503,6 @@ h2.channel_title {
   box-shadow: 2px 2px 4px #999;
 }
 
-.vjs-sedimentary .vjs-menu-button .vjs-menu .vjs-menu-content {
-  font-size: 10px !important;
-}
-
 .slick-slide {
     text-align: center;
 }
@@ -627,4 +623,43 @@ h2.channel_title {
 .rc-nav-wizard > .success > a > .badge {
   color: #ffffff;
   background-color: #D4AF37;
+}
+
+.vid_info {
+  margin-bottom: 40px;
+}
+
+.vid_title {
+  font-family: 'Open Sans Condensed',sans-serif;
+  color: #000;
+  letter-spacing: .025em;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.vid_desc {
+  font-size: 1.2em;
+}
+
+.vid_studio {
+  color: #8c8c8c;
+}
+
+.more {
+  border: 1px solid #ce8220;
+  border-radius: 3px;
+  margin: 10px 0;
+}
+
+.more_title {
+  font-weight: 700;
+  background: #ce8220;
+  color: #fff;
+  margin-top: 0;
+  padding: 4px;
+}
+
+.more_items {
+  padding: 0 10px;
 }

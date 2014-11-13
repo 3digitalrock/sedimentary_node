@@ -1,4 +1,4 @@
-<div class="large-12 columns">
+<div>
     <video id="video-player" class="video-js vjs-default-skin vjs-sedimentary" controls preload="auto" poster="{{video.thumbnails.[0]}}" autoplay>
         <source src="{{video.files.mp4_high}}" type='video/mp4' data-res="HD" />
         <source src="{{video.files.mp4_low}}" type='video/mp4' data-res="SD" data-default="true" />
@@ -8,16 +8,11 @@
     </video>
 </div>
 
-<h1 class="vid_title">{{video.title}}</h1>
-<div class="vid_desc">{{video.description}}</div>
+{{> video-info}}
 
-<div class="more_studio">
-  {{> related-studio}}
-</div>
+{{> related-studio}}
 
-<div class="more_related">
-  {{> related-channel}}
-</div>
+{{> related-channel}}
 
 {{#contentFor footer}}
   <script src="/js/dist/videoplayer.js"></script>
