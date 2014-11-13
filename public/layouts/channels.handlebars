@@ -63,7 +63,7 @@
           },
           text: function(event, api) {
             $.ajax({
-                url: window.location.protocol + "//api." + window.location.host + "/videos/" + $(this).data('uid') + "?fields=description", // Use data-url attribute for the URL
+                url: window.location.protocol + "//api." + window.location.host.replace('www.','') + "/videos/" + $(this).data('uid') + "?fields=description", // Use data-url attribute for the URL
                 dataType: 'json',
             })
             .then(function(data) {
