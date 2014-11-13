@@ -99,9 +99,18 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(cookieParser());
-app.use(session({secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r3', 
-                 saveUninitialized: true,
-                 resave: true}));
+var sess = {
+            secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r3', 
+            saveUninitialized: true,
+            resave: true,
+            cookie: {}
+};
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1); // trust first proxy
+    sess.cookie.secure = true; // serve secure cookies
+}
+app.use(session(sess));
+
 app.use(flash());
 // Initialize Passport
 app.use(passport.initialize());
