@@ -142,6 +142,7 @@ module.exports = function(grunt) {
             files: {
                 'public/css/dist/sedimentary-common.css':   ['public/css/video-js.css',
                                                             'public/css/video-js-resolutions.css',
+                                                            'public/css/video-js-sedimentary.css',
                                                             'bower_components/videojs-sharetools/videojs.sharetools.css',
                                                             'bower_components/angular-loading-bar/build/loading-bar.min.css']
             }
