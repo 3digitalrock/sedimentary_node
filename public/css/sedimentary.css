@@ -255,6 +255,20 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/*! Light tooltip style */
+.qtip-sedi{
+	background-color: white;
+	border-color: #E2E2E2;
+	color: #454545;
+	font-size: 14px;
+	line-height: 16px;
+}
+
+.qtip-sedi .qtip-titlebar{
+  color: #fff;
+	background-color: #ce8220;
+}
+
 /*** NAV TOGGLE STYLES ***/
 
 .nav-toggle {

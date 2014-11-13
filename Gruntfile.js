@@ -41,7 +41,8 @@ module.exports = function(grunt) {
                     'bower_components/slick-carousel/slick/slick.min.js',
                     'bower_components/smooth-scroll/dist/js/smooth-scroll.min.js',
                     'public/js/vendor/responsiveslides.min.js',
-                    'bower_components/tooltipster/js/jquery.tooltipster.min.js'],
+                    'public/js/vendor/qtip/jquery.qtip.min.js',
+                    'public/js/vendor/qtip/imagesloaded.pkg.min.js'],
             dest:   'public/js/dist/vendors/frontend.js',
             nonull: true
         },
@@ -124,6 +125,12 @@ module.exports = function(grunt) {
             dest: 'public/js/dist/vendors/angular-moment.min.js.map',
             flatten: true,
             filter: 'isFile'
+        },
+        qtipMap: {
+            src: 'public/js/vendor/qtip/jquery.qtip.min.map',
+            dest: 'public/js/dist/vendors/jquery.qtip.min.map',
+            flatten: true,
+            filter: 'isFile'
         }
     },
     cssmin: {
@@ -134,11 +141,9 @@ module.exports = function(grunt) {
             },
             files: {
                 'public/css/dist/sedimentary-common.css':   ['public/css/video-js.css',
-                                                                'public/css/video-js-resolutions.css',
-                                                                'bower_components/videojs-sharetools/videojs.sharetools.css',
-                                                                'bower_components/angular-loading-bar/build/loading-bar.min.css',
-                                                                'bower_components/tooltipster/css/tooltipster.css',
-                                                                'bower_components/tooltipster/css/themes/tooltipster-shadow.css']
+                                                            'public/css/video-js-resolutions.css',
+                                                            'bower_components/videojs-sharetools/videojs.sharetools.css',
+                                                            'bower_components/angular-loading-bar/build/loading-bar.min.css']
             }
         },
         sedimentary_front: {
@@ -150,6 +155,7 @@ module.exports = function(grunt) {
                 'public/css/dist/sedimentary-front.css':    ['public/css/imports.css',
                                                                 'public/css/foundation.css',
                                                                 'bower_components/responsive-nav/responsive-nav.css',
+                                                                'public/js/vendor/qtip/jquery.qtip.css',
                                                                 'public/css/sedimentary.css',
                                                                 'public/css/focal-point.min.css']
             }

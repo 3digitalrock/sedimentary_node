@@ -54,16 +54,47 @@
   
   {{> footerScripts}}
   
-  <script type="text/javascript">
+  {{#unless phone}}<script type="text/javascript">
     $(document).ready(function(){
-      $('.vid_thumbnail').tooltipster({
-        content: $(this).data('uid'),
-        contentAsHTML: true,
-        position: 'bottom',
-        arrow: false
+      $('.vid_thumbnail').qtip({
+        content: {
+          title: function(event, api) {
+            return $(this).attr('title');
+          },
+          text: function(event, api) {
+            $.ajax({
+                url: window.location.protocol + "//api." + window.location.host + "/videos/" + $(this).data('uid') + "?fields=description", // Use data-url attribute for the URL
+                dataType: 'json',
+            })
+            .then(function(data) {
+                // Set the tooltip content upon successful retrieval
+                api.set('content.text', data.description);
+            }, function(xhr, status, error) {
+                // Upon failure... set the tooltip content to the status and error value
+                api.set('content.text', status + ': ' + error);
+            });
+
+            return 'Loading...'; // Set some initial text
+          },
+        },
+        position: {
+          my: 'top center',
+          at: 'bottom center',
+          viewport: $(window),
+          adjust: {
+              method: 'flip'
+          }
+        },
+        style: {
+          classes: 'qtip-sedi qtip-shadow qtip-rounded'
+        },
+        hide: {
+          fixed: true,
+          delay: 300
+        }
       });
     });
-  </script>
+  </script>{{/unless}}
   
   {{{block footer}}}
 </body>
