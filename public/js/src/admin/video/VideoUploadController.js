@@ -94,8 +94,7 @@ angular.module('videoModule')
       }).progress(function(evt) {
           $scope.type[$scope.path][0].progress = parseInt(100.0 * evt.loaded / evt.total);
       }).success(function(data, status, headers, config) {
-          // file is uploaded successfully
-          console.log(status);
+          // file has uploaded successfully
           $http({
               url: "/s3/process",
               method: "POST",

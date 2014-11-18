@@ -20,7 +20,7 @@
                                 <div class="box-header">
                                     <h3 class="box-title">In Just A Few Easy Steps...</h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body" rc-wizard="sampleWizard" ng-hide="uploads[0].progress >= 100">
+                                <div class="box-body" rc-wizard="sampleWizard" ng-hide="type.videos[0].progress == 100">
                                     <ul class="nav rc-nav-wizard">
                                       <li class="active">
                                         <a class="active" href="#first" data-toggle="tab">
@@ -161,9 +161,10 @@ Broadcaster may however, remove any Program from the Partner, at the Broadcaster
                                       </div>
                                     </div>
                                 </div><!-- /.box-body -->
-                                <div class="box-body" ng-show="uploads[0].progress == 100">
+                                <div class="box-body" ng-show="type.videos[0].progress == 100">
                                     <div class="callout callout-info">
-                                        Thank you for submitting your film! We'll be in contact with you soon to let you know whether your project has been accepted.
+                                        <p>Thank you for submitting your film! We'll be in contact with you soon to let you know whether your project has been accepted.</p>
+                                        <p><a href="/"><i class="fa fa-home"></i> Take Me Home!</a></p>
                                     </div>
                                 </div>
                             </div><!-- /.box -->
