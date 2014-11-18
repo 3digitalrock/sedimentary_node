@@ -53,7 +53,8 @@ angular.module('videoModule')
           plugins: {
             resolutions: true
           }
-        }).ready(function(){
+        });
+        videojs('video-player').ready(function(){
           var singlePlayer = this;
           singlePlayer.volume(0.75);
           
