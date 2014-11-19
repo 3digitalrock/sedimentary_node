@@ -1,6 +1,6 @@
 {
   "name": "3drs-sedimentary",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "main": "server.js",
   "private": true,
   "dependencies": {
