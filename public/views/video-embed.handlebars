@@ -1,0 +1,22 @@
+<div>
+    <video id="video-player" class="video-js vjs-sedimentary-skin vjs-fullscreen" width="auto" height="auto" controls preload="auto" poster="{{video.thumbnails.[0]}}">
+        <source src="{{video.files.mp4_low}}" type='video/mp4' />
+        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="//www.youtube.com/html5" target="_blank">supports HTML5 video</a></p>
+    </video>
+</div>
+
+  <script src="/js/dist/videoplayer.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      videojs('video-player');
+      videojs('video-player').persistvolume({
+        namespace: "3DRS-Ear-Blast"
+      });
+       videojs.options.flash.swf = "/js/vendor/video-js.swf";
+        videojs('video-player').ready(function(){
+          var singlePlayer = this;
+          singlePlayer.volume(0.75);
+        });
+    });
+  </script>

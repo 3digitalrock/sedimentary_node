@@ -130,8 +130,8 @@ module.exports = function(app){
         res.render('store', {atStore: true, pageTitle: 'Coming Soon | 3 Digital Rock Online Shop'});
     });
     
-    app.get('/watch/:video/:title?.html', function (req, res) {
-        channel.videoPage(req, res, true);
+    app.get('/watch/:video.html', function (req, res) {
+        channel.videoEmbed(req, res);
     });
     
     app.get('/watch/:video/:title?', cacheMiddleware(60 * 60), function (req, res) {
