@@ -179,7 +179,11 @@ module.exports = function(app){
         
         // Save the access token
         function saveToken(error, result) {
-            if (error) { console.log(error); }
+            if (error) {
+                req.flash('error', error.error_description);
+                return res.redirect('/auth');
+            }
+            
             token = oauth2.accessToken.create(result);
             
             // Save the session to Redis for persistence
