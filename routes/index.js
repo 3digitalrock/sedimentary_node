@@ -10,6 +10,26 @@ var aws = require('../lib/aws'),
 
 var mailgun = require('mailgun-js')({apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
 
+// Set the configuration settings
+var credentials = {
+  clientID: 'officialApiClient',
+  clientSecret: 'C0FFEE',
+  site: 'http://api.3drs.synth3tk.com',
+  authorizationPath: '/oauth2/authorization',
+  tokenPath: '/oauth2/access_token',
+  revocationPath: '/oauth2/revoke'
+};
+
+// Initialize the OAuth2 Library
+var oauth2 = require('simple-oauth2')(credentials);
+
+var redis = require("redis"),
+    redisClient = redis.createClient();
+var RedisSessions = require("redis-sessions");
+
+var rs = new RedisSessions({client:redisClient});
+var rsapp = "mainSite";
+
 var cacheMiddleware = function(seconds) {
   return function(req, res, next) {
     res.setHeader("Cache-Control", "public, max-age=" + seconds);
@@ -32,6 +52,10 @@ module.exports = function(app){
     
     app.get('/about', cacheMiddleware(24 * 60 * 60), function (req, res) {
         res.render('about', {atAbout: true, pageTitle: 'About Our Team'});
+    });
+    
+    app.get('/account', function (req, res) {
+        res.render('about', {atAbout: true, pageTitle: 'My Account'});
     });
     
     app.get('/contact', cacheMiddleware(24 * 60 * 60), function (req, res) {
@@ -142,21 +166,51 @@ module.exports = function(app){
         res.render('login', {atLogin: true, pageTitle: 'Login', error: req.flash('error')});
     });
     
-    app.post('/login',
-        passport.authenticate('userapp', {failureRedirect: '/login', failureFlash: 'Invalid username or password.' }),
-        function(req, res) {
-            // This is the default destination upon successful login.
-            var redirectUrl = '/account';
+    app.post('/login', function(req, res) {
+        // This is the default destination upon successful login.
+        var redirectUrl = '/account';
+        
+        // Get the access token object.
+        var token;
+        oauth2.password.getToken({
+          username: req.body.username,
+          password: req.body.password 
+        }, saveToken);
+        
+        // Save the access token
+        function saveToken(error, result) {
+            if (error) { console.log(error); }
+            token = oauth2.accessToken.create(result);
             
-            // If we have previously stored a redirectUrl, use that, 
-            // otherwise, use the default.
-            if (req.session.redirectUrl) {
-                redirectUrl = req.session.redirectUrl;
-                req.session.redirectUrl = null;
-            }
-            res.cookie('ua_session_token', req.user.token);
-            res.redirect(redirectUrl);
-        });
+            // Save the session to Redis for persistence
+            rs.create({
+                    app: rsapp,
+                    id: req.body.username,
+                    ip: req.headers['x-forwarded-for'],
+                    ttl: 3600,
+                    d: {
+                        access_token: token.token.access_token
+                    }
+                },
+                function(err, resp) {
+                    if(!err){
+                        req.session.token = resp.token;
+    
+                        // If we have previously stored a redirectUrl, use that, 
+                        // otherwise, use the default.
+                        if (req.session.redirectUrl) {
+                            redirectUrl = req.session.redirectUrl;
+                            req.session.redirectUrl = null;
+                        }
+                        res.redirect(redirectUrl);
+                    } else {
+                        req.flash('error', err);
+                        res.redirect('/login');
+                    }
+                }
+            );
+        }
+    });
     
     app.get('/logout', function (req, res) {
         res.clearCookie('ua_session_token');

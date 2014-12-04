@@ -100,10 +100,10 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 var sess = {
-            secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r3', 
-            saveUninitialized: true,
-            resave: true,
-            cookie: {}
+    secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r3', 
+    saveUninitialized: true,
+    resave: false,
+    cookie: { maxAge: 3600 }
 };
 if (process.env.NODE_ENV === 'production') {
     app.set('trust proxy', 1); // trust first proxy
