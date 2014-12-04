@@ -72,7 +72,7 @@
       }
       loadTitleAnimated();
 	  });
-	  var videos = [{{#each trailers}}{"src": [{{#each this.files}}"{{this}}",{{/each}}],"poster": "{{this.thumbnails.[0]}}","title": "{{this.title}}"}{{#unless @last}},{{/unless}}{{/each}}];
+	  var videos = [{{#each trailers}}{"src": ["{{this.files.mp4_low}}","{{this.files.webm}}"],"poster": "{{this.thumbnails.[0]}}","title": "{{this.title}}"}{{#unless @last}},{{/unless}}{{/each}}];
 	  videojs("video-bg").ready(function(){
       var myPlayer = this;
       myPlayer.ga();
