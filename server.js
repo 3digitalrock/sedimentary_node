@@ -15,6 +15,8 @@ var express = require('express'),
     log = require('./lib/logger.js'),
     compression = require('compression');
 
+var RedisStore = require('connect-redis')(session);
+
 var users = [];
 
 // Passport session setup
@@ -99,25 +101,36 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(cookieParser());
+
 var sess = {
-    secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r3', 
-    saveUninitialized: true,
+    store: new RedisStore({prefix:'web:sess:'}),
+    secret: 'AiIsRaKPhE7uf4lvCwscHSiniw8z30r5',
     resave: false,
-    cookie: { maxAge: 3600 }
+    saveUninitialized: true
 };
+
 if (process.env.NODE_ENV === 'production') {
     app.set('trust proxy', 1); // trust first proxy
     sess.cookie.secure = true; // serve secure cookies
 }
+
 app.use(session(sess));
 
 app.use(flash());
 // Initialize Passport
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 app.locals.google_analytics = process.env.GOOGLE_ANALYTICS;
 app.locals.segment = process.env.SEGMENT;
+
+// Always set the redirect URL to current page
+// We can use it on login/logout. Always.
+app.use(function(req, res, next){
+    if(req.url==='/auth'||req.url==='/logout') return next();
+    req.session.redirectUrl = req.url;
+    next();
+});
 
 // All the routes are belong to this
 require('./routes/index.js')(app);

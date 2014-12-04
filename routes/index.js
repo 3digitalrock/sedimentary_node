@@ -23,13 +23,6 @@ var credentials = {
 // Initialize the OAuth2 Library
 var oauth2 = require('simple-oauth2')(credentials);
 
-var redis = require("redis"),
-    redisClient = redis.createClient();
-var RedisSessions = require("redis-sessions");
-
-var rs = new RedisSessions({client:redisClient});
-var rsapp = "mainSite";
-
 var cacheMiddleware = function(seconds) {
   return function(req, res, next) {
     res.setHeader("Cache-Control", "public, max-age=" + seconds);
@@ -54,8 +47,8 @@ module.exports = function(app){
         res.render('about', {atAbout: true, pageTitle: 'About Our Team'});
     });
     
-    app.get('/account', function (req, res) {
-        res.render('about', {atAbout: true, pageTitle: 'My Account'});
+    app.get('/account', requireAuth, function (req, res) {
+        res.render('account', {pageTitle: 'My Account', username: req.session.username});
     });
     
     app.get('/contact', cacheMiddleware(24 * 60 * 60), function (req, res) {
@@ -162,11 +155,18 @@ module.exports = function(app){
         channel.videoPage(req, res);
     });
     
-    app.get('/login', function(req, res){
-        res.render('login', {atLogin: true, pageTitle: 'Login', error: req.flash('error')});
-    });
+    app.get('/auth',
+        function(req, res, next){
+            if(req.session.token){
+                return res.redirect('/account');
+            }
+            return next();
+        }, function(req, res){
+            res.render('login', {atLogin: true, pageTitle: 'Login', error: req.flash('error')});
+        }
+    );
     
-    app.post('/login', function(req, res) {
+    app.post('/auth', function(req, res) {
         // This is the default destination upon successful login.
         var redirectUrl = '/account';
         
@@ -183,38 +183,24 @@ module.exports = function(app){
             token = oauth2.accessToken.create(result);
             
             // Save the session to Redis for persistence
-            rs.create({
-                    app: rsapp,
-                    id: req.body.username,
-                    ip: req.headers['x-forwarded-for'],
-                    ttl: 3600,
-                    d: {
-                        access_token: token.token.access_token
-                    }
-                },
-                function(err, resp) {
-                    if(!err){
-                        req.session.token = resp.token;
-    
-                        // If we have previously stored a redirectUrl, use that, 
-                        // otherwise, use the default.
-                        if (req.session.redirectUrl) {
-                            redirectUrl = req.session.redirectUrl;
-                            req.session.redirectUrl = null;
-                        }
-                        res.redirect(redirectUrl);
-                    } else {
-                        req.flash('error', err);
-                        res.redirect('/login');
-                    }
-                }
-            );
+            req.session.token = token.token.access_token;
+            req.session.username = req.body.username;
+
+            // If we have previously stored a redirectUrl, use that, 
+            // otherwise, use the default.
+            if (req.session.redirectUrl) {
+                redirectUrl = req.session.redirectUrl;
+                delete req.session.redirectUrl;
+            } else {
+                redirectUrl = '/account';
+            }
+
+            res.redirect(redirectUrl);
         }
     });
     
     app.get('/logout', function (req, res) {
-        res.clearCookie('ua_session_token');
-        req.logout();
+        req.session.destroy();
         res.redirect('/');
     });
     
@@ -242,11 +228,10 @@ module.exports = function(app){
 };
 
 // Simple route middleware to ensure user is authenticated
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
+function requireAuth(req, res, next) {
+    if (req.session.token) {
         return next();
     }
-    // set the current URL as the redirect after auth
-    req.session.redirectUrl = req.url;
-    return next();
+
+    res.redirect('/auth');
 }
